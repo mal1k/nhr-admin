@@ -20,11 +20,14 @@ use App\Http\Controllers\customers\UsersController;
 
 Route::redirect('/', 'manager', 301);
 
-Route::resource('/manager/users', UsersController::class);
-
 Route::get('/manager/business', function () {
     return view('customers.business');
 })->name('business.all');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('/manager/users', UsersController::class);
+});
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/manager', function () {
     return view('dashboard');
