@@ -23,11 +23,11 @@
             <td>{{ $user->role }}</td>
             <td>
             <form method="POST" action="{{ route('users.destroy', $user) }}">
-                <a href="{{ route('users.edit', $user) }}"><button type="button" class="btn btn-secondary">Edit</button></a>
+                <a href="{{ route('users.edit', $user) }}"><button type="button" class="btn-sm btn-secondary">Edit</button></a>
                 @csrf
                 @method('DELETE')
                 @if ($user->role !== 'Super-admin' )
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn-sm btn-danger">Delete</button>
                 @endif
             </form>
             </td>
@@ -35,4 +35,6 @@
     @endforeach
     </tbody>
     </table>
+
+    {{ $users->links() }}
 @endsection
