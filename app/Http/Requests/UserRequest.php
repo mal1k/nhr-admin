@@ -23,18 +23,31 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+    if ( empty($this->user->business) ) {
+        $rules = [
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|unique:users,email|min:3|max:255|email'
+        ];
+
+        if ( !empty($this->user->id) )
+        $rules = [
+            'name' => 'required|min:3|max:255',
+            'email' => 'min:3|max:255|required|email|unique:users,email,'.$this->user->id
+        ];
+    } else {
         $rules = [
             'name' => 'required|min:3|max:255',
             'email' => 'required|unique:users,email|min:3|max:255|email',
-            'role' => 'required'
+            // 'business' => 'required|min:3|max:255'
         ];
 
         if ( !empty($this->user->id) )
         $rules = [
             'name' => 'required|min:3|max:255',
             'email' => 'min:3|max:255|required|email|unique:users,email,'.$this->user->id,
-            'role' => 'required'
+            // 'business' => 'required|min:3|max:255|unique:users,business,'.$this->user->id
         ];
+    }
 
         return $rules;
     }

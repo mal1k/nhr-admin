@@ -23,8 +23,8 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->business }}</td>
             <td>
-            <form method="POST" action="{{ route('business.destroy', $user) }}">
-                <a href="{{ route('business.edit', $user) }}"><button type="button" class="btn-sm btn-secondary">Edit</button></a>
+            <a href="{{ route('users.edit', $user) }}"><button type="button" class="btn-sm btn-secondary">Edit</button></a>
+            <form method="POST" action="{{ route('users.destroy', $user) }}">
                 @csrf
                 @method('DELETE')
                 @if ($user->role !== 'Super-admin' )

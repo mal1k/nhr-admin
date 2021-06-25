@@ -68,6 +68,9 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        if ( isset($user->business))
+            return view('customers.business.businessForm', compact('user'));
+
         return view('customers.users.userForm', compact('user'));
     }
 
@@ -80,11 +83,20 @@ class UsersController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
+        if ( isset($user->business) ) {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->business = $request->business;
+            $user->role = 'User';
+          $user->save();
+          return redirect()->route('business.index')->withSuccess('Updated business user ' . $user->name);
+        } else {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->role = $request->role;
-        $user->save();
-        return redirect()->route('users.index')->withSuccess('Updated user ' . $user->name);
+          $user->save();
+          return redirect()->route('users.index')->withSuccess('Updated user ' . $user->name);
+        }
     }
 
     /**
@@ -96,6 +108,11 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
+        if ( isset($user->business))
+            return redirect()->route('business.index')->withDanger('Deleted business user ' . $user->name);
+
         return redirect()->route('users.index')->withDanger('Deleted user ' . $user->name);
+
     }
 }

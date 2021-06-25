@@ -11,7 +11,7 @@
 </div>
 <form method="POST"
     @if ( isset($user) )
-        action="{{ route('business.update', $user) }}"
+        action="{{ route('users.update', $user) }}"
     @else
         action="{{ route('business.store') }}"
     @endif
@@ -47,7 +47,7 @@
     <div class="input-group">
       <div class="input-group-text">Business name</div>
       <input name="business" type="text" class="form-control" id="inlineFormInputGroupEmail" placeholder="Business name" value="{{ old('business', isset( $user ) ? $user->business : '') }}">
-      @error('businessName')
+      @error('business')
         <div class="alert alert-danger mb-0">{{ $message }}</div>
       @enderror
     </div>
