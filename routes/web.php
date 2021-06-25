@@ -13,10 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return dd('set corrent link');
+// });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::redirect('/', 'manager', 301);
+
+Route::get('/manager/users', function () {
+    return view('customers.users');
+})->name('users.all');
+
+Route::get('/manager/business', function () {
+    return view('customers.business');
+})->name('business.all');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/manager', function () {
     return view('dashboard');
 })->name('dashboard');

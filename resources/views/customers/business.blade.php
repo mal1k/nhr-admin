@@ -1,6 +1,6 @@
 @extends ('layout')
 
-@section('title', 'Dashboard')
+@section('title', 'Business')
 
 @section('content')
     {{-- content --}}
