@@ -177,6 +177,18 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">{{ app()->view->getSections()['title'] }}</h1>
       </div>
+
+    @if ( session('success') )
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
+    @endif
+    @if ( session('danger') )
+      <div class="alert alert-danger">
+        {{ session('danger') }}
+      </div>
+    @endif
+
       @yield('content')
     </main>
   </div>

@@ -45,7 +45,7 @@ class UsersController extends Controller
             $user->role = $request->role;
         $user->save();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withSuccess('Created user ' . $user->name);;
     }
 
     /**
@@ -83,7 +83,7 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->role = $request->role;
         $user->save();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withSuccess('Updated user ' . $user->name);
     }
 
     /**
@@ -95,6 +95,6 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withDanger('Deleted user ' . $user->name);
     }
 }
