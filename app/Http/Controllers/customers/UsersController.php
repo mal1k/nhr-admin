@@ -4,7 +4,6 @@ namespace App\Http\Controllers\customers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use App\Http\Requests\UserEditRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -78,7 +77,7 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserEditRequest $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
             $user->name = $request->name;
             $user->email = $request->email;
