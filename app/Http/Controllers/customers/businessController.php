@@ -44,8 +44,9 @@ class businessController extends Controller
             $user->email = $request->email;
             $user->password = $password;
             $user->business = $request->business;
-            $user->role = 'User';
+            $user->role = 'user';
         $user->save();
+        $user->assignRole('user');
 
         return redirect()->route('business.index')->withSuccess('Created business user ' . $user->name);
     }

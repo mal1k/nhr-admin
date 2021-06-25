@@ -22,9 +22,10 @@ use App\Http\Controllers\customers\businessController;
 Route::redirect('/', 'manager', 301);
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('/manager/users', UsersController::class);
-    Route::resource('/manager/business', businessController::class);
-
+    Route::group(['middleware' => ['role:super-admin']], function () {
+        Route::resource('/manager/users', UsersController::class);
+        Route::resource('/manager/business', businessController::class);
+    });
 });
 
 

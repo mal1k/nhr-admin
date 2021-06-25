@@ -45,6 +45,7 @@ class UsersController extends Controller
             $user->password = $password;
             $user->role = $request->role;
         $user->save();
+        $user->assignRole($request->role);
 
         return redirect()->route('users.index')->withSuccess('Created user ' . $user->name);
     }

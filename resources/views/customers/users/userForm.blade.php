@@ -53,21 +53,21 @@
               @if (empty($user->role) )
                 selected
               @endif
-            value="User">User</option>
+            value="user">User</option>
 
       <option @if ( isset( $user ) )
                 @if ($user->role === 'Moderator' )
                   selected
                 @endif
               @endif
-            value="Moderator">Moderator</option>
+            value="moderator">Moderator</option>
 
       <option @if ( isset( $user ) )
                 @if ($user->role === 'Admin' )
                   selected
                 @endif
               @endif
-            value="Admin">Administrator</option>
+            value="admin">Administrator</option>
     </select>
   </div>
 
