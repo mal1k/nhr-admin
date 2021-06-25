@@ -27,7 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('customers.users.createUser');
+        return view('customers.users.userForm');
     }
 
     /**
@@ -67,7 +67,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('customers.users.edit', compact('user'));
+        return view('customers.users.userForm', compact('user'));
     }
 
     /**
@@ -79,7 +79,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->role = $request->role;
+        $user->save();
+        return redirect()->route('users.index');
     }
 
     /**
@@ -90,6 +94,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }
