@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\customers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'manager', 301);
 
-Route::get('/manager/users', function () {
-    return view('customers.users');
-})->name('users.all');
+Route::resource('/manager/users', UsersController::class);
 
 Route::get('/manager/business', function () {
     return view('customers.business');

@@ -1,6 +1,6 @@
 @extends ('layout')
 
-@section('title', 'Users')
+@section('title', 'User create')
 
 @section('content')
     {{-- content --}}
