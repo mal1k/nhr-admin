@@ -25,33 +25,67 @@
     <label class="visually-hidden" for="inlineFormInputGroupUsername">Login</label>
     <div class="input-group">
       <div class="input-group-text">Login</div>
-      <input name="name" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Login" value="{{ isset( $user ) ? $user->name : '' }}">
+      <input name="name" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Login" value="{{ old('name', isset( $user ) ? $user->name : '') }}">
+      @error('name')
+        <div class="alert alert-danger mb-0">{{ $message }}</div>
+      @enderror
     </div>
   </div>
   <div class="col-12">
     <label class="visually-hidden" for="inlineFormInputGroupEmail">Email</label>
     <div class="input-group">
       <div class="input-group-text">Email</div>
-      <input name="email" type="text" class="form-control" id="inlineFormInputGroupEmail" placeholder="Email" value="{{ isset( $user ) ? $user->email : '' }}">
+      <input name="email" type="text" class="form-control" id="inlineFormInputGroupEmail" placeholder="Email" value="{{ old('email', isset( $user ) ? $user->email : '') }}">
+      @error('email')
+        <div class="alert alert-danger mb-0">{{ $message }}</div>
+      @enderror
     </div>
   </div>
 
   <div class="col-12">
     <label class="visually-hidden" for="inlineFormSelectPref">Choose role</label>
     <select name="role" class="form-select" id="inlineFormSelectPref">
-      <option @if ( isset( $user ) ) @if ($user->role === 'User' ) selected @endif @endif @if (empty($user->role) ) selected @endif value="User">User</option>
-      <option @if ( isset( $user ) ) @if ($user->role === 'Moderator' ) selected @endif @endif value="Moderator">Moderator</option>
-      <option @if ( isset( $user ) ) @if ($user->role === 'Admin' ) selected @endif @endif value="Admin">Administrator</option>
+      <option @if ( isset( $user ) )
+                @if ($user->role === 'User' )
+                  selected
+                @endif
+              @endif
+              @if (empty($user->role) )
+                selected
+              @endif
+            value="User">User</option>
+
+      <option @if ( isset( $user ) )
+                @if ($user->role === 'Moderator' )
+                  selected
+                @endif
+              @endif
+            value="Moderator">Moderator</option>
+
+      <option @if ( isset( $user ) )
+                @if ($user->role === 'Admin' )
+                  selected
+                @endif
+              @endif
+            value="Admin">Administrator</option>
     </select>
   </div>
 
-  <div class="col-12">
+  <div class="col">
     <button type="submit" class="btn btn-primary">{{ isset( $user ) ? 'Update user' : 'Create user' }}</button>
-    <form method="POST" action="{{ route('users.destroy', $user) }}">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
   </div>
 </form>
+
+@isset ($user)
+<form class="col" method="POST" action="{{ route('users.destroy', $user) }}">
+    @csrf
+    @method('DELETE')
+    @if ( isset( $user ) )
+        @if ($user->role !== 'Super-admin' )
+            <button type="submit" class="btn btn-danger mt-3">Delete</button>
+        @endif
+    @endif
+</form>
+@endisset
+
 @endsection

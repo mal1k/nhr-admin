@@ -11,7 +11,7 @@
         <th scope="col">Name</th>
         <th scope="col">Email</th>
         <th scope="col">Role</th>
-        <th scope="col">Actions</th>
+        <th scope="col" class="col-2">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +26,9 @@
                 <a href="{{ route('users.edit', $user) }}"><button type="button" class="btn btn-secondary">Edit</button></a>
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
+                @if ($user->role !== 'Super-admin' )
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                @endif
             </form>
             </td>
         </tr>
