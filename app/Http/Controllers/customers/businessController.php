@@ -7,7 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class UsersController extends Controller
+class businessController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-        return view('customers.users.dashboard', compact('users'));
+        return view('customers.business.dashboard', compact('users'));
     }
 
     /**
@@ -27,7 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('customers.users.userForm');
+        return view('customers.business.businessForm');
     }
 
     /**
@@ -38,15 +38,17 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $password = Hash::make('password', ['rounds' => 12]);
-        $user = new User;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = $password;
-            $user->role = $request->role;
-        $user->save();
+        dd($request->all());
+        // $password = Hash::make('password', ['rounds' => 12]);
+        // $user = new User;
+        //     $user->name = $request->name;
+        //     $user->email = $request->email;
+        //     $user->business = $request->business;
+        //     $user->password = $password;
+        //     $user->role = $request->role;
+        // $user->save();
 
-        return redirect()->route('users.index')->withSuccess('Created user ' . $user->name);
+        // return redirect()->route('business.index')->withSuccess('Created user ' . $user->name);
     }
 
     /**
@@ -68,7 +70,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('customers.users.userForm', compact('user'));
+        return view('customers.business.businessForm', compact('user'));
     }
 
     /**
@@ -84,7 +86,7 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->role = $request->role;
         $user->save();
-        return redirect()->route('users.index')->withSuccess('Updated user ' . $user->name);
+        return redirect()->route('business.index')->withSuccess('Updated user ' . $user->name);
     }
 
     /**
@@ -96,6 +98,6 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->withDanger('Deleted user ' . $user->name);
+        return redirect()->route('business.index')->withDanger('Deleted user ' . $user->name);
     }
 }

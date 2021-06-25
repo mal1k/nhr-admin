@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\customers\UsersController;
+use App\Http\Controllers\customers\businessController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +21,10 @@ use App\Http\Controllers\customers\UsersController;
 
 Route::redirect('/', 'manager', 301);
 
-Route::get('/manager/business', function () {
-    return view('customers.business');
-})->name('business.all');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/manager/users', UsersController::class);
+    Route::resource('/manager/business', businessController::class);
 });
 
 
