@@ -16,7 +16,9 @@ class businessController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        $users_query = User::query();
+        $users_query->whereNotNull('business');
+        $users = $users_query->paginate(10);
         return view('customers.business.dashboard', compact('users'));
     }
 

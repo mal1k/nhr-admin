@@ -16,7 +16,6 @@
     </thead>
     <tbody>
     @foreach($users as $user)
-        @empty ( $user->business )
         <tr>
             <th scope="row">{{ $user->id }}</th>
             <td>{{ $user->name }}</td>
@@ -27,13 +26,12 @@
                 <a href="{{ route('users.edit', $user) }}"><button type="button" class="btn-sm btn-secondary">Edit</button></a>
                 @csrf
                 @method('DELETE')
-                @if ($user->role !== 'Super-admin' )
+                @if ($user->role !== 'super-admin' )
                     <button type="submit" class="btn-sm btn-danger">Delete</button>
                 @endif
             </form>
             </td>
         </tr>
-        @endempty
     @endforeach
     </tbody>
     </table>

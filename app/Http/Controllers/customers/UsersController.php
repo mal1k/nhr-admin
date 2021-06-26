@@ -16,7 +16,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        // $users = User::paginate(10);
+
+        $users_query = User::query();
+        $users_query->whereNull('business');
+        $users = $users_query->paginate(10);
+
         return view('customers.users.dashboard', compact('users'));
     }
 
@@ -88,7 +93,7 @@ class UsersController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->business = $request->business;
-            $user->role = 'User';
+            $user->role = 'user';
           $user->save();
           return redirect()->route('business.index')->withSuccess('Updated business user ' . $user->name);
         } else {

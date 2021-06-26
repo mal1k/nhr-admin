@@ -46,7 +46,7 @@
     <label class="visually-hidden" for="inlineFormSelectPref">Choose role</label>
     <select name="role" class="form-select" id="inlineFormSelectPref">
       <option @if ( isset( $user ) )
-                @if ($user->role === 'User' )
+                @if ($user->role === 'user' )
                   selected
                 @endif
               @endif
@@ -56,14 +56,14 @@
             value="user">User</option>
 
       <option @if ( isset( $user ) )
-                @if ($user->role === 'Moderator' )
+                @if ($user->role === 'moderator' )
                   selected
                 @endif
               @endif
             value="moderator">Moderator</option>
 
       <option @if ( isset( $user ) )
-                @if ($user->role === 'Admin' )
+                @if ($user->role === 'admin' )
                   selected
                 @endif
               @endif
@@ -81,7 +81,7 @@
     @csrf
     @method('DELETE')
     @if ( isset( $user ) )
-        @if ($user->role !== 'Super-admin' )
+        @if ($user->role !== 'super-admin' )
             <button type="submit" class="btn btn-danger mt-3">Delete</button>
         @endif
     @endif
