@@ -42,6 +42,11 @@
     </div>
   </div>
 
+@if ( isset( $user ) )
+  @if ($user->role == 'super-admin' )
+      <input name="role" type="hidden" value="{{ $user->role }}">
+  @endif
+  @if ($user->role !== 'super-admin' )
   <div class="col-12">
     <label class="visually-hidden" for="inlineFormSelectPref">Choose role</label>
     <select name="role" class="form-select" id="inlineFormSelectPref">
@@ -70,6 +75,8 @@
             value="admin">Administrator</option>
     </select>
   </div>
+  @endif
+@endif
 
   <div class="col">
     <button type="submit" class="btn btn-primary">{{ isset( $user ) ? 'Update user' : 'Create user' }}</button>
