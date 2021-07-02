@@ -10,7 +10,7 @@
   </a>
 </div>
 
-<div id="selectPlan" class="hidden">
+<div id="selectPlan">
     <div class="row mb-3 text-center">
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm border-primary">
@@ -85,7 +85,7 @@
 </div>
 
 
-<div id="mainForm" >
+<div id="mainForm" class="hidden">
 
   <form method="POST"
     @if ( isset($listing) )
