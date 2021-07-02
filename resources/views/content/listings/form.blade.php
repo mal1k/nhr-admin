@@ -25,7 +25,7 @@
                 <li>Phone and email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="button" class="w-100 btn btn-lg btn-primary">Select</button>
+            <button type="submit" value='bronze' class="selectPlanBtn w-100 btn btn-lg btn-primary">Select</button>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Select</button>
+            <button type="submit" value='silver' class="selectPlanBtn w-100 btn btn-lg btn-outline-primary">Select</button>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Select</button>
+            <button type="submit" value='gold' class="selectPlanBtn w-100 btn btn-lg btn-outline-primary">Select</button>
           </div>
         </div>
       </div>
@@ -76,11 +76,12 @@
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Select</button>
+            <button type="submit" value='platinum' class="selectPlanBtn w-100 btn btn-lg btn-outline-primary">Select</button>
           </div>
         </div>
       </div>
     </div>
+  {{-- </form> --}}
 </div>
 
 
@@ -117,14 +118,9 @@
         </div>
     </div>
 
-    @if ( isset( $user ) )
-    @if ($user->role == 'super-admin' )
-        <input name="role" type="hidden" value="{{ $user->role }}">
-    @endif
-    @if ($user->role !== 'super-admin' )
     <div class="col-12">
         <label class="visually-hidden" for="inlineFormSelectPref">Choose role</label>
-        <select name="role" class="form-select" id="inlineFormSelectPref">
+        <select name="level" class="form-select" id="selectSubOption">
         <option @if ( isset( $user ) )
                     @if ($user->role === 'user' )
                     selected
@@ -133,25 +129,30 @@
                 @if (empty($user->role) )
                     selected
                 @endif
-                value="user">User</option>
+                value="bronze">Bronze</option>
 
         <option @if ( isset( $user ) )
                     @if ($user->role === 'moderator' )
                     selected
                     @endif
                 @endif
-                value="moderator">Moderator</option>
+                value="silver">Silver</option>
 
         <option @if ( isset( $user ) )
                     @if ($user->role === 'admin' )
                     selected
                     @endif
                 @endif
-                value="admin">Administrator</option>
+                value="gold">Gold</option>
+
+        <option @if ( isset( $user ) )
+                @if ($user->role === 'admin' )
+                selected
+                @endif
+            @endif
+            value="platinum">Platinum</option>
         </select>
     </div>
-    @endif
-    @endif
 
     <div class="col">
         <button type="submit" class="btn btn-primary">{{ isset( $user ) ? 'Update user' : 'Create user' }}</button>
@@ -171,11 +172,7 @@
     @endisset
 </div>
 
-
-    input
-
-
-    <div class="mapouter">
+<div class="mapouter">
     <div class="gmap_canvas">
 
     {{--  <input type="text" id="mapInput">  --}}
@@ -183,22 +180,36 @@
     <div id="map"></div>
     </div>
     <style>.mapouter{position:relative;text-align:right;width:600px;height:400px;}.gmap_canvas {overflow:hidden;background:none!important;width:600px;height:400px;}.gmap_iframe {width:600px!important;height:400px!important;}</style>
-    </div>
+</div>
 
 <script>
-$('#mapInput').focusout(function()
-{
-    mapQuery = $('#mapInput').val();
+    // change subs block to form
+    $('.selectPlanBtn').click(function()
+    {
+        event.preventDefault();
+        mapQuery = $(this).val();
 
-    $('#map').html(`
-        <iframe class="gmap_iframe"
-            frameborder="0"
-            scrolling="no"
-            marginheight="0"
-            marginwidth="0"
-            src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=`+mapQuery+`&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
-        </iframe>
-    `);
-})
+        // change plans to form
+          $('#selectPlan').hide();
+          $('#mainForm').fadeIn();
+        // select sub
+          $('#selectSubOption').val(mapQuery);
+    })
+
+    // add map
+    $('#mapInput').focusout(function()
+    {
+        mapQuery = $('#mapInput').val();
+
+        $('#map').html(`
+            <iframe class="gmap_iframe"
+                frameborder="0"
+                scrolling="no"
+                marginheight="0"
+                marginwidth="0"
+                src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=`+mapQuery+`&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+            </iframe>
+        `);
+    })
 </script>
 @endsection
