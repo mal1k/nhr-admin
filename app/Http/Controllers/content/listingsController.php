@@ -22,4 +22,9 @@ class listingsController extends Controller
         // $users = $users_query->paginate(10);
         return view('content.listings.form');
     }
+
+    public function store(Request $request)
+    {
+        return dd($request->all());
+    }
 }
