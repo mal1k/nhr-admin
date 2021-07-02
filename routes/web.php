@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\customers\UsersController;
 use App\Http\Controllers\customers\businessController;
+use App\Http\Controllers\content\listingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,7 @@ use App\Http\Controllers\customers\businessController;
 |
 */
 
-// Route::get('/', function () {
-//     return dd('set corrent link');
-// });
+Route::resource('/manager/listings', listingsController::class);
 
 Route::redirect('/', 'manager', 301);
 
