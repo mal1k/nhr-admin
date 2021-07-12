@@ -19,6 +19,7 @@ use App\Http\Controllers\content\listingsController;
 Route::resource('/manager/listings', listingsController::class);
 
 Route::redirect('/', 'manager', 301);
+Route::redirect('dashboard', '/manager', 301);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:super-admin|admin']], function () {
