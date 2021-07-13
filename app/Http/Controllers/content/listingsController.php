@@ -28,12 +28,12 @@ class listingsController extends Controller
             $listing = Listings::create($request->all()); // create listing
 
             if ( isset($request->image_logo) ) {
-                $path = $request->file('image_logo')->store('uploads', 'public'); // upload logo image to server
+                $path = $request->file('image_logo')->store('uploads/logo', 'public'); // upload logo image to server
                 $listing->update([ 'image_logo' => $path ]);
             }
 
             if ( isset($request->image_cover) ) {
-                $path = $request->file('image_cover')->store('uploads', 'public/cover'); // upload cover image to server
+                $path = $request->file('image_cover')->store('uploads/cover', 'public'); // upload cover image to server
                 $listing->update([ 'image_cover' => $path ]);
             }
 
