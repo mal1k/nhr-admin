@@ -201,6 +201,11 @@
         <div class="text-right"><p class="help-block text-right">250 characters left</p></div>
       </div>
 
+      <div class="form-label text-danger mb-1">
+        <label for="basic_description">Description</label>
+        <textarea name="basic_description" class="form-control" placeholder="Introduce the listing to the public in a clear and efficient way. Describe all features that make the establishment unique and a great option for clients." id="basic_description" style="height: 100px">{{ old('basic_renewal_date', isset( $listing->basic_description ) ? $listing->basic_description : '') }}</textarea>
+      </div>
+
       <div class="mb-2 col-12">
         <label class="form-check-label" for="claim_disable">
             Keywords for the search
@@ -221,10 +226,35 @@
     <div id="contact_information" class='row'>
         <h4 class="mb-1 mt-3">Contact information</h4>
 
-        <div class="col-5 mb-2">
+        <div class="col-6 text-danger mb-2">
+            <label for="contact_email" class="form-label mt-2 mb-1">Email</label>
+            <input name="contact_email" type="text" class="form-control" id="contact_email" placeholder="Ex: www.website.com" value="{{ old('contact_email', isset( $listing->contact_email ) ? $listing->contact_email : '') }}">
+        </div>
+
+        <div class="col-6 mb-2">
             <label for="contact_url" class="form-label mt-2 mb-1">URL</label>
             <input name="contact_url" type="text" class="form-control" id="contact_url" placeholder="Ex: www.website.com" value="{{ old('contact_url', isset( $listing->contact_url ) ? $listing->contact_url : '') }}">
         </div>
+
+            <div class="col-6 text-danger mb-2">
+                <label for="contact_phone" class="form-label mt-2 mb-1">Phone</label>
+                <input name="contact_phone" type="text" class="form-control" id="contact_phone" value="{{ old('contact_phone', isset( $listing->contact_phone ) ? $listing->contact_phone : '') }}">
+            </div>
+
+            <div class="col-6 text-danger">
+
+              <div class="row">
+                <span class="form-label mt-2 mb-1">Additional phone</span>
+                <div class="col-4 mb-2">
+                    <input name="contact_additional_label" type="text" class="form-control" id="contact_additional_label" placeholder="Label" value="{{ old('contact_additional_label', isset( $listing->contact_additional_label ) ? $listing->contact_additional_label : '') }}">
+                </div>
+                <div class="col-8 mb-2">
+                    <input name="contact_additional_phone" type="text" class="form-control" id="contact_additional_phone" placeholder="Additional phone" value="{{ old('contact_additional_phone', isset( $listing->contact_additional_phone ) ? $listing->contact_additional_phone : '') }}">
+                </div>
+              </div>
+
+            </div>
+
 
         <div class="col-12 mb-2">
             <label for="contact_address" class="form-label mt-2 mb-1">Address</label>
@@ -246,11 +276,34 @@
         </div>
 
 
-        <div class="col-6 mb-2">
+        <div class="col-12 text-danger mb-2">
+            <label for="contact_reference" class="form-label mt-2 mb-1">Reference</label>
+            <textarea name="contact_reference" type="text" class="form-control" id="contact_reference" placeholder="Enter a landmark or point of reference for your listing's location." value="{{ old('contact_reference', isset( $listing->contact_reference ) ? $listing->contact_map_info : '') }}"></textarea>
+        </div>
+
+        <div class="col-12 mb-2">
             <label for="contact_map_info" class="form-label mt-2 mb-1">MAPINFO</label>
             <input name="contact_map_info" type="text" class="form-control" id="contact_map_info" value="{{ old('contact_map_info', isset( $listing->contact_map_info ) ? $listing->contact_map_info : '') }}">
         </div>
+      </div>
 
+      <div id="seo_information" class='row text-danger'>
+        <h4 class="mb-1 mt-3">Social networks</h4>
+
+        <div class="col-6 mb-2">
+            <label for="social_facebook" class="form-label mt-2 mb-1">Facebook page</label>
+            <input name="social_facebook" type="text" class="form-control" id="social_facebook" value="{{ old('social_facebook', isset( $listing->social_facebook ) ? $listing->social_facebook : '') }}">
+        </div>
+
+        <div class="col-6 mb-2">
+            <label for="social_instagram" class="form-label mt-2 mb-1">Instagram</label>
+            <input name="social_instagram" type="text" class="form-control" id="social_instagram" value="{{ old('social_instagram', isset( $listing->social_instagram ) ? $listing->social_instagram : '') }}">
+        </div>
+
+        <div class="col-6 mb-2">
+            <label for="social_twitter" class="form-label mt-2 mb-1">Twitter</label>
+            <input name="social_twitter" type="text" class="form-control" id="social_twitter" value="{{ old('social_twitter', isset( $listing->social_twitter ) ? $listing->social_twitter : '') }}">
+        </div>
       </div>
 
       <div id="seo_information" class='row'>
@@ -285,7 +338,6 @@
             <label for="seo_description" class="form-label mt-2 mb-1">Description</label>
             <textarea name="seo_description" type="text" class="form-control" id="seo_description">{{ old('seo_description', isset( $listing->seo_description ) ? $listing->seo_description : '') }}</textarea>
         </div>
-
       </div>
 
       <div id="promotional_section" class='row'>
