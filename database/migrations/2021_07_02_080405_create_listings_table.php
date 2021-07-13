@@ -24,23 +24,23 @@ class CreateListingsTable extends Migration
             $table->date('basic_renewal_date')->nullable();
             $table->string('basic_disable_claim')->nullable();
             $table->text('basic_summary_desc')->nullable();
-    $table->text('basic_description')->nullable();
+        $table->text('basic_description')->nullable();
             $table->json('basic_keywords')->nullable();
 
-    $table->string('contact_email')->nullable();
+        $table->string('contact_email')->nullable();
             $table->string('contact_url')->nullable();
-    $table->string('contact_phone')->nullable();
-    $table->string('contact_additional_label')->nullable();
-    $table->string('contact_additional_phone')->nullable();
+        $table->string('contact_phone')->nullable();
+        $table->string('contact_additional_label')->nullable();
+        $table->string('contact_additional_phone')->nullable();
             $table->string('contact_address')->nullable();
             $table->string('contact_address2')->nullable();
             $table->string('contact_zip_code')->nullable();
-    $table->text('contact_reference')->nullable();
+        $table->text('contact_reference')->nullable();
             $table->string('contact_map_info')->nullable();
 
-    $table->string('social_facebook')->nullable();
-    $table->string('social_instagram')->nullable();
-    $table->string('social_twitter')->nullable();
+        $table->string('social_facebook')->nullable();
+        $table->string('social_instagram')->nullable();
+        $table->string('social_twitter')->nullable();
 
             $table->string('seo_title')->nullable();
             $table->string('seo_page_name')->nullable();
@@ -49,6 +49,7 @@ class CreateListingsTable extends Migration
             $table->string('promotional_code')->nullable();
 
             $table->string('image_logo')->nullable();
+            $table->string('image_cover')->nullable();
             $table->timestamps();
         });
     }

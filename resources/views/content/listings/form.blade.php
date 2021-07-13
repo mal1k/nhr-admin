@@ -203,7 +203,7 @@
 
       <div class="form-label text-danger mb-1">
         <label for="basic_description">Description</label>
-        <textarea name="basic_description" class="form-control" placeholder="Introduce the listing to the public in a clear and efficient way. Describe all features that make the establishment unique and a great option for clients." id="basic_description" style="height: 100px">{{ old('basic_renewal_date', isset( $listing->basic_description ) ? $listing->basic_description : '') }}</textarea>
+        <textarea name="basic_description" class="form-control" placeholder="Introduce the listing to the public in a clear and efficient way. Describe all features that make the establishment unique and a great option for clients." id="basic_description" style="height: 100px">{{ old('basic_description', isset( $listing->basic_description ) ? $listing->basic_description : '') }}</textarea>
       </div>
 
       <div class="mb-2 col-12">
@@ -278,7 +278,7 @@
 
         <div class="col-12 text-danger mb-2">
             <label for="contact_reference" class="form-label mt-2 mb-1">Reference</label>
-            <textarea name="contact_reference" type="text" class="form-control" id="contact_reference" placeholder="Enter a landmark or point of reference for your listing's location." value="{{ old('contact_reference', isset( $listing->contact_reference ) ? $listing->contact_map_info : '') }}"></textarea>
+            <textarea name="contact_reference" type="text" class="form-control" id="contact_reference" placeholder="Enter a landmark or point of reference for your listing's location.">{{ old('contact_reference', isset( $listing->contact_reference ) ? $listing->contact_reference : '') }}</textarea>
         </div>
 
         <div class="col-12 mb-2">
@@ -355,16 +355,28 @@
     </div>
 </div>
 
+    {{-- right content --}}
     <div class="col-4">
-      {{-- images --}}
-      Logo:<br>
-      <input type="file" name="image_logo">
-      @isset ($listing->image_logo)
-        <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_logo) }}"></span>
-        <input name="image_logo_prev" type="hidden" value="{{ $listing->image_logo }}">
-        <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
-
-      @endisset
+      <div class="row">
+        <div class="col-12">
+            Logo:<br>
+            <input type="file" name="image_logo">
+            @isset ($listing->image_logo)
+              <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_logo) }}"></span>
+              <input name="image_logo_prev" type="hidden" value="{{ $listing->image_logo }}">
+              <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+            @endisset
+        </div>
+        <div class="col-12">
+            Cover:<br>
+            <input type="file" name="image_cover">
+            @isset ($listing->image_cover)
+            <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
+            <input name="image_cover_prev" type="hidden" value="{{ $listing->image_cover }}">
+            <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+            @endisset
+        </div>
+      </div>
     </div>
   </form>
 

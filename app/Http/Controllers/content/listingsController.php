@@ -26,8 +26,17 @@ class listingsController extends Controller
     public function store(Request $request)
         {
             $listing = Listings::create($request->all()); // create listing
-            $path = $request->file('image_logo')->store('uploads', 'public'); // upload image to server
-            $listing->update([ 'image_logo' => $path ]);
+
+            if ( isset($request->image_logo) ) {
+                $path = $request->file('image_logo')->store('uploads', 'public'); // upload logo image to server
+                $listing->update([ 'image_logo' => $path ]);
+            }
+
+            if ( isset($request->image_cover) ) {
+                $path = $request->file('image_cover')->store('uploads', 'public/cover'); // upload cover image to server
+                $listing->update([ 'image_cover' => $path ]);
+            }
+
             return redirect()->route('listings.index')->withSuccess('Created listing "' . $request->title . '"');
         }
 

@@ -44,6 +44,7 @@ class Listings extends Model
         'promotional_code',
 
         'image_logo',
+        'image_cover',
     ];
     protected $casts = [
         'basic_categories' => 'array',
