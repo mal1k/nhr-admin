@@ -305,9 +305,13 @@
 
     <div class="col-4">
       {{-- images --}}
+      Logo:<br>
       <input type="file" name="image_logo">
-      @isset ($path)
-        <img src="{{ asset('/storage/' . $path) }}"
+      @isset ($listing->image_logo)
+        <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_logo) }}"></span>
+        <input name="image_logo_prev" type="hidden" value="{{ $listing->image_logo }}">
+        <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+
       @endisset
     </div>
   </form>

@@ -27,7 +27,7 @@ class listingsController extends Controller
         {
             $listing = Listings::create($request->all()); // create listing
             $path = $request->file('image_logo')->store('uploads', 'public'); // upload image to server
-            $listing->update([ 'image_logo' => $path, ]);
+            $listing->update([ 'image_logo' => $path ]);
             return redirect()->route('listings.index')->withSuccess('Created listing "' . $request->title . '"');
         }
 
@@ -45,7 +45,16 @@ class listingsController extends Controller
 
     public function update(Request $request, Listings $listing)
         {
-            $listing->update($request->all());
+            $listing->update($request->all()); // update listing
+
+            if ( isset($request->image_logo) ) { // update image
+                $path = $request->file('image_logo')->store('uploads', 'public'); // upload image to server
+                $listing->update([ 'image_logo' => $path ]);
+            }
+            if ( empty($request->image_logo_prev) && empty($request->image_logo) ) {
+                $listing->update([ 'image_logo' => null ]);
+            }
+
             if ( empty($request->basic_disable_claim) ) {
                 $listing->basic_disable_claim = null;
               $listing->save();

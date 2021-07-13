@@ -35,6 +35,5 @@ class Listings extends Model
         'basic_categories' => 'array',
         'basic_keywords' => 'array',
         'seo_keywords' => 'array',
-        'image_logo' => 'array',
     ];
 }
