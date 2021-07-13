@@ -16,7 +16,7 @@ class businessController extends Controller
      */
     public function index()
     {
-        $users_query = User::query();
+        $users_query = User::orderByDesc('id');
         $users_query->whereNotNull('business');
         $users = $users_query->paginate(10);
         return view('customers.business.dashboard', compact('users'));

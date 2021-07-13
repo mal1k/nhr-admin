@@ -18,7 +18,7 @@ class UsersController extends Controller
     {
         // $users = User::paginate(10);
 
-        $users_query = User::query();
+        $users_query = User::orderByDesc('id');
         $users_query->whereNull('business');
         $users = $users_query->paginate(10);
 
