@@ -57,14 +57,23 @@ class listingsController extends Controller
             $listing->update($request->all()); // update listing
 
             if ( isset($request->image_logo) ) { // update logo
-                $path = $request->file('image_logo')->store('uploads', 'public'); // upload logo to server
+                $path = $request->file('image_logo')->store('uploads/logo', 'public'); // upload logo to server
                 $listing->update([ 'image_logo' => $path ]);
             }
             if ( empty($request->image_logo_prev) && empty($request->image_logo) ) { // delete logo
                 $listing->update([ 'image_logo' => null ]);
             }
 
-            if ( empty($request->basic_disable_claim) ) {
+            if ( isset($request->image_cover) ) { // update cover
+                $path = $request->file('image_cover')->store('uploads/cover', 'public'); // upload cover to server
+                $listing->update([ 'image_cover' => $path ]);
+            }
+            if ( empty($request->image_cover_prev) && empty($request->image_cover) ) { // delete cover
+                $listing->update([ 'image_cover' => null ]);
+            }
+
+
+            if ( empty($request->basic_disable_claim) ) { // set checkbox to null if clear
                 $listing->basic_disable_claim = null;
               $listing->save();
             }
