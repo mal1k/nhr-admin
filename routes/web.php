@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\customers\UsersController;
+use App\Http\Controllers\customers\businessController;
+use App\Http\Controllers\content\listingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', 'manager', 301);
+Route::redirect('dashboard', '/manager', 301);
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['role:super-admin|admin']], function () {
+        Route::resource('/manager/users', UsersController::class);
+        Route::resource('/manager/business', businessController::class);
+        Route::resource('/manager/listings', listingsController::class);
+    });
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/manager', function () {
     return view('dashboard');
 })->name('dashboard');
