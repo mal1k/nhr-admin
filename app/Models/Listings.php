@@ -12,24 +12,38 @@ class Listings extends Model
     protected $fillable = [
         'title',
         'level',
+
         'basic_categories',
         'basic_account',
         'basic_status',
         'basic_renewal_date',
         'basic_disable_claim',
         'basic_summary_desc',
-        'image_logo',
+        'basic_description',
         'basic_keywords',
+
+        'contact_email',
         'contact_url',
+        'contact_phone',
+        'contact_additional_label',
+        'contact_additional_phone',
         'contact_address',
         'contact_address2',
         'contact_zip_code',
+        'contact_reference',
         'contact_map_info',
+
+        'social_facebook',
+        'social_instagram',
+        'social_twitter',
+
         'seo_title',
         'seo_page_name',
         'seo_keywords',
         'seo_description',
-        'promotional_code'
+        'promotional_code',
+
+        'image_logo',
     ];
     protected $casts = [
         'basic_categories' => 'array',
