@@ -58,4 +58,14 @@
   </div>
 </form>
 
+@isset ($user)
+<form class="col" method="POST" action="{{ route('users.destroy', $user) }}">
+    @csrf
+    @method('DELETE')
+    @if ( isset( $user ) )
+            <button type="submit" class="btn btn-danger mt-3">Delete</button>
+    @endif
+</form>
+@endisset
+
 @endsection
