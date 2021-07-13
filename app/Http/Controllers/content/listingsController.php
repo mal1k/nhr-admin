@@ -47,11 +47,11 @@ class listingsController extends Controller
         {
             $listing->update($request->all()); // update listing
 
-            if ( isset($request->image_logo) ) { // update image
-                $path = $request->file('image_logo')->store('uploads', 'public'); // upload image to server
+            if ( isset($request->image_logo) ) { // update logo
+                $path = $request->file('image_logo')->store('uploads', 'public'); // upload logo to server
                 $listing->update([ 'image_logo' => $path ]);
             }
-            if ( empty($request->image_logo_prev) && empty($request->image_logo) ) {
+            if ( empty($request->image_logo_prev) && empty($request->image_logo) ) { // delete logo
                 $listing->update([ 'image_logo' => null ]);
             }
 
