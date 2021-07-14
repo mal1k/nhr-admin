@@ -201,7 +201,7 @@
         <div class="text-right"><p class="help-block text-right">250 characters left</p></div>
       </div>
 
-      <div class="form-label text-danger mb-1">
+      <div class="form-label mb-1">
         <label for="basic_description">Description</label>
         <textarea name="basic_description" class="form-control" placeholder="Introduce the listing to the public in a clear and efficient way. Describe all features that make the establishment unique and a great option for clients." id="basic_description" style="height: 100px">{{ old('basic_description', isset( $listing->basic_description ) ? $listing->basic_description : '') }}</textarea>
       </div>
@@ -226,7 +226,7 @@
     <div id="contact_information" class='row'>
         <h4 class="mb-1 mt-3">Contact information</h4>
 
-        <div class="col-6 text-danger mb-2">
+        <div class="col-6 mb-2">
             <label for="contact_email" class="form-label mt-2 mb-1">Email</label>
             <input name="contact_email" type="text" class="form-control" id="contact_email" placeholder="Ex: www.website.com" value="{{ old('contact_email', isset( $listing->contact_email ) ? $listing->contact_email : '') }}">
         </div>
@@ -236,12 +236,12 @@
             <input name="contact_url" type="text" class="form-control" id="contact_url" placeholder="Ex: www.website.com" value="{{ old('contact_url', isset( $listing->contact_url ) ? $listing->contact_url : '') }}">
         </div>
 
-            <div class="col-6 text-danger mb-2">
+            <div class="col-6 mb-2">
                 <label for="contact_phone" class="form-label mt-2 mb-1">Phone</label>
                 <input name="contact_phone" type="text" class="form-control" id="contact_phone" value="{{ old('contact_phone', isset( $listing->contact_phone ) ? $listing->contact_phone : '') }}">
             </div>
 
-            <div class="col-6 text-danger">
+            <div class="col-6">
 
               <div class="row">
                 <span class="form-label mt-2 mb-1">Additional phone</span>
@@ -276,7 +276,7 @@
         </div>
 
 
-        <div class="col-12 text-danger mb-2">
+        <div class="col-12 mb-2">
             <label for="contact_reference" class="form-label mt-2 mb-1">Reference</label>
             <textarea name="contact_reference" type="text" class="form-control" id="contact_reference" placeholder="Enter a landmark or point of reference for your listing's location.">{{ old('contact_reference', isset( $listing->contact_reference ) ? $listing->contact_reference : '') }}</textarea>
         </div>
@@ -287,7 +287,7 @@
         </div>
       </div>
 
-      <div id="seo_information" class='row text-danger'>
+      <div id="seo_information" class='row'>
         <h4 class="mb-1 mt-3">Social networks</h4>
 
         <div class="col-6 mb-2">
