@@ -376,6 +376,15 @@
             <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
         </div>
+        <div class="col-12 text-danger">
+            Gallery (multiple images):<br>
+            <input type="file" name="image_gallery[]">
+            @isset ($listing->image_cover)
+            <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
+            <input name="image_cover_prev" type="hidden" value="{{ $listing->image_cover }}">
+            <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+            @endisset
+        </div>
       </div>
     </div>
   </form>
