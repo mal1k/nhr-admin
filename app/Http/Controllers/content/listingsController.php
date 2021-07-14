@@ -25,8 +25,18 @@ class listingsController extends Controller
 
     public function store(Request $request)
         {
-            return dd($request->file());
+            // return dd($request->file());
             $listing = Listings::create($request->all()); // create listing
+
+            // upload gallery
+            $images = [];
+            if ($request->hasFile('image_gallery')) {
+                foreach($request->file('image_gallery') as $key => $image){
+                    $images[] = $image->store('uploads/gallery', 'public');
+                }
+                $gallery_path = json_encode($images);
+                $listing->update([ 'image_gallery' => $gallery_path ]);
+            }
 
             if ( isset($request->image_logo) ) {
                 $path = $request->file('image_logo')->store('uploads/logo', 'public'); // upload logo image to server
