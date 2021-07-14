@@ -25,6 +25,7 @@ class listingsController extends Controller
 
     public function store(Request $request)
         {
+            return dd($request->file());
             $listing = Listings::create($request->all()); // create listing
 
             if ( isset($request->image_logo) ) {
