@@ -25,6 +25,10 @@ class listingsController extends Controller
 
     public function store(Request $request)
         {
+            $validated = $request->validate([
+                'title' => 'required|max:255',
+            ]);
+
             // return dd($request->file());
             $listing = Listings::create($request->all()); // create listing
 
