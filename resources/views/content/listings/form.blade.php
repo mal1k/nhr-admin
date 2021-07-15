@@ -379,10 +379,12 @@
         <div class="col-12 text-danger">
             Gallery (multiple images):<br>
             <input type="file" multiple name="image_gallery[]">
-            @isset ($listing->image_cover)
-            <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
-            <input name="image_cover_prev" type="hidden" value="{{ $listing->image_cover }}">
-            <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+            @isset ($listing->image_gallery)
+                 @foreach ($listing->image_gallery as $item)
+                    <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $item) }}"></span>
+                    <input name="image_gallery_prev[]" type="hidden" value="{{ $item }}">
+                    <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                 @endforeach
             @endisset
         </div>
       </div>

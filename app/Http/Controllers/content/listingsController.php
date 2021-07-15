@@ -34,7 +34,7 @@ class listingsController extends Controller
                 foreach($request->file('image_gallery') as $key => $image){
                     $images[] = $image->store('uploads/gallery', 'public');
                 }
-                $gallery_path = json_encode($images);
+                $gallery_path = $images;
                 $listing->update([ 'image_gallery' => $gallery_path ]);
             }
 
@@ -56,9 +56,6 @@ class listingsController extends Controller
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
-
-            if ( !empty($listing->basic_keywords) )
-                $basic_keywords = $listing->basic_keywords;
 
             return view('content.listings.form', compact('listing', 'users'));
         }
@@ -82,7 +79,21 @@ class listingsController extends Controller
             if ( empty($request->image_cover_prev) && empty($request->image_cover) ) { // delete cover
                 $listing->update([ 'image_cover' => null ]);
             }
+            // upload gallery
+            $images = [];
+            if ($request->hasFile('image_gallery')) {
+                foreach($request->file('image_gallery') as $key => $image){
+                    $images[] = $image->store('uploads/gallery', 'public');
+                }
+                $gallery_path = $images;
+            }
+            if ( isset($request->image_gallery_prev) )
+                $gallery_path = array_merge($images, $request->image_gallery_prev);
 
+            if ( isset($gallery_path) )
+                $listing->update([ 'image_gallery' => $gallery_path ]);
+            else
+                $listing->update([ 'image_gallery' => null ]);
 
             if ( empty($request->basic_disable_claim) ) { // set checkbox to null if clear
                 $listing->basic_disable_claim = null;
