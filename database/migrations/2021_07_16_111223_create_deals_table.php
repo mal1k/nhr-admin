@@ -21,7 +21,7 @@ class CreateDealsTable extends Migration
             $table->string('basic_listing')->nullable();
             $table->string('basic_summary_description')->nullable();
             $table->text('basic_description')->nullable();
-            $table->string('basic_conditions')->nullable();
+            $table->text('basic_conditions')->nullable();
             $table->json('basic_keywords')->nullable();
             $table->string('basic_mapinfo')->nullable();
 
