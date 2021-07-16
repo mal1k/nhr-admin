@@ -30,6 +30,10 @@ class dealsController extends Controller
         {
             $validated = $request->validate([
                 'title' => 'required|max:255',
+                'deal_start_date' => 'required',
+                'deal_end_date' => 'required',
+                'real_price_int' => 'required',
+                'deal_price_int' => 'required'
             ]);
 
             // return dd($request->all());

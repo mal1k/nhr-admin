@@ -72,7 +72,7 @@
 
       <div class="form-label mb-2">
         <label for="basic_conditions">Conditions</label>
-        <textarea name="basic_conditions" class="form-control" id="basic_conditions" style="height: 100px">Locals Deals are restricted to Locals Cards Members. All members must live in New Hampshire with a valid state-issued ID. A valid card or profile must be presented to redeem the deal. This deal is not valid for cash back, can only be used during the business' participation period, does not cover tax or gratuities. This deal can not be combined with other offers.</textarea>
+        <textarea name="basic_conditions" class="form-control" id="basic_conditions" placeholder="Locals Deals are restricted to Locals Cards Members. All members must live in New Hampshire with a valid state-issued ID. A valid card or profile must be presented to redeem the deal. This deal is not valid for cash back, can only be used during the business' participation period, does not cover tax or gratuities. This deal can not be combined with other offers." style="height: 100px">{{ old('basic_conditions', isset( $deal->basic_conditions ) ? $deal->basic_conditions : '') }}</textarea>
       </div>
 
       <div class="mb-2 col-12">
@@ -103,11 +103,17 @@
         <div class="col-6 mb-2">
             <label for="deal_start_date" class="form-label mt-2 mb-1">Start date</label>
             <input name="deal_start_date" type="date" class="form-control" id="deal_start_date" value="{{ old('deal_start_date', isset( $deal->deal_start_date ) ? $deal->deal_start_date : '') }}">
+            @error('deal_start_date')
+                <div class="alert alert-danger mb-0">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="col-6 mb-2">
             <label for="deal_end_date" class="form-label mt-2 mb-1">End date</label>
             <input name="deal_end_date" type="date" class="form-control" id="deal_end_date" value="{{ old('deal_end_date', isset( $deal->deal_end_date ) ? $deal->deal_end_date : '') }}">
+            @error('deal_end_date')
+                <div class="alert alert-danger mb-0">{{ $message }}</div>
+            @enderror
         </div>
       </div>
 
@@ -141,6 +147,9 @@
                         <input type="number" class="form-control" id="real_price_cent" name="real_price_cent"
                                value="{{ old('real_price_cent', isset( $deal->real_price_cent ) ? $deal->real_price_cent : '') }}" onkeyup="calculateDiscount();" maxlength="2">
                     </div>
+                    @error('real_price_int')
+                        <div class="alert alert-danger mb-0">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="col-sm-6 custom-col-6-fix">
@@ -158,6 +167,9 @@
 
                         <span class="input-group-addon" id="amount_percentage">  % </span>
                     </div>
+                    @error('deal_price_int')
+                        <div class="alert alert-danger mb-0">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
 
