@@ -104,6 +104,9 @@
       <div class="mb-2 col">
         <label for="title" class="form-label mt-2 mb-1">Title</label>
         <input name="title" type="text" class="form-control" id="title" placeholder="Type your listing title here." value="{{ old('title', isset( $listing->title ) ? $listing->title : '') }}">
+        @error('title')
+            <div class="alert alert-danger mb-0">{{ $message }}</div>
+        @enderror
       </div>
       <div class="mb-2 col-4">
         <label for="level" class="form-label mt-2 mb-1">Listing level</label>
@@ -130,7 +133,7 @@
                 @endif
               @endif value="platinum">Platinum</option>
         </select>
-      </div>
+    </div>
 
     <div id="basic_information" class=''>
       <h4 class="mb-1 mt-3">Basic information</h4>
@@ -201,7 +204,7 @@
         <div class="text-right"><p class="help-block text-right">250 characters left</p></div>
       </div>
 
-      <div class="form-label text-danger mb-1">
+      <div class="form-label mb-1">
         <label for="basic_description">Description</label>
         <textarea name="basic_description" class="form-control" placeholder="Introduce the listing to the public in a clear and efficient way. Describe all features that make the establishment unique and a great option for clients." id="basic_description" style="height: 100px">{{ old('basic_description', isset( $listing->basic_description ) ? $listing->basic_description : '') }}</textarea>
       </div>
@@ -226,7 +229,7 @@
     <div id="contact_information" class='row'>
         <h4 class="mb-1 mt-3">Contact information</h4>
 
-        <div class="col-6 text-danger mb-2">
+        <div class="col-6 mb-2">
             <label for="contact_email" class="form-label mt-2 mb-1">Email</label>
             <input name="contact_email" type="text" class="form-control" id="contact_email" placeholder="Ex: www.website.com" value="{{ old('contact_email', isset( $listing->contact_email ) ? $listing->contact_email : '') }}">
         </div>
@@ -236,12 +239,12 @@
             <input name="contact_url" type="text" class="form-control" id="contact_url" placeholder="Ex: www.website.com" value="{{ old('contact_url', isset( $listing->contact_url ) ? $listing->contact_url : '') }}">
         </div>
 
-            <div class="col-6 text-danger mb-2">
+            <div class="col-6 mb-2">
                 <label for="contact_phone" class="form-label mt-2 mb-1">Phone</label>
                 <input name="contact_phone" type="text" class="form-control" id="contact_phone" value="{{ old('contact_phone', isset( $listing->contact_phone ) ? $listing->contact_phone : '') }}">
             </div>
 
-            <div class="col-6 text-danger">
+            <div class="col-6">
 
               <div class="row">
                 <span class="form-label mt-2 mb-1">Additional phone</span>
@@ -276,7 +279,7 @@
         </div>
 
 
-        <div class="col-12 text-danger mb-2">
+        <div class="col-12 mb-2">
             <label for="contact_reference" class="form-label mt-2 mb-1">Reference</label>
             <textarea name="contact_reference" type="text" class="form-control" id="contact_reference" placeholder="Enter a landmark or point of reference for your listing's location.">{{ old('contact_reference', isset( $listing->contact_reference ) ? $listing->contact_reference : '') }}</textarea>
         </div>
@@ -285,9 +288,9 @@
             <label for="contact_map_info" class="form-label mt-2 mb-1">MAPINFO</label>
             <input name="contact_map_info" type="text" class="form-control" id="contact_map_info" value="{{ old('contact_map_info', isset( $listing->contact_map_info ) ? $listing->contact_map_info : '') }}">
         </div>
-      </div>
+    </div>
 
-      <div id="seo_information" class='row text-danger'>
+      <div id="seo_information" class='row'>
         <h4 class="mb-1 mt-3">Social networks</h4>
 
         <div class="col-6 mb-2">
@@ -304,6 +307,164 @@
             <label for="social_twitter" class="form-label mt-2 mb-1">Twitter</label>
             <input name="social_twitter" type="text" class="form-control" id="social_twitter" value="{{ old('social_twitter', isset( $listing->social_twitter ) ? $listing->social_twitter : '') }}">
         </div>
+      </div>
+
+      <div id="features" class='row'>
+        <h4 class="mb-1 mt-3">Features</h4>
+
+        <div class="form-group" id="tour-features">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="list-features" style="display:flex; flex-wrap: wrap; font-family:Roboto,FontAwesome,Arial,sans-serif; font-style:normal">
+                      @isset ($listing->features)
+                        @foreach ( $listing->features as $item )
+                          @foreach ($item as $key => $value)
+                            @if ($key == 'icon')
+                                @php ($feature_icons[] = $value)
+                            @else
+                                @php ($feature_title[] = $value)
+                            @endif
+                          @endforeach
+                        @endforeach
+                        @php ( $n = 0 )
+                        @foreach ($feature_icons as $icon)
+                            <div class="group-feature p-3" data-feature-id="{{ $n }}">
+                                <input type="hidden" name="features[][icon]" class="input-feature-icon" value="{{ $icon }}">
+                                <input type="hidden" name="features[][title]" class="input-feature-title" value="{{ $feature_title[$n] }}">
+                                <div class="group-feature-icon">
+                                    <i class="{{ $icon }}" aria-hidden="true"></i>
+                                </div>
+                                <a href="javascript:;" class="group-feature-link">{{ $feature_title[$n] }}</a>
+                            </div>
+                          @php ( $n += 1 )
+                        @endforeach
+                      @endisset
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="feature_icon-selectized" class="form-label mt-2 mb-1">Icon</label>
+                </div>
+                <div class="col-md-4">
+                    <label for="feature_title" class="form-label mt-2 mb-1">Name</label>
+                </div>
+            </div>
+            <div class="row" data-feature-edit-id="">
+                <div class="col-md-4 selectize">
+                    <select name="feature_icon" id="feature_icon" class="form-control feature-icon " style="font-family:Roboto,FontAwesome,Arial,sans-serif;">
+                        <option value="">--</option>
+                        <option value="fa-glass">&#xf000; Glass</option>
+                        <option value="fa-music">&#xf001; Music</option>
+                        <option value="fa-search">&#xf002; Search</option>
+                        <option value="fa-envelope-o">&#xf003; Envelope o</option>
+                        <option value="fa-heart">&#xf004; Heart</option>
+                        <option value="fa-star">&#xf005; Star</option>
+                        <option value="fa-star-o">&#xf006; Star o</option>
+                        <option value="fa-user">&#xf007; User</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="feature_title" id="feature_title" class="form-control " placeholder="Ex: Wifi" tabindex="68">
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary btn-save-feature" data-add tabindex="69">Add</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger btn-delete-feature tabindex="70" style="display:none">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="alert alert-danger mt-3" id="alert-features" style="display:none"></div>
+        </div>
+      </div>
+
+      <div id="hours-block" class='row'>
+        <h4 class="mb-1 mt-3">Hours</h4>
+
+        <div class="form-group mb-3 mt-3">
+          <div class="row">
+            <div class="col-sm-6">
+              <select class="form-control" id="weekday">
+                <option value="" disabled selected>Select the day of the week</option>
+                <option value="">--</option>
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <div class="row">
+            <div class="col-md-2">
+                <label for="hours-start">Start Time</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control hours-start time-input " id="hours-start">
+            </div>
+            <div class="col-md-2">
+                <label for="hours-end">End Time</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control hours-end time-input " id="hours-end" value="">
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-add-hours" full-width="true">Add</button>
+            </div>
+          </div>
+          <input type="hidden" id="end-nextday">
+        </div>
+        <div class="form-group row">
+          <div class="col-md-12">
+              <div class="list-hours-work">
+
+                @isset ($listing->hours_work)
+                    @foreach ( $listing->hours_work as $item )
+                      @foreach ($item as $key => $value)
+                        @if ($key == 'weekday')
+                            @php ($weekday[] = $value)
+                        @elseif ($key == 'hours_start')
+                            @php ($hours_start[] = $value)
+                        @elseif ($key == 'hours_end')
+                            @php ($hours_end[] = $value)
+                        @endif
+                      @endforeach
+                    @endforeach
+
+                    @php ( $n = 0 )
+                    @foreach ($weekday as $day)
+                        <div class="form-group row group-hours-work mb-2" data-hours-work-id="" data-feature-id="{{ $n }}">
+                            <input type="hidden" name="hours_work[][weekday]" value="{{ $day }}">
+                            <input type="hidden" name="hours_work[][hours_start]" value="{{ $hours_start[$n] }}">
+                            <input type="hidden" name="hours_work[][hours_end]" value="{{ $hours_end[$n] }}">
+                            <div class="col-md-3">
+                                <input type="text" value="{{ jddayofweek($day-1, 1) }}" class="form-control" disabled="">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" value="{{ $hours_start[$n] }}" class="form-control" disabled="">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" value="{{ $hours_end[$n] }}" class="form-control" disabled="">
+                            </div>
+                            <div class="col-md-3">
+                                <a href="javascript:;" class="btn btn-block btn-link remove-hours-work">Remove</a>
+                            </div>
+                        </div>
+                        @php ( $n += 1 )
+                    @endforeach
+                @endisset
+
+              </div>
+          </div>
+        </div>
+        <div class="alert alert-danger alert-hours-of-work" style="display: none;"></div>
       </div>
 
       <div id="seo_information" class='row'>
@@ -374,6 +535,17 @@
             <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
             <input name="image_cover_prev" type="hidden" value="{{ $listing->image_cover }}">
             <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+            @endisset
+        </div>
+        <div class="col-12 text-danger">
+            Gallery (multiple images):<br>
+            <input type="file" multiple name="image_gallery[]">
+            @isset ($listing->image_gallery)
+                 @foreach ($listing->image_gallery as $item)
+                    <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $item) }}"></span>
+                    <input name="image_gallery_prev[]" type="hidden" value="{{ $item }}">
+                    <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                 @endforeach
             @endisset
         </div>
       </div>
@@ -477,5 +649,161 @@
         return item;
     }
     $('#seo_keywords').keyup(function() { str = $(this).val(); str = str.replace(/,/g,''); $(this).val(str); });
+
+    $(document).ready(function () {
+        if (!$('#features').length){
+            return;
+        }
+
+        const $btn = $('.btn-save-feature');
+        const $btnDel = $('.btn-delete-feature');
+        const $featureList = $('.list-features');
+        const $featureIcon = $('#feature_icon');
+        const $featureText = $('#feature_title');
+        const $featureTextInput = $('#feature_title');
+        const errorText = "Feature Icon or Name can't be empty.";
+        let textAdd = 'Add';
+        let textSave = 'Save';
+        let activeFeature = "0";
+
+        function addFeature(icon, text) {
+            let featureTempl = '<div class="group-feature p-3" data-feature-id="">' +
+                    '<input type="hidden" name="features[][icon]" class="input-feature-icon" value="'+ icon +'">' +
+                    '<input type="hidden" name="features[][title]" class="input-feature-title" value="' + text +'">' +
+                    '<div class="group-feature-icon">' +
+                        '<i class="' + icon + '" aria-hidden="true"></i></div>' +
+                    '<a href="javascript:;" class="group-feature-link">' + text +'</a></div>';
+            $featureList.append(featureTempl);
+            $featureIcon.find('option').prop('selected', false);
+            $featureText.val('');
+        }
+        function addFeatureIndex() {
+            const $features = $featureList.find('.group-feature');
+                $features.each(function(){
+                    let index = $(this).index();
+                    $(this).attr('data-feature-id', index);
+                })
+        }
+        function saveFeature(icon, text) {
+           let $feature = $('.group-feature[data-feature-id='+ activeFeature+']');
+           $feature.find('i').attr('class', icon);
+           $feature.find('.input-feature-icon').val(icon);
+           $feature.find('.group-feature-link').text(text);
+           $feature.find('.input-feature-title').val(text);
+        }
+        function chooseFeature() {
+            let $feature = $('.group-feature[data-feature-id='+ activeFeature+']');
+            let iconVal = $feature.find('.input-feature-icon').val();
+            let textVal = $feature.find('.input-feature-title').val();
+
+            $featureIcon.find('option[value='+iconVal+']' ).prop('selected', true);
+            $featureText.val(textVal);
+        }
+        function triggerBtn() {
+          if($btn.text() != textSave) {
+            $btn.text(textSave);
+            $btnDel.css('display','block');
+          } else {
+              $featureIcon.find('option').prop('selected', false);
+              $featureText.val('');
+              $btn.text(textAdd);
+              $btnDel.css('display','none');
+          }
+        }
+
+        $(document).on('click','.btn-save-feature', function(){
+            let iconVal = $featureIcon.val();
+            let textVal = $featureText.val();
+
+            if (iconVal != "" & textVal!= "") {
+              if($btn.text() != textSave){
+                      addFeature(iconVal, textVal);
+                      addFeatureIndex();
+              } else {
+                  saveFeature(iconVal, textVal);
+                  triggerBtn();
+              }
+            } else {
+              $('#alert-features').html(errorText).css('display', 'block');
+              setTimeout(function(){
+                  $('#alert-features').slideUp();
+              }, 2000);
+            }
+        })
+        $(document).on('click', '.group-feature-link', function(){
+            activeFeature = $(this).closest('.group-feature').attr('data-feature-id');
+            chooseFeature();
+            triggerBtn();
+        })
+        $(document).on('click', '.btn-delete-feature', function(){
+            $('.group-feature[data-feature-id='+ activeFeature+']').remove();
+            addFeatureIndex()
+            triggerBtn();
+        })
+    });
+    $(document).ready(function () {
+        if (!$('#hours-block').length){
+            return;
+        }
+        $('.time-input').each(function(){
+            $(this).timepicker()
+        });
+
+        const $weekday = $('#weekday');
+        const $startHour = $('#hours-start');
+        const $endHour = $('#hours-end');
+        const $hoursWorkList = $('.list-hours-work');
+        const $hoursOfWork = $('.alert-hours-of-work');
+        const errorText1 = "The week day field can not be empty.";
+        const errorText2 = "The hours field can not be empty.";
+
+        function addHours(dayVal, day, start, end) {
+            let hourTempl = '<div class="form-group row group-hours-work mb-2" data-hours-work-id>' +
+                    '<input type="hidden" name="hours_work[][weekday]" value=' + dayVal + '>' +
+                    '<input type="hidden" name="hours_work[][hours_start]" value=' + start + '>' +
+                    '<input type="hidden" name="hours_work[][hours_end]" value=' + end + '>' +
+
+                    '<div class="col-md-3"><input type="text" value=' + day + ' class="form-control" disabled=""></div>' +
+                    '<div class="col-md-3"><input type="text" value=' + start + ' class="form-control" disabled=""></div>' +
+                    '<div class="col-md-3"><input type="text" value=' + end + ' class="form-control" disabled=""></div>' +
+                    '<div class="col-md-3"><a href="javascript:;" class="btn btn-block btn-link remove-hours-work">Remove</a></div></div>'
+            $hoursWorkList.append(hourTempl);
+            $weekday.find('option').prop('selected', false);
+            $startHour.val('');
+            $endHour.val('');
+        }
+        function addHoursIndex() {
+            const $workGroup = $hoursWorkList.find('.group-hours-work');
+                $workGroup.each(function(){
+                    let index = $(this).index();
+                    $(this).attr('data-feature-id', index);
+                })
+        }
+        $(document).on('click', '.btn-add-hours', function(){
+            let dayVal = $weekday.find('option:selected').val();
+            let day = $weekday.find('option:selected').text();
+            let start = $startHour.val();
+            let end = $endHour.val();
+
+            if (dayVal === "") {
+              $hoursOfWork.html(errorText1).css('display', 'block');
+              setTimeout(function(){
+                 $hoursOfWork.slideUp();
+              }, 2000);
+            } else if (start === "" || end === "") {
+                $hoursOfWork.html(errorText2).css('display', 'block');
+                setTimeout(function(){
+                    $hoursOfWork.slideUp();
+                }, 2000);
+            } else {
+                addHours(dayVal, day, start, end);
+                addHoursIndex();
+            }
+        })
+        $(document).on('click', '.remove-hours-work', function(){
+            $(this).closest('.group-hours-work').remove();
+        })
+    });
+
 </script>
 @endsection

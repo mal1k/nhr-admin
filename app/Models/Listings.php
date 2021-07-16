@@ -37,6 +37,10 @@ class Listings extends Model
         'social_instagram',
         'social_twitter',
 
+        'features',
+
+        'hours_work',
+
         'seo_title',
         'seo_page_name',
         'seo_keywords',
@@ -45,10 +49,14 @@ class Listings extends Model
 
         'image_logo',
         'image_cover',
+        'image_gallery',
     ];
     protected $casts = [
         'basic_categories' => 'array',
         'basic_keywords' => 'array',
         'seo_keywords' => 'array',
+        'image_gallery' => 'array',
+        'features' => 'array',
+        'hours_work' => 'array'
     ];
 }

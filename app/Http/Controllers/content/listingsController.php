@@ -25,7 +25,22 @@ class listingsController extends Controller
 
     public function store(Request $request)
         {
+            $validated = $request->validate([
+                'title' => 'required|max:255',
+            ]);
+
+            // return dd($request->file());
             $listing = Listings::create($request->all()); // create listing
+
+            // upload gallery
+            $images = [];
+            if ($request->hasFile('image_gallery')) {
+                foreach($request->file('image_gallery') as $key => $image){
+                    $images[] = $image->store('uploads/gallery', 'public');
+                }
+                $gallery_path = $images;
+                $listing->update([ 'image_gallery' => $gallery_path ]);
+            }
 
             if ( isset($request->image_logo) ) {
                 $path = $request->file('image_logo')->store('uploads/logo', 'public'); // upload logo image to server
@@ -45,9 +60,6 @@ class listingsController extends Controller
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
-
-            if ( !empty($listing->basic_keywords) )
-                $basic_keywords = $listing->basic_keywords;
 
             return view('content.listings.form', compact('listing', 'users'));
         }
@@ -71,12 +83,30 @@ class listingsController extends Controller
             if ( empty($request->image_cover_prev) && empty($request->image_cover) ) { // delete cover
                 $listing->update([ 'image_cover' => null ]);
             }
-
-
-            if ( empty($request->basic_disable_claim) ) { // set checkbox to null if clear
-                $listing->basic_disable_claim = null;
-              $listing->save();
+            // upload gallery
+            $images = [];
+            if ($request->hasFile('image_gallery')) {
+                foreach($request->file('image_gallery') as $key => $image){
+                    $images[] = $image->store('uploads/gallery', 'public');
+                }
+                $gallery_path = $images;
             }
+            if ( isset($request->image_gallery_prev) )
+                $gallery_path = array_merge($images, $request->image_gallery_prev);
+
+            if ( isset($gallery_path) )
+                $listing->update([ 'image_gallery' => $gallery_path ]);
+            else
+                $listing->update([ 'image_gallery' => null ]);
+
+            if ( empty($request->basic_disable_claim) ) // set checkbox to null if its clear
+                $listing->update([ 'basic_disable_claim' => null ]);
+
+            if ( empty($request->features) ) // set features no null if its clear
+                $listing->update([ 'features' => null ]);
+
+            if ( empty($request->hours_work) ) // set hours work no null if its clear
+                $listing->update([ 'hours_work' => null ]);
 
             return redirect()->route('listings.index')->withSuccess('Updated listing "' . $request->title . '"');
         }
