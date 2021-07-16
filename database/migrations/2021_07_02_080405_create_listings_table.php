@@ -52,6 +52,14 @@ class CreateListingsTable extends Migration
             $table->string('seo_description')->nullable();
             $table->string('promotional_code')->nullable();
 
+            $table->string('video_url')->nullable();
+            $table->string('video_desc')->nullable();
+
+            $table->string('attach_file')->nullable();
+            $table->string('attach_desc')->nullable();
+
+            $table->string('badges_checkbox')->nullable();
+
             $table->string('image_logo')->nullable();
             $table->string('image_cover')->nullable();
             $table->json('image_gallery')->nullable();

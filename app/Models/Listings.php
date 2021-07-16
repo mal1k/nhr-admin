@@ -47,6 +47,14 @@ class Listings extends Model
         'seo_description',
         'promotional_code',
 
+        'video_url',
+        'video_desc',
+
+        'attach_file',
+        'attach_desc',
+
+        'badges_checkbox',
+
         'image_logo',
         'image_cover',
         'image_gallery',
