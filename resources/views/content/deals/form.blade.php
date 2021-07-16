@@ -48,18 +48,20 @@
       </div>
 
       <div class="mb-2 col-6">
-        <label for="basic_listing" class="form-label mt-2 mb-1 text-danger">Associate with the listing</label>
+        <label for="basic_listing" class="form-label mt-2 mb-1">Associate with the listing</label>
+
 
         <select name="basic_listing" id="basic_listing" class="form-select col">
-            <!-- @foreach ( $users as $user )
-            <option {{ isset($deal->basic_listing) && $deal->basic_listing == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
-            @endforeach -->
+            <option value="">Select listing</option>
+            @foreach ($listings as $listing)
+                <option {{ isset($deal->basic_listing) && $deal->basic_listing == $listing->id ? 'selected' : '' }} value="{{ $listing->id }}">{{ $listing->title }}</option>
+            @endforeach
         </select>
       </div>
 
       <div class="form-label mb-2">
-        <label for="basic_summary_desc">Summary Description</label>
-        <textarea name="basic_summary_desc" class="form-control" placeholder="Brief description of the deal." id="basic_summary_desc" style="height: 100px">{{ old('basic_renewal_date', isset( $deal->basic_summary_desc ) ? $deal->basic_summary_desc : '') }}</textarea>
+        <label for="basic_summary_description">Summary Description</label>
+        <textarea name="basic_summary_description" class="form-control" placeholder="Brief description of the deal." id="basic_summary_description" style="height: 100px">{{ old('basic_renewal_date', isset( $deal->basic_summary_description ) ? $deal->basic_summary_description : '') }}</textarea>
         <div class="text-right"><p class="help-block text-right">250 characters left</p></div>
       </div>
 
@@ -116,13 +118,13 @@
                 <label class="form-label mt-2 mb-1">Discount Type</label>
                 <br>
                 <label class="radio-inline mr-3">
-                  <input  type="radio" id="type_monetary" name="deal_type" value="monetary value" checked
+                  <input  type="radio" id="type_monetary" name="deal_type" value="monetary value" {{ isset( $deal->deal_type ) && $deal->deal_type == 'monetary value' ? 'checked' : '' }}
                           onclick="showAmountType('$', 'not');">
                     Fixed Value Discount
                 </label>
 
                 <label class="radio-inline">
-                    <input  type="radio" id="type_percentage" name="deal_type" value="percentage"
+                    <input  type="radio" id="type_percentage" name="deal_type" value="percentage" {{ isset( $deal->deal_type ) && $deal->deal_type == 'percentage' ? 'checked' : '' }}
                             onclick="showAmountType('%', 'not');">
                     Percentage Discount
                 </label>
@@ -134,10 +136,10 @@
                     <div class="input-group">
                         <span class="input-group-addon">$</span>
                         <input type="number" class="form-control" id="real_price_int" name="real_price_int"
-                               value="" onkeyup="calculateDiscount();" maxlength="5">
+                               value="{{ old('real_price_int', isset( $deal->real_price_int ) ? $deal->real_price_int : '') }}" onkeyup="calculateDiscount();" maxlength="5">
                         <span class="input-group-addon"> &nbsp;.&nbsp; </span>
                         <input type="number" class="form-control" id="real_price_cent" name="real_price_cent"
-                               value="" onkeyup="calculateDiscount();" maxlength="2">
+                               value="{{ old('real_price_cent', isset( $deal->real_price_cent ) ? $deal->real_price_cent : '') }}" onkeyup="calculateDiscount();" maxlength="2">
                     </div>
                 </div>
 
@@ -147,12 +149,12 @@
                     <div class="input-group">
                         <span id="amount_monetary" class="input-group-addon">$</span>
                         <input type="number" class="form-control" id="deal_price_int" name="deal_price_int"
-                               value=""
+                               value="{{ old('deal_price_int', isset( $deal->deal_price_int ) ? $deal->deal_price_int : '') }}"
                                onkeyup="calculateDiscount();" maxlength="5">
 
                         <span id="label_deal_cent" class="input-group-addon"> &nbsp;.&nbsp; </span>
                         <input type="number" class="form-control" id="deal_price_cent" name="deal_price_cent"
-                               value="" onkeyup="calculateDiscount();" maxlength="2">
+                               value="{{ old('deal_price_cent', isset( $deal->deal_price_cent ) ? $deal->deal_price_cent : '') }}" onkeyup="calculateDiscount();" maxlength="2">
 
                         <span class="input-group-addon" id="amount_percentage">  % </span>
                     </div>
