@@ -42,6 +42,12 @@ class listingsController extends Controller
                 $listing->update([ 'image_gallery' => $gallery_path ]);
             }
 
+            // attach file
+            if ( isset($request->attach_file) ) { // update cover
+                $path = $request->file('attach_file')->store('uploads/attach', 'public'); // upload cover to server
+                $listing->update([ 'attach_file' => $path ]);
+            }
+
             if ( isset($request->image_logo) ) {
                 $path = $request->file('image_logo')->store('uploads/logo', 'public'); // upload logo image to server
                 $listing->update([ 'image_logo' => $path ]);
@@ -83,6 +89,11 @@ class listingsController extends Controller
             if ( empty($request->image_cover_prev) && empty($request->image_cover) ) { // delete cover
                 $listing->update([ 'image_cover' => null ]);
             }
+
+            if ( empty($request->attach_file_prev) && empty($request->attach_file) ) { // delete cover
+                $listing->update([ 'attach_file' => null ]);
+            }
+
             // upload gallery
             $images = [];
             if ($request->hasFile('image_gallery')) {
@@ -91,6 +102,12 @@ class listingsController extends Controller
                 }
                 $gallery_path = $images;
             }
+
+            if ( isset($request->attach_file) ) { // update cover
+                $path = $request->file('attach_file')->store('uploads/attach', 'public'); // upload cover to server
+                $listing->update([ 'attach_file' => $path ]);
+            }
+
             if ( isset($request->image_gallery_prev) )
                 $gallery_path = array_merge($images, $request->image_gallery_prev);
 
@@ -101,6 +118,9 @@ class listingsController extends Controller
 
             if ( empty($request->basic_disable_claim) ) // set checkbox to null if its clear
                 $listing->update([ 'basic_disable_claim' => null ]);
+
+            if ( empty($request->badges_checkbox) ) // set checkbox to null if its clear
+                $listing->update([ 'badges_checkbox' => null ]);
 
             if ( empty($request->features) ) // set features no null if its clear
                 $listing->update([ 'features' => null ]);

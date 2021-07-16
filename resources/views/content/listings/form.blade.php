@@ -509,6 +509,47 @@
         </div>
       </div>
 
+      <div id="video_section" class='row'>
+        <h4 class="mb-1 mt-3">Video</h4>
+        <div class="col-12 mb-2">
+            <label for="video_url" class="form-label mt-2 mb-1">Video URL</label>
+            <input name="video_url" type="text" class="form-control" id="video_url" value="{{ old('video_url', isset( $listing->video_url ) ? $listing->video_url : '') }}">
+        </div>
+        <div class="col-12 mb-2">
+            <label for="video_desc" class="form-label mt-2 mb-1">Video description</label>
+            <input name="video_desc" type="text" class="form-control" id="video_desc" value="{{ old('video_desc', isset( $listing->video_desc ) ? $listing->video_desc : '') }}">
+        </div>
+      </div>
+
+      <div id="attach_file_section" class='row'>
+        <h4 class="mb-1 mt-3">Attach Additional File</h4>
+        <div class="col-12 mb-2">
+          @isset ( $listing->attach_file )
+              <div class="multi-search-item"><span>File attached: {{ $listing->attach_file }}</span>
+              <input name="attach_file_prev" type="hidden" value="{{ $listing->attach_file }}">
+              <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+          @endisset
+            <label for="attach_file" class="form-label mt-2 mb-1">Choose file</label>
+            <input name="attach_file" type="file" class="form-control" id="attach_file" value="{{ old('attach_file', isset( $listing->attach_file ) ? $listing->attach_file : '') }}">
+        </div>
+        <div class="col-12 mb-2">
+            <label for="attach_desc" class="form-label mt-2 mb-1"></label>
+            <input name="attach_desc" type="text" class="form-control" id="attach_desc" placeholder="This is how the link to download your file will be shown." value="{{ old('attach_desc', isset( $listing->attach_desc ) ? $listing->attach_desc : '') }}">
+        </div>
+      </div>
+
+      <div id="listing_badges_section" class='row'>
+        <h4 class="mb-1 mt-3">Listing badges</h4>
+        <div class="col-12 mb-2">
+            <label for="attach_file" class="form-label mt-2 mb-1">image here</label>
+            <img src="#">
+        </div>
+        <div>
+          <input name="badges_checkbox" class="form-check-input" type="checkbox" id="badges_checkbox" {{ isset( $listing->badges_checkbox ) ? 'checked' : '' }}>
+        </div>
+
+      </div>
+
       <div class="mb-2 col-12">
         <button type="submit" class="btn btn-primary">{{ isset($listing) ?  'Update' : 'Create' }}</button>
       </div>
