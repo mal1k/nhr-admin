@@ -17,16 +17,22 @@ class CreateDealsTable extends Migration
             $table->id();
             $table->string('title');
 
-            $table->string('basic_account');
-            $table->string('basic_listing');
-            $table->string('basic_summary_description');
-            $table->text('basic_description');
-            $table->string('basic_conditions');
-            $table->json('basic_keywords');
-            $table->string('basic_mapinfo');
+            $table->string('basic_account')->nullable();
+            $table->string('basic_listing')->nullable();
+            $table->string('basic_summary_description')->nullable();
+            $table->text('basic_description')->nullable();
+            $table->string('basic_conditions')->nullable();
+            $table->json('basic_keywords')->nullable();
+            $table->string('basic_mapinfo')->nullable();
 
-            $table->string('deal_start_date');
-            $table->string('deal_end_date');
+            $table->string('deal_start_date')->nullable();
+            $table->string('deal_end_date')->nullable();
+
+            $table->string('deal_type')->nullable();
+            $table->string('real_price_int')->nullable();
+            $table->string('real_price_cent')->nullable();
+            $table->string('deal_price_int')->nullable();
+            $table->string('deal_price_cent')->nullable();
 
             $table->string('seo_title')->nullable();
             $table->string('seo_page_name')->nullable();
