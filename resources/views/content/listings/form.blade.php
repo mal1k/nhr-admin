@@ -537,7 +537,7 @@
             <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
         </div>
-        <div class="col-12 text-danger">
+        <div class="col-12">
             Gallery (multiple images):<br>
             <input type="file" multiple name="image_gallery[]">
             @isset ($listing->image_gallery)
