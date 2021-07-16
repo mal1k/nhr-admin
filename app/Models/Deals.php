@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Deals extends Model
 {
     use HasFactory;
-    protected $table = 'listings';
+    protected $table = 'deals';
     protected $fillable = [
         'title',
 
@@ -22,6 +22,12 @@ class Deals extends Model
 
         'deal_start_date',
         'deal_end_date',
+
+        'deal_type',
+        'real_price_int',
+        'real_price_cent',
+        'deal_price_int',
+        'deal_price_cent',
 
         'seo_title',
         'seo_page_name',
