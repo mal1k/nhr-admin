@@ -42,6 +42,10 @@ class CreateListingsTable extends Migration
             $table->string('social_instagram')->nullable();
             $table->string('social_twitter')->nullable();
 
+            $table->json('features')->nullable();
+
+            $table->json('hours_work')->nullable();
+
             $table->string('seo_title')->nullable();
             $table->string('seo_page_name')->nullable();
             $table->json('seo_keywords')->nullable();

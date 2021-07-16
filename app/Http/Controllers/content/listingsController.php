@@ -99,10 +99,14 @@ class listingsController extends Controller
             else
                 $listing->update([ 'image_gallery' => null ]);
 
-            if ( empty($request->basic_disable_claim) ) { // set checkbox to null if clear
-                $listing->basic_disable_claim = null;
-              $listing->save();
-            }
+            if ( empty($request->basic_disable_claim) ) // set checkbox to null if its clear
+                $listing->update([ 'basic_disable_claim' => null ]);
+
+            if ( empty($request->features) ) // set features no null if its clear
+                $listing->update([ 'features' => null ]);
+
+            if ( empty($request->hours_work) ) // set hours work no null if its clear
+                $listing->update([ 'hours_work' => null ]);
 
             return redirect()->route('listings.index')->withSuccess('Updated listing "' . $request->title . '"');
         }

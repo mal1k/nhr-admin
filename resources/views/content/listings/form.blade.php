@@ -316,6 +316,29 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="list-features" style="display:flex; flex-wrap: wrap; font-family:Roboto,FontAwesome,Arial,sans-serif; font-style:normal">
+                      @isset ($listing->features)
+                        @foreach ( $listing->features as $item )
+                          @foreach ($item as $key => $value)
+                            @if ($key == 'icon')
+                                @php ($feature_icons[] = $value)
+                            @else
+                                @php ($feature_title[] = $value)
+                            @endif
+                          @endforeach
+                        @endforeach
+                        @php ( $n = 0 )
+                        @foreach ($feature_icons as $icon)
+                            <div class="group-feature p-3" data-feature-id="{{ $n }}">
+                                <input type="hidden" name="features[][icon]" class="input-feature-icon" value="{{ $icon }}">
+                                <input type="hidden" name="features[][title]" class="input-feature-title" value="{{ $feature_title[$n] }}">
+                                <div class="group-feature-icon">
+                                    <i class="{{ $icon }}" aria-hidden="true"></i>
+                                </div>
+                                <a href="javascript:;" class="group-feature-link">{{ $feature_title[$n] }}</a>
+                            </div>
+                          @php ( $n += 1 )
+                        @endforeach
+                      @endisset
                     </div>
                 </div>
             </div>
@@ -400,7 +423,45 @@
         </div>
         <div class="form-group row">
           <div class="col-md-12">
-              <div class="list-hours-work"></div>
+              <div class="list-hours-work">
+
+                @isset ($listing->hours_work)
+                    @foreach ( $listing->hours_work as $item )
+                      @foreach ($item as $key => $value)
+                        @if ($key == 'weekday')
+                            @php ($weekday[] = $value)
+                        @elseif ($key == 'hours_start')
+                            @php ($hours_start[] = $value)
+                        @elseif ($key == 'hours_end')
+                            @php ($hours_end[] = $value)
+                        @endif
+                      @endforeach
+                    @endforeach
+
+                    @php ( $n = 0 )
+                    @foreach ($weekday as $day)
+                        <div class="form-group row group-hours-work mb-2" data-hours-work-id="" data-feature-id="{{ $n }}">
+                            <input type="hidden" name="hours_work[][weekday]" value="{{ $day }}">
+                            <input type="hidden" name="hours_work[][hours_start]" value="{{ $hours_start[$n] }}">
+                            <input type="hidden" name="hours_work[][hours_end]" value="{{ $hours_end[$n] }}">
+                            <div class="col-md-3">
+                                <input type="text" value="{{ jddayofweek($day-1, 1) }}" class="form-control" disabled="">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" value="{{ $hours_start[$n] }}" class="form-control" disabled="">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" value="{{ $hours_end[$n] }}" class="form-control" disabled="">
+                            </div>
+                            <div class="col-md-3">
+                                <a href="javascript:;" class="btn btn-block btn-link remove-hours-work">Remove</a>
+                            </div>
+                        </div>
+                        @php ( $n += 1 )
+                    @endforeach
+                @endisset
+
+              </div>
           </div>
         </div>
         <div class="alert alert-danger alert-hours-of-work" style="display: none;"></div>
@@ -626,9 +687,9 @@
         function saveFeature(icon, text) {
            let $feature = $('.group-feature[data-feature-id='+ activeFeature+']');
            $feature.find('i').attr('class', icon);
-           $feature.find('#input-feature-icon').val(icon);
+           $feature.find('.input-feature-icon').val(icon);
            $feature.find('.group-feature-link').text(text);
-           $feature.find('#input-feature-title').val(text);
+           $feature.find('.input-feature-title').val(text);
         }
         function chooseFeature() {
             let $feature = $('.group-feature[data-feature-id='+ activeFeature+']');
