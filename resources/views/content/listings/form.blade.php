@@ -366,13 +366,13 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" name="feature_title" id="feature_title" class="form-control " placeholder="Ex: Wifi" tabindex="68">
+                    <input type="text" name="feature_title" id="feature_title" class="form-control " placeholder="Ex: Wifi">
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary btn-save-feature" data-add tabindex="69">Add</button>
+                    <button type="button" class="btn btn-primary btn-save-feature" data-add>Add</button>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-danger btn-delete-feature tabindex="70" style="display:none">
+                    <button type="button" class="btn btn-danger btn-delete-feature" style="display:none">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -538,16 +538,40 @@
         </div>
       </div>
 
-      <div id="listing_badges_section" class='row'>
-        <h4 class="mb-1 mt-3">Listing badges</h4>
-        <div class="col-12 mb-2">
-            <label for="attach_file" class="form-label mt-2 mb-1">image here</label>
-            <img src="#">
+    <style>
+        .listing_badges {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 500px;
+        }
+        .panel-heading {
+            border: none;
+            border-bottom: 1px solid #e6e6e6;
+            font-size: 1.2em;
+            color: #8d8b87;
+            padding: .7em 1em .8em;
+        }
+        .panel-body {
+            text-align: center;
+            border: none;
+            padding: 1.8em 2.2em 1em 2.2em;
+        }
+    </style>
+      <div id="listing_badges_section" class='row listing_badges'>
+        <div class="mb-1 mt-3 listing_badges__title panel-heading">Listing Badges
+            <div class="pull-right"><small><a class="text-info" href="#" target="_blank">Want to change your badges? Click here.</a></small></div>
         </div>
-        <div>
-          <input name="badges_checkbox" class="form-check-input" type="checkbox" id="badges_checkbox" {{ isset( $listing->badges_checkbox ) ? 'checked' : '' }}>
+        <div class="panel-body">
+            <div class="col-12 mb-2">
+                <img src="{{asset('img/sitemgr_photo.png')}}">
+            </div>
+            <div>
+                <input name="badges_checkbox" class="form-check-input" type="checkbox" id="badges_checkbox" {{ isset( $listing->badges_checkbox ) ? 'checked' : '' }}>
+                <label class="form-check-label" for="badges_checkbox">
+                Local Supporter
+                </label>
+            </div>
         </div>
-
       </div>
 
       <div class="mb-2 col-12">

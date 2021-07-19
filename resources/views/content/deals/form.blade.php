@@ -124,13 +124,13 @@
                 <label class="form-label mt-2 mb-1">Discount Type</label>
                 <br>
                 <label class="radio-inline mr-3">
-                  <input  type="radio" id="type_monetary" name="deal_type" value="monetary value" {{ isset( $deal->deal_type ) && $deal->deal_type == 'monetary value' ? 'checked' : '' }}
+                  <input  type="radio" id="type_monetary" name="deal_type" checked value="monetary value" {{ isset( $deal->deal_type ) && $deal->deal_type == 'monetary value' ? 'checked' : '' }}
                           onclick="showAmountType('$', 'not');">
                     Fixed Value Discount
                 </label>
 
                 <label class="radio-inline">
-                    <input  type="radio" id="type_percentage" name="deal_type" value="percentage" {{ isset( $deal->deal_type ) && $deal->deal_type == 'percentage' ? 'checked' : '' }}
+                    <input  type="radio" id="type_percentage" name="deal_type"  value="percentage" {{ isset( $deal->deal_type ) && $deal->deal_type == 'percentage' ? 'checked' : '' }}
                             onclick="showAmountType('%', 'not');">
                     Percentage Discount
                 </label>
@@ -323,7 +323,12 @@
       if(!$('#discount-information').length){
         return;
       }
-      showAmountType('$', 'show');
+      if ($('#type_monetary').is(':checked')){
+        showAmountType('$', 'show');
+      } else{
+        showAmountType('%', 'show');
+      }
+
       calculateDiscount();
     });
 
