@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/manager/users', UsersController::class);
         Route::resource('/manager/business', businessController::class);
         Route::resource('/manager/listings', listingsController::class);
+        Route::resource('/manager/events', eventsController::class);
         Route::resource('/manager/deals', dealsController::class);
     });
 });
