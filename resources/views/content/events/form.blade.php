@@ -15,7 +15,7 @@
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm border-primary">
           <div class="card-header py-3 text-white bg-primary border-primary">
-            <h4 class="my-0 fw-normal">Base Listing</h4>
+            <h4 class="my-0 fw-normal">Base event</h4>
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
@@ -25,7 +25,7 @@
                 <li>Phone and email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="submit" value='BaseListing' class="selectPlanBtn w-100 btn btn-lg btn-primary">Select</button>
+            <button type="submit" value='Baseevent' class="selectPlanBtn w-100 btn btn-lg btn-primary">Select</button>
           </div>
         </div>
       </div>
@@ -96,10 +96,10 @@
         <select name="level" id="level" class="form-select">
           <option selected disabled>Choose...</option>
           <option @if ( isset( $event ) )
-                @if ($event->level === 'BaseListing' )
+                @if ($event->level === 'Baseevent' )
                   selected
                 @endif
-              @endif value="BaseListing">Base Listing</option>
+              @endif value="Baseevent">Base event</option>
           <option @if ( isset( $event ) )
                 @if ($event->level === 'ModerateVisibility' )
                   selected
@@ -311,7 +311,7 @@
             Cover:<br>
             <input type="file" name="image_cover">
             @isset ($event->image_cover)
-            <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $event->image_cover) }}"></span>
+            <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $event->image_cover) }}"></span>
             <input name="image_cover_prev" type="hidden" value="{{ $event->image_cover }}">
             <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
@@ -320,7 +320,7 @@
         <h4 class="mb-1 mt-3">Video</h4>
             <div class="col-12 mb-2">
                 <label for="video_url" class="form-label mt-2 mb-1">Video URL</label>
-                <input name="video_url" type="text" class="form-control" id="video_url" value="{{ old('video_url', isset( $listing->video_url ) ? $listing->video_url : '') }}">
+                <input name="video_url" type="text" class="form-control" id="video_url" value="{{ old('video_url', isset( $event->video_url ) ? $event->video_url : '') }}">
             </div>
         </div>
       </div>
@@ -353,6 +353,32 @@
     if ( $('#title').val() ) {
         $('#selectPlan').hide();
         $('#mainForm').fadeIn();
+    }
+
+    // add map
+    $('#contact_address').focusout(function() { createMap() })
+
+    if ( $('#contact_address').val() !== '' ) {
+        createMap()
+    }
+
+    function createMap() {
+        mapQuery = $('#contact_address').val();
+
+        $('#map').html(`
+        <div class="mapouter">
+            <div class="gmap_canvas">
+                <iframe class="gmap_iframe"
+                    frameborder="0"
+                    scrolling="no"
+                    marginheight="0"
+                    marginwidth="0"
+                    src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=`+mapQuery+`&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                </iframe>
+            </div>
+            <style>.mapouter{position:relative;text-align:right;width:600px;height:400px;}.gmap_canvas {overflow:hidden;background:none!important;width:600px;height:400px;}.gmap_iframe {width:600px!important;height:400px!important;}</style>
+        </div>
+        `);
     }
 
     function multiSearchKeyup(inputElement) {
