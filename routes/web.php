@@ -5,6 +5,7 @@ use App\Http\Controllers\customers\UsersController;
 use App\Http\Controllers\customers\businessController;
 use App\Http\Controllers\content\listingsController;
 use App\Http\Controllers\content\dealsController;
+use App\Http\Controllers\content\eventsController;
 
 /*
 |--------------------------------------------------------------------------
