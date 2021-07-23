@@ -47,9 +47,9 @@ class Events extends Model
         'seo_keywords',
         'seo_description',
 
-        'image_logo',
+        'image_cover',
         'image_gallery',
-        'image_video',
+        'video_url',
 
         'promotional_code',
     ];
