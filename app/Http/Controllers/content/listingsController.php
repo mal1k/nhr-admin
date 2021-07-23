@@ -128,6 +128,12 @@ class listingsController extends Controller
             if ( empty($request->hours_work) ) // set hours work no null if its clear
                 $listing->update([ 'hours_work' => null ]);
 
+            if ( empty($request->basic_keywords) )
+                $listing->update([ 'basic_keywords' => null ]);
+
+            if ( empty($request->seo_keywords) )
+                $listing->update([ 'seo_keywords' => null ]);
+
             return redirect()->route('listings.index')->withSuccess('Updated listing "' . $request->title . '"');
         }
 
