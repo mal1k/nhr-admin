@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Events extends Model
 {
     use HasFactory;
-    protected $table = 'listings';
+    protected $table = 'events';
     protected $fillable = [
         'title',
         'level',
@@ -48,7 +48,7 @@ class Events extends Model
         'seo_description',
 
         'image_logo',
-        'image_cover',
+        'image_gallery',
         'image_video',
 
         'promotional_code',
