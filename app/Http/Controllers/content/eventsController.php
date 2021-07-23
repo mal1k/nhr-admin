@@ -31,7 +31,7 @@ class eventsController extends Controller
             ]);
 
             // return dd($request->file());
-            $listing = Events::create($request->all()); // create listing
+            $event = Events::create($request->all()); // create event
 
             // upload gallery
             $images = [];
@@ -40,15 +40,15 @@ class eventsController extends Controller
                     $images[] = $image->store('uploads/gallery', 'public');
                 }
                 $gallery_path = $images;
-                $listing->update([ 'image_gallery' => $gallery_path ]);
+                $event->update([ 'image_gallery' => $gallery_path ]);
             }
 
             if ( isset($request->image_cover) ) {
                 $path = $request->file('image_cover')->store('uploads/cover', 'public'); // upload cover image to server
-                $listing->update([ 'image_cover' => $path ]);
+                $event->update([ 'image_cover' => $path ]);
             }
 
-            return redirect()->route('events.index')->withSuccess('Created listing "' . $request->title . '"');
+            return redirect()->route('events.index')->withSuccess('Created event "' . $request->title . '"');
         }
 
     public function edit(Events $event)
@@ -102,7 +102,7 @@ class eventsController extends Controller
         {
             $event->delete();
 
-            return redirect()->route('events.index')->withDanger('Deleted listing "' . $event->title . '"');
+            return redirect()->route('events.index')->withDanger('Deleted event "' . $event->title . '"');
 
         }
 }
