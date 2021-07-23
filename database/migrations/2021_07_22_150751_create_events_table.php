@@ -51,9 +51,9 @@ class CreateEventsTable extends Migration
             $table->json('seo_keywords')->nullable();
             $table->string('seo_description')->nullable();
 
-            $table->string('image_logo')->nullable();
+            $table->string('image_cover')->nullable();
             $table->json('image_gallery')->nullable();
-            $table->string('image_video')->nullable();
+            $table->string('video_url')->nullable();
 
             $table->string('promotional_code')->nullable();
             $table->timestamps();
