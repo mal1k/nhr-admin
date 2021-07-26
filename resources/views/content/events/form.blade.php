@@ -244,7 +244,174 @@
 
     </div>
 
-      <div id="seo_information" class='row'>
+    <div id="event_block" class='row'>
+        <h4 class="mb-1 mt-3">Event Date</h4>
+
+        <div class="col-6 mb-2">
+            <label for="event_start_date" class="form-label mt-2 mb-1">Start date</label>
+            <input name="event_start_date" type="date" class="form-control" id="event_start_date" placeholder="Type your event title here." value="{{ old('event_start_date', isset( $event->event_start_date ) ? $event->event_start_date : '') }}">
+        </div>
+
+        <div class="col-6 mb-2" id="event_end_date_toggle">
+            <label for="event_end_date" class="form-label mt-2 mb-1">End date</label>
+            <input name="event_end_date" type="date" class="form-control" id="event_end_date" value="{{ old('event_end_date', isset( $event->event_end_date ) ? $event->event_end_date : '') }}">
+        </div>
+
+        <label for="seo_page_name" class="form-label mt-2 mb-1">Start time</label>
+        <div class="col-5 mb-2">
+
+            <select id="event_start_time[hours]" name="event_start_time[hours]" class="form-control ">
+                {{ $last= 12 }}
+                {{ $now = 1 }}
+
+                @for ($i = $now; $i <=  $last; $i++)
+                    <option value="{{ $i }}" {{ old('event_start_time[hours]', isset( $event->event_start_time['hours'] ) && ( $event->event_start_time['hours'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
+                @endfor
+            </select>
+        </div>
+        <div class="col-5 mb-2">
+            <select id="event_start_time[minutes]" name="event_start_time[minutes]" class="form-control ">
+                {{ $last= 55 }}
+                {{ $now = 00 }}
+
+                @for ($i = $now; $i <= $last; $i+=5)
+                    <option value="{{ $i }}" {{ old('event_start_time[minutes]', isset( $event->event_start_time['minutes'] ) && ( $event->event_start_time['minutes'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
+                @endfor
+            </select>
+        </div>
+        <div class="col-2">
+            <input type="radio" id="event_start_time[picker]"
+            name="event_start_time[picker]" value="AM" {{ old('event_start_time[picker]', isset( $event->event_start_time['picker'] ) && ( $event->event_start_time['picker'] == 'AM' ) ? 'checked' : '') }}>
+            <label for="event_start_time[picker]">AM</label>
+
+            <input type="radio" id="event_start_time[picker]"
+            name="event_start_time[picker]" value="PM" {{ old('event_start_time[picker]', isset( $event->event_start_time['picker'] ) && ( $event->event_start_time['picker'] == 'PM' ) ? 'checked' : '') }}>
+            <label for="event_start_time[picker]">PM</label>
+        </div>
+
+        <label for="seo_page_name" class="form-label mt-2 mb-1">End time</label>
+        <div class="col-5 mb-2">
+
+            <select id="event_end_time[hours]" name="event_end_time[hours]" class="form-control ">
+                {{ $last= 12 }}
+                {{ $now = 1 }}
+
+                @for ($i = $now; $i <=  $last; $i++)
+                    <option value="{{ $i }}" {{ old('event_end_time[hours]', isset( $event->event_end_time['hours'] ) && ( $event->event_end_time['hours'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
+                @endfor
+            </select>
+        </div>
+        <div class="col-5 mb-2">
+            <select id="event_end_time[minutes]" name="event_end_time[minutes]" class="form-control ">
+                {{ $last= 55 }}
+                {{ $now = 00 }}
+
+                @for ($i = $now; $i <= $last; $i+=5)
+                    <option value="{{ $i }}" {{ old('event_end_time[minutes]', isset( $event->event_end_time['minutes'] ) && ( $event->event_end_time['minutes'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
+                @endfor
+            </select>
+        </div>
+        <div class="col-2">
+            <input type="radio" id="event_end_time[picker]"
+            name="event_end_time[picker]" value="AM" {{ old('event_end_time[picker]', isset( $event->event_end_time['picker'] ) && ( $event->event_end_time['picker'] == 'AM' ) ? 'checked' : '') }}>
+            <label for="event_end_time[picker]">AM</label>
+
+            <input type="radio" id="event_end_time[picker]"
+            name="event_end_time[picker]" value="PM" {{ old('event_end_time[picker]', isset( $event->event_end_time['picker'] ) && ( $event->event_end_time['picker'] == 'PM' ) ? 'checked' : '') }}>
+            <label for="event_end_time[picker]">PM</label>
+        </div>
+
+        <div class="col-12">
+          <label>
+            <input type="checkbox" id="event_recurring_event"
+                name="event_recurring_event" {{ old('event_recurring_event', isset( $event->event_recurring_event ) ? 'checked' : '') }}> Recurring Event
+          </label>
+        </div>
+
+      <div id="toggleRecurringEvent">
+        <div class="col-12 mt-2">
+            <span class="">Repeat</span>
+                <select name="event_recurring_repeat" id="event_recurring_repeat" class="form-select">
+                    <option value="daily" {{ old('event_recurring_repeat', isset( $event->event_recurring_repeat ) && ( $event->event_recurring_repeat == 'daily' ) ? 'selected' : '' ) }}>Daily</option>
+                    <option value="weekly" {{ old('event_recurring_repeat', isset( $event->event_recurring_repeat ) && ( $event->event_recurring_repeat == 'weekly' ) ? 'selected' : '' ) }}>Weekly</option>
+                    <option value="monthly" {{ old('event_recurring_repeat', isset( $event->event_recurring_repeat ) && ( $event->event_recurring_repeat == 'monthly' ) ? 'selected' : '' ) }}>Monthly</option>
+                    <option value="yearly" {{ old('event_recurring_repeat', isset( $event->event_recurring_repeat ) && ( $event->event_recurring_repeat == 'yearly' ) ? 'selected' : '' ) }}>Yearly</option>
+                </select>
+        </div>
+      <div id="event_recurring_every" class="hidden">
+        <div class="col-12 mt-2" id="event_repeat_every_day" class='hidden'>
+        <label>
+          <input type="radio" id="event_recurring_every_radio" name="event_recurring_every[radio]" value="every_day" onclick="enableUntil('2');" {{ old('event_recurring_every[radio]', isset( $event->event_recurring_every['radio'] ) && ( $event->event_recurring_every['radio'] == 'every_day' ) ? 'checked' : '') }}>
+          <b>Every day:</b>
+          <div class="input-group">
+            <input type="number" id="day" name="event_recurring_every[days]" class="form-control" value="{{ old('event_recurring_every[days]', isset( $event->event_recurring_every['days'] ) ? $event->event_recurring_every['days'] : '') }}" maxlength="2">
+            <span class="input-group-addon customized-addon">
+              <span>of the Month</span>
+              @php($months = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'))
+              <select id="event_recurring_every_month" name="event_recurring_every[month]" class="input" style="">
+                  @foreach ($months as $num => $name)
+                    <option {{ old('event_recurring_every[month]', isset( $event->event_recurring_every['month'] ) && ( $event->event_recurring_every['month'] == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                  @endforeach
+              </select>
+            </span>
+          </div>
+        </label>
+        </div>
+
+      <div class="mt-2">
+          <label>
+              <input type="radio" id="event_recurring_every_every" name="event_recurring_every[radio]" value="every" onclick="enableUntil('2');" {{ old('event_recurring_every[radio]', isset( $event->event_recurring_every['radio'] ) && ( $event->event_recurring_every['radio'] == 'every' ) ? 'checked' : '') }}>
+              <b>Every:</b>
+          </label>
+          <div>
+
+            @php($last= 6)
+            @php($now = 0)
+
+            @for ($i = $now; $i <=  $last; $i++)
+                <input type="checkbox" @isset($event->event_recurring_dayofweek) @if(in_array($i, $event->event_recurring_dayofweek)) checked @endif @endisset name="event_recurring_dayofweek[]" value="{{ $i }}">{{ jddayofweek($i-1, 2) }}</label>
+            @endfor
+          <div id="listOfRepeat">
+          Week:
+            @php($listOfRepeat = array('First', 'Second', 'Third', 'Fourth', 'Last'))
+            @foreach ($listOfRepeat as $item)
+              <input type="checkbox" @isset($event->event_recurring_dayofweek) @if(in_array($item, $event->event_recurring_dayofweek)) checked @endif @endisset name="event_recurring_dayofweek[]" value="{{ $item }}">{{ $item }}</label>
+            @endforeach
+
+            <select id="event_recurring_every_once_month" name="event_recurring_every[every_month]" class="input" style="">
+                @foreach ($months as $num => $name)
+                  <option {{ old('event_recurring_every[every_month]', isset( $event->event_recurring_every['every_month'] ) && ( $event->event_recurring_every['every_month'] == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                @endforeach
+            </select>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+      {{--  global  --}}
+      <div class="col-12 mt-2" id="dayofreccuring">
+        <b>Ends on:</b>
+        <div class="form-horizontal">
+          <label>
+            <input type="radio" id="event_recurring_ends_on_until" name="event_recurring_ends_on" value="until" onclick="enableUntil('2');" {{ old('event_recurring_ends_on', isset( $event->event_recurring_ends_on ) && ( $event->event_recurring_ends_on == 'until' ) ? 'checked' : '') }}>
+            Until
+          </label>
+          <input class="form-control date-input" type="date" name="event_recurring_ends_on_until" id="event_recurring_ends_on_until" value="{{ old('event_recurring_ends_on', isset( $event->event_recurring_ends_on_until ) ? $event->event_recurring_ends_on_until : '') }}">
+        </div>
+        <div class="row form-group">
+          <div class="radio col-xs-12">
+              <label>
+                <input type="radio" id="event_recurring_ends_on_never" name="event_recurring_ends_on" value="never" onclick="enableUntil('1');" {{ old('event_recurring_ends_on', isset( $event->event_recurring_ends_on ) && ( $event->event_recurring_ends_on == 'never' ) ? 'checked' : '') }}>
+                Never
+              </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div id="seo_information" class='row'>
         <h4 class="mb-1 mt-3">SEO</h4>
 
         <div class="col-6 mb-2">
@@ -276,7 +443,7 @@
             <label for="seo_description" class="form-label mt-2 mb-1">Description</label>
             <textarea name="seo_description" type="text" class="form-control" id="seo_description">{{ old('seo_description', isset( $event->seo_description ) ? $event->seo_description : '') }}</textarea>
         </div>
-      </div>
+    </div>
 
       <div id="promotional_section" class='row'>
         <h4 class="mb-1 mt-3">Promotional Code</h4>
@@ -424,6 +591,61 @@
         return item;
     }
     $('#seo_keywords').keyup(function() { str = $(this).val(); str = str.replace(/,/g,''); $(this).val(str); });
+
+
+    toggleRecurring();
+    selectChanger();
+
+    $('#event_recurring_event').click(function() {
+      toggleRecurring();
+    });
+
+    function toggleRecurring() {
+      if ($('#event_recurring_event').is(':checked')){
+        $("#toggleRecurringEvent").removeClass('hidden');
+        $("#event_end_date_toggle").addClass('hidden');
+      } else {
+        $("#toggleRecurringEvent").addClass('hidden');
+        $("#event_end_date_toggle").removeClass('hidden');
+      }
+    }
+
+    $( "#event_recurring_repeat" ).change(function() {
+      selectChanger();
+    });
+
+    function selectChanger() {
+      if ( $('#event_recurring_repeat').val() == 'daily' ) {
+        $('#event_recurring_every').addClass('hidden');
+        $('#event_recurring_every_once_month').addClass('hidden');
+        $('#event_repeat_every_day').addClass('hidden');
+        $('#event_recurring_every_every').addClass('hidden');
+        $('#listOfRepeat').addClass('hidden');
+      }
+      if ( $('#event_recurring_repeat').val() == 'weekly' ) {
+        $('#event_recurring_every').removeClass('hidden');
+        $('#event_recurring_every_once_month').addClass('hidden');
+        $('#event_repeat_every_day').addClass('hidden');
+        $('#event_recurring_every_every').addClass('hidden');
+        $('#listOfRepeat').addClass('hidden');
+      }
+      if ( $('#event_recurring_repeat').val() == 'monthly' ) {
+        $('#event_recurring_every').removeClass('hidden');
+        $('#event_recurring_every_once_month').addClass('hidden');
+        $('#event_repeat_every_day').removeClass('hidden');
+        $('#event_recurring_every_every').removeClass('hidden');
+        $('#listOfRepeat').removeClass('hidden');
+        $('#event_recurring_every_month').addClass('hidden');
+      }
+      if ( $('#event_recurring_repeat').val() == 'yearly' ) {
+        $('#event_recurring_every').removeClass('hidden');
+        $('#event_recurring_every_once_month').removeClass('hidden');
+        $('#event_repeat_every_day').removeClass('hidden');
+        $('#event_recurring_every_every').removeClass('hidden');
+        $('#listOfRepeat').removeClass('hidden');
+        $('#event_recurring_every_month').removeClass('hidden');
+      }
+    }
 
 </script>
 @endsection

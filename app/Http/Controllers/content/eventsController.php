@@ -95,6 +95,12 @@ class eventsController extends Controller
             if ( empty($request->seo_keywords) )
                 $event->update([ 'seo_keywords' => null ]);
 
+            if ( empty($request->event_recurring_event) )
+                $event->update([ 'event_recurring_event' => null ]);
+
+            if ( empty($request->event_recurring_dayofweek) )
+            $event->update([ 'event_recurring_dayofweek' => null ]);
+
             return redirect()->route('events.index')->withSuccess('Updated event "' . $request->title . '"');
         }
 

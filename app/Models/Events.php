@@ -40,6 +40,7 @@ class Events extends Model
         'event_recurring_every',
         'event_recurring_repeat',
         'event_recurring_ends_on',
+        'event_recurring_dayofweek',
         'event_recurring_ends_on_until',
 
         'seo_title',
@@ -56,7 +57,10 @@ class Events extends Model
     protected $casts = [
         'basic_categories' => 'array',
         'basic_keywords' => 'array',
+        'event_start_time' => 'array',
+        'event_end_time' => 'array',
         'event_recurring_every' => 'array',
+        'event_recurring_dayofweek' => 'array',
         'seo_keywords' => 'array',
         'image_gallery' => 'array',
     ];

@@ -38,12 +38,13 @@ class CreateEventsTable extends Migration
 
             $table->string('event_start_date')->nullable();
             $table->string('event_end_date')->nullable();
-            $table->string('event_start_time')->nullable();
-            $table->string('event_end_time')->nullable();
+            $table->json('event_start_time')->nullable();
+            $table->json('event_end_time')->nullable();
             $table->string('event_recurring_event')->nullable();
             $table->string('event_recurring_repeat')->nullable();
             $table->json('event_recurring_every')->nullable();
             $table->string('event_recurring_ends_on')->nullable();
+            $table->json('event_recurring_dayofweek')->nullable();
             $table->string('event_recurring_ends_on_until')->nullable();
 
             $table->string('seo_title')->nullable();
