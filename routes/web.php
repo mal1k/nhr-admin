@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\content\bannersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\customers\UsersController;
 use App\Http\Controllers\customers\businessController;
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/manager/listings', listingsController::class);
         Route::resource('/manager/events', eventsController::class);
         Route::resource('/manager/deals', dealsController::class);
+        Route::resource('/manager/banners', bannersController::class);
     });
 });
 
