@@ -27,6 +27,17 @@
     <div class="row">
     <div class="col-8">
       <div class="mb-2 col-12">
+        <label for="caption" class="form-label mt-2 mb-1">Banner Type</label>
+        <select name="banner_type" id="banner_type" class="form-select col">
+            @php ( $bannerNames = array(0 => 'Leaderboard (728px x 90px)', 1 => 'Sponsored Links (320px x 100px)') )
+                @foreach ($bannerNames as $num => $name)
+                <span class="mr-3">
+                    <option {{ old('banner_type', isset( $banner->banner_type ) && ( $banner->banner_type == $num )  ? 'selected' : '' ) }} value="{{ $num }}">{{ $name }}</option>
+                </span>
+                @endforeach
+        </select>
+      </div>
+      <div class="mb-2 col-12">
         <label for="caption" class="form-label mt-2 mb-1">Caption</label>
         <input name="caption" type="text" class="form-control" id="caption" value="{{ old('caption', isset( $banner->caption ) ? $banner->caption : '') }}">
         @error('caption')
@@ -34,14 +45,16 @@
         @enderror
       </div>
 
-      <div class="row" id="descriptionLines">
-        <div class="mb-2 col-6">
-            <label for="description_line" class="form-label mt-2 mb-1">Description line 1</label>
-            <input name="description_line" type="text" class="form-control" id="description_line" value="{{ old('description_line', isset( $banner->description_line ) ? $banner->description_line : '') }}">
-        </div>
-        <div class="mb-2 col-6">
-            <label for="description_line2" class="form-label mt-2 mb-1">Description line 2</label>
-            <input name="description_line2" type="text" class="form-control" id="description_line2" value="{{ old('description_line2', isset( $banner->description_line2 ) ? $banner->description_line2 : '') }}">
+      <div class="hidden" id="descriptionLines">
+        <div class="row">
+          <div class="mb-2 col-6">
+              <label for="description_line" class="form-label mt-2 mb-1">Description line 1</label>
+              <input name="description_line" type="text" class="form-control" id="description_line" value="{{ old('description_line', isset( $banner->description_line ) ? $banner->description_line : '') }}">
+          </div>
+          <div class="mb-2 col-6">
+              <label for="description_line2" class="form-label mt-2 mb-1">Description line 2</label>
+              <input name="description_line2" type="text" class="form-control" id="description_line2" value="{{ old('description_line2', isset( $banner->description_line2 ) ? $banner->description_line2 : '') }}">
+          </div>
         </div>
       </div>
 
@@ -53,7 +66,7 @@
 
             <select name="basic_account" id="basic_account" class="form-select col">
             @foreach ( $users as $user )
-                <option {{ isset($listing->basic_account) && $listing->basic_account == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+                <option {{ isset($banner->basic_account) && $banner->basic_account == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
             </select>
         </div>
@@ -62,18 +75,18 @@
             <label for="basic_status" class="form-label mt-2 mb-1">Status</label>
             <select name="basic_status" id="basic_status" class="form-select col">
             <option selected disabled>Choose...</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'active' )
+            <option @if ( isset( $banner ) )
+                    @if ($banner->basic_status === 'active' )
                     selected
                     @endif
                 @endif value="active">Active</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'suspended' )
+            <option @if ( isset( $banner ) )
+                    @if ($banner->basic_status === 'suspended' )
                     selected
                     @endif
                 @endif value="suspended">Suspended</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'pending' )
+            <option @if ( isset( $banner ) )
+                    @if ($banner->basic_status === 'pending' )
                     selected
                     @endif
                 @endif value="pending">Pending</option>
@@ -82,49 +95,134 @@
 
         <div class="mb-2 col">
             <label for="basic_renewal_date" class="form-label mt-2 mb-1">Renewal date</label>
-            <input name="basic_renewal_date" type="date" class="form-control" id="basic_renewal_date" placeholder="Change Expiration Date" value="{{ old('basic_renewal_date', isset( $listing->basic_renewal_date ) ? $listing->basic_renewal_date : '') }}">
+            <input name="basic_renewal_date" type="date" class="form-control" id="basic_renewal_date" placeholder="Change Expiration Date" value="{{ old('basic_renewal_date', isset( $banner->basic_renewal_date ) ? $banner->basic_renewal_date : '') }}">
         </div>
       </div>
 
 
       <div id="basic_information" class='row'>
         <h4 class="mb-1 mt-3">Banner Details</h4>
+          <label for="banner_section" class="form-label mt-2 mb-1">Section</label>
+          <div class="form-label">
+            @php($months = array('General Pages', 'Listing', 'Deal', 'Event', 'Blog', 'Global Banner'))
+              @foreach ($months as $num => $name)
+              <span class="mr-3">
+                <input type="radio" name="banner_section" {{ old('banner_section', (isset( $banner->banner_section ) && ( $banner->banner_section == $num )) || (empty($banner) && 0 == $num )  ? 'checked' : '') }} value="{{ $num }}">{{ $name }}
+              </span>
+              @endforeach
+          </div>
 
-        <div class="mb-2 col">
-            <label for="basic_account" class="form-label mt-2 mb-1">Account</label>
+          <label class="form-label mt-2 mb-1">Category</label>
+          <div class="form-label">
 
-            <select name="basic_account" id="basic_account" class="form-select col">
-            @foreach ( $users as $user )
-                <option {{ isset($listing->basic_account) && $listing->basic_account == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
-            @endforeach
-            </select>
+              @php( $generalCategory = array('All pages but item pages') )
+              @php( $listingDealsCategory = array('Non-category search', 'Arts, Culture, and Heritage', 'Bookstores and Libraries', 'Breweries', 'Distilleries', 'Family Fun', 'Food and Drink', 'Golf', 'Gyms and Spas', 'Health', 'Hikes', 'Local Agriculture', 'Lodging', 'Nonprofits', 'Religion and Spirituality', 'Rock Climbing', 'Services', 'Shooting', 'Shopping', 'Skiing', 'Smoke Lounges', 'State Parks and Campgrounds', 'Swimming', 'Wineries' ) )
+              @php( $eventCategory = array('Non-category search', '21+', 'Arts + Culture', '- Art', '- Fashion', '- Music', 'Car Show', 'Community + Nonprofit', '- Causes', 'Cuisine + Drink', '- Food', '- Tastings', 'Family Friendly', 'Farmers Market', 'Free', 'Fun Run', 'NH Rocks Events', 'Outdoors', 'Party', 'Wedding Expo') )
+              @php( $blogCategory = array('Non-category search', 'Local Guides &amp; Itineraries', 'NH Rocks', 'Resources') )
+              @php( $globalCategory = array('All pages') )
+
+            {{-- general categories --}}
+            <div id="generalCategoryBlock">
+              <select id="generalCategory" name="generalCategory" class="input-dd-form-banner form-select">
+                @foreach ($generalCategory as $num => $name)
+                <span class="mr-3">
+                    <option {{ old('generalCategory', isset( $banner->generalCategory ) && ( $banner->generalCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                </span>
+                @endforeach
+              </select>
+            </div>
+
+            {{-- listing/deals categories --}}
+            <div id="listingDealsCategoryBlock" class='hidden'>
+              <select id="listingDealsCategory" name="listingDealsCategory" class="input-dd-form-banner form-select">
+                @foreach ($listingDealsCategory as $num => $name)
+                <span class="mr-3">
+                    <option {{ old('listingDealsCategory', isset( $banner->listingDealsCategory ) && ( $banner->listingDealsCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                </span>
+                @endforeach
+              </select>
+            </div>
+
+            {{-- event categories --}}
+            <div id="eventCategoryBlock" class='hidden'>
+              <select id="eventCategory" name="eventCategory" class="input-dd-form-banner form-select">
+                @foreach ($eventCategory as $num => $name)
+                <span class="mr-3">
+                    <option {{ old('eventCategory', isset( $banner->eventCategory ) && ( $banner->eventCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                </span>
+                @endforeach
+              </select>
+            </div>
+
+            {{-- blog categories --}}
+            <div id="blogCategoryBlock" class='hidden'>
+              <select id="blogCategory" name="blogCategory" class="input-dd-form-banner form-select">
+                @foreach ($blogCategory as $num => $name)
+                <span class="mr-3">
+                    <option {{ old('blogCategory', isset( $banner->blogCategory ) && ( $banner->blogCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                </span>
+                @endforeach
+              </select>
+            </div>
+
+            {{-- global categories --}}
+            <div id="globalCategoryBlock" class='hidden'>
+              <select id="globalCategory" name="globalCategory" class="input-dd-form-banner form-select">
+                @foreach ($globalCategory as $num => $name)
+                <span class="mr-3">
+                    <option {{ old('globalCategory', isset( $banner->globalCategory ) && ( $banner->globalCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                </span>
+                @endforeach
+              </select>
+            </div>
+
+          </div>
+
+          <label for="banner_new_window" class="form-label mt-2 mb-1">Open in a new window</label>
+          <div class="form-label">
+            @php($months = array('No', 'Yes'))
+              @foreach ($months as $num => $name)
+              <span class="mr-3">
+                <input type="radio" name="banner_new_window" {{ old('banner_new_window', (isset( $banner->banner_new_window ) && ( $banner->banner_new_window == $num )) || (empty($banner) && 1 == $num )  ? 'checked' : '') }} value="{{ $num }}">{{ $name }}
+              </span>
+              @endforeach
+          </div>
+
+          <label for="banner_destinational_url" class="form-label mt-2 mb-1">Destination URL</label>
+          <div class="form-label">
+              <span class="mr-3">
+                <input type="text" name="banner_destinational_url" class="form-control" value="{{old('banner_destinational_url', isset( $banner->banner_destinational_url ) ? $banner->banner_destinational_url : '') }}">
+              </span>
+          </div>
+
+          <div id="displayURLblock">
+            <label for="banner_display_url" class="form-label mt-2 mb-1">Display URL (optional)</label>
+            <div class="form-label">
+                <span class="mr-3">
+                    <input type="text" name="banner_display_url" class="form-control" value="{{ old('banner_display_url', isset( $banner->banner_display_url ) ? $banner->banner_display_url : '') }}">
+                </span>
+            </div>
+          </div>
+
+        <div id="scriptBanner">
+        <label class="form-label mt-2 mb-1">Script Banner</label>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="banner_script_checkbox" {{ old('banner_script_checkbox', isset( $banner->banner_script_checkbox ) ? 'checked' : '') }}> Show by Script Code
+                </label>
+            </div>
+
+            <div class="form-label mt-2">
+                <textarea name="banner_script_textarea" class="form-control" placeholder="Script">{{ isset( $banner->banner_script_textarea ) ? $banner->banner_script_textarea : '' }}</textarea>
+            </div>
         </div>
+      </div>
 
-        <div class="mb-2 col">
-            <label for="basic_status" class="form-label mt-2 mb-1">Status</label>
-            <select name="basic_status" id="basic_status" class="form-select col">
-            <option selected disabled>Choose...</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'active' )
-                    selected
-                    @endif
-                @endif value="active">Active</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'suspended' )
-                    selected
-                    @endif
-                @endif value="suspended">Suspended</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'pending' )
-                    selected
-                    @endif
-                @endif value="pending">Pending</option>
-            </select>
-        </div>
-
-        <div class="mb-2 col">
-            <label for="basic_renewal_date" class="form-label mt-2 mb-1">Renewal date</label>
-            <input name="basic_renewal_date" type="date" class="form-control" id="basic_renewal_date" placeholder="Change Expiration Date" value="{{ old('basic_renewal_date', isset( $listing->basic_renewal_date ) ? $listing->basic_renewal_date : '') }}">
+      <div id="promotional_section" class='row'>
+        <h4 class="mb-1 mt-3">Promotional Code</h4>
+        <div class="col-12 mb-2">
+            <label for="promotional_code" class="form-label mt-2 mb-1">Do you have a discount code? Type it here.</label>
+            <input name="promotional_code" type="text" class="form-control" id="promotional_code" value="{{ old('promotional_code', isset( $banner->promotional_code ) ? $banner->promotional_code : '') }}">
         </div>
       </div>
 
@@ -136,16 +234,18 @@
 
     {{-- right content --}}
     <div class="col-4">
+      <div id="file_image">
       <div class="row">
         <div class="col-12">
             File:<br>
             <input type="file" name="file_image">
             @isset ($banner->file_image)
-              <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $banner->file_image) }}"></span>
+              <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $banner->file_image) }}"></span>
               <input name="file_image_prev" type="hidden" value="{{ $banner->file_image }}">
               <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -162,147 +262,69 @@
 
 <script>
 
-    function multiSearchKeyup(inputElement) {
-        if(event.keyCode === 188) {
-            if ( $('#keywords').val() !== '' ) {
-                inputElement.parentNode
-                .insertBefore(createFilterItem(inputElement.value), inputElement);
-                inputElement.value = "";
-                $(this).focus();
-            }
+    categoryChanger($('input[name=banner_section]:checked').val())
+    selectChanger();
 
-        }
-    }
-
-    function createFilterItem(text) {
-        const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item");
-        const span = `<span>${text}</span><input name="basic_keywords[]" type="hidden" value="${text}">`;
-        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
-        item.innerHTML = span+close;
-        return item;
-    }
-
-    $('#keywords').keyup(function() { str = $(this).val(); str = str.replace(/,/g,''); $(this).val(str); });
-
-
-    function SEOmultiSearchKeyup(inputElement) {
-        if(event.keyCode === 188) {
-            if ( $('#seo_keywords').val() !== '' ) {
-                inputElement.parentNode
-                .insertBefore(SEOcreateFilterItem(inputElement.value), inputElement);
-                inputElement.value = "";
-                $(this).focus();
-            }
-
-        }
-    }
-    function SEOcreateFilterItem(text) {
-        const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item");
-        const span = `<span>${text}</span><input name="seo_keywords[]" type="hidden" value="${text}">`;
-        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
-        item.innerHTML = span+close;
-        return item;
-    }
-    $('#seo_keywords').keyup(function() { str = $(this).val(); str = str.replace(/,/g,''); $(this).val(str); });
-
-    $(document).ready(function () {
-      if(!$('#discount-information').length){
-        return;
-      }
-      if ($('#type_monetary').is(':checked')){
-        showAmountType('$', 'show');
-      } else{
-        showAmountType('%', 'show');
-      }
-
-      calculateDiscount();
+    $( "#banner_type" ).change(function() {
+      selectChanger();
     });
 
-    function calculateDiscount() {
-        var percentage = false;
-        var realvalue = Number($('#real_price_int').val() + "." + $('#real_price_cent').val());
-        var bannervalue = Number($('#banner_price_int').val() + "." + $('#banner_price_cent').val());
+    $('input[name="banner_section"]').change(function(event){
+        cat = this.value
+        categoryChanger(cat)
+    })
 
-        if (document.getElementById("type_percentage").checked) {
-            percentage = true;
+    function categoryChanger(cat) {
+        if (cat == 0) {
+            $('#generalCategoryBlock').removeClass('hidden');
+            $('#listingDealsCategoryBlock').addClass('hidden');
+            $('#eventCategoryBlock').addClass('hidden');
+            $('#blogCategoryBlock').addClass('hidden');
+            $('#globalCategoryBlock').addClass('hidden');
         }
-
-        if (realvalue != 'NaN' && bannervalue != 'NaN' ) {
-            if (realvalue < 0) {
-                realvalue = realvalue * (-1);
-            }
-
-            if (bannervalue < 0) {
-                bannervalue = bannervalue * (-1);
-            }
-
-            if ((bannervalue > realvalue) && (percentage == false)) {
-                $('#amountDiscountMessage').html("Please enter a minor value on Value with Discount field.");
-                $('#discountAmount').html('');
-            } else {
-                $('#amountDiscountMessage').html('');
-
-                if (percentage) {
-                    discount = realvalue - ((bannervalue*realvalue)/100);
-                } else {
-                    discount = 100 - (bannervalue/realvalue)*100;
-                }
-
-                if (!isNaN(discount) && discount >= 0) {
-                    if (discount > 100 && !percentage) {
-                        discount = 100;
-                    }
-
-                    if (percentage) {
-                        $('#discountAmount').html('$'+discount.toFixed(2));
-                    } else {
-                        $('#discountAmount').html(Math.round(discount)+'%');
-                    }
-                }
-            }
+        if (cat == 1 || cat == 2) {
+            $('#generalCategoryBlock').addClass('hidden');
+            $('#listingDealsCategoryBlock').removeClass('hidden');
+            $('#eventCategoryBlock').addClass('hidden');
+            $('#blogCategoryBlock').addClass('hidden');
+            $('#globalCategoryBlock').addClass('hidden');
         }
-      };
-
-      function showAmountType(type, show) {
-        if (type == '%') {
-            $("#bannerPriceValueLabel").html("Percentage");
-            document.getElementById('amount_monetary').innerHTML = ':';
-            document.getElementById('amount_monetary').style.display = 'none';
-            document.getElementById('amount_percentage').innerHTML = type;
-            document.getElementById('amount_percentage').style.display = '';
-            document.getElementById('label_banner_cent').style.display = 'none';
-            document.getElementById('banner_price_cent').style.display = 'none';
-
-            $('#discountAmount').html('');
-            $('#amountDiscountMessage').html('');
-
-            if (show == "not") {
-                document.getElementById('banner_price_int').value = '';
-                document.getElementById('banner_price_cent').value = '';
-            }
-
-            document.getElementById('banner_price_int').setAttribute('maxlength', 2);
-        } else {
-            $("#bannerPriceValueLabel").html("Value with Discount");
-
-            document.getElementById('amount_monetary').innerHTML = type;
-            document.getElementById('amount_monetary').style.display = '';
-            document.getElementById('amount_percentage').style.display = 'none';
-            document.getElementById('label_banner_cent').style.display = '';
-            document.getElementById('banner_price_cent').style.display = '';
-
-            $('#discountAmount').html('');
-            $('#amountDiscountMessage').html('');
-
-            if (show == "not") {
-                document.getElementById('banner_price_int').value = '';
-            }
-
-            document.getElementById('banner_price_int').setAttribute('maxlength', 5);
+        if (cat == 3) {
+            $('#generalCategoryBlock').addClass('hidden');
+            $('#listingDealsCategoryBlock').addClass('hidden');
+            $('#eventCategoryBlock').removeClass('hidden');
+            $('#blogCategoryBlock').addClass('hidden');
+            $('#globalCategoryBlock').addClass('hidden');
         }
+        if (cat == 4) {
+            $('#generalCategoryBlock').addClass('hidden');
+            $('#listingDealsCategoryBlock').addClass('hidden');
+            $('#eventCategoryBlock').addClass('hidden');
+            $('#blogCategoryBlock').removeClass('hidden');
+            $('#globalCategoryBlock').addClass('hidden');
+        }
+        if (cat == 5) {
+            $('#generalCategoryBlock').addClass('hidden');
+            $('#listingDealsCategoryBlock').addClass('hidden');
+            $('#eventCategoryBlock').addClass('hidden');
+            $('#blogCategoryBlock').addClass('hidden');
+            $('#globalCategoryBlock').removeClass('hidden');
+        }
+    }
+
+    function selectChanger() {
+      if ( $('#banner_type').val() ) {
+        $('#descriptionLines').removeClass('hidden');
+        $('#file_image').addClass('hidden');
+        $('#scriptBanner').addClass('hidden');
+        $('#displayURLblock').removeClass('hidden');
       }
-
+      if ( $('#banner_type').val() == 0 ) {
+        $('#descriptionLines').addClass('hidden');
+        $('#file_image').removeClass('hidden');
+        $('#scriptBanner').removeClass('hidden');
+        $('#displayURLblock').addClass('hidden');
+      }
+    }
 </script>
 @endsection

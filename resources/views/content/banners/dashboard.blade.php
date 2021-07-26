@@ -21,7 +21,9 @@
         <tr>
             <th scope="row">{{ $banner->id }}</th>
             <td>{{ $banner->caption }}</td>
-            <td>{{ $banner->banner_type }}</td>
+
+            @php ( $bannerNames = array(0 => 'Leaderboard', 1 => 'Sponsored Links') )
+            <td>{{ $bannerNames[$banner->banner_type] }}</td>
             <td>
             <form method="POST" action="{{ route('banners.destroy', $banner) }}">
             <a href="{{ route('banners.edit', $banner) }}"><button type="button" class="btn-sm btn-secondary">Edit</button></a>

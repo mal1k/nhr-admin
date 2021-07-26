@@ -28,10 +28,17 @@ class CreateBannersTable extends Migration
 
             $table->string('banner_section')->nullable();
             $table->string('banner_category')->nullable();
+
+            $table->string('generalCategory')->nullable();
+            $table->string('listingDealsCategory')->nullable();
+            $table->string('eventCategory')->nullable();
+            $table->string('blogCategory')->nullable();
+            $table->string('globalCategory')->nullable();
             $table->boolean('banner_new_window')->nullable();
             $table->string('banner_url')->nullable();
             $table->string('banner_script_checkbox')->nullable();
             $table->text('banner_script_textarea')->nullable();
+            $table->string('banner_destinational_url')->nullable();
             $table->string('banner_display_url', 30)->nullable();
 
             $table->string('promotional_code')->nullable();
