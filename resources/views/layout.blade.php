@@ -140,14 +140,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link @if(app()->view->getSections()['title'] == 'Banners')
-                                active
-                                @endif" href="{{ route('banners.index') }}">
-            <svg aria-hidden="true" width="20" height="20" focusable="false" data-prefix="fas" data-icon="address-book" class="svg-inline--fa fa-address-book fa-w-14 fa-1x nav-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M436 160c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h320c26.5 0 48-21.5 48-48v-48h20c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20v-64h20c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20v-64h20zm-228-32c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm112 236.8c0 10.6-10 19.2-22.4 19.2H118.4C106 384 96 375.4 96 364.8v-19.2c0-31.8 30.1-57.6 67.2-57.6h5c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h5c37.1 0 67.2 25.8 67.2 57.6v19.2z"></path></svg>
-            Banners
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link @if(app()->view->getSections()['title'] == 'Deals')
                                 active
                                 @endif" href="{{ route('deals.index') }}">
@@ -156,11 +148,27 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link @if(app()->view->getSections()['title'] == 'Banners')
+                                active
+                                @endif" href="{{ route('banners.index') }}">
+            <svg aria-hidden="true" width="20" height="20" focusable="false" data-prefix="fas" data-icon="address-book" class="svg-inline--fa fa-address-book fa-w-14 fa-1x nav-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M436 160c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h320c26.5 0 48-21.5 48-48v-48h20c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20v-64h20c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-20v-64h20zm-228-32c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm112 236.8c0 10.6-10 19.2-22.4 19.2H118.4C106 384 96 375.4 96 364.8v-19.2c0-31.8 30.1-57.6 67.2-57.6h5c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h5c37.1 0 67.2 25.8 67.2 57.6v19.2z"></path></svg>
+            Banners
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link @if(app()->view->getSections()['title'] == 'Events')
                                 active
                                 @endif" href="{{ route('events.index') }}">
             <svg aria-hidden="true" width="20" height="20" focusable="false" data-prefix="fas" data-icon="calendar" class="svg-inline--fa fa-calendar fa-w-14 fa-1x nav-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm436-44v-36c0-26.5-21.5-48-48-48h-48V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H160V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v36c0 6.6 5.4 12 12 12h424c6.6 0 12-5.4 12-12z"></path></svg>
             Events
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link @if(app()->view->getSections()['title'] == 'Blog')
+                                active
+                                @endif" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><path fill="currentColor" d="M203.2,0c-6-0.2-11.1,4.7-11.1,10.9v42.3c0,6,4.7,10.7,10.7,10.7v0.4c133,5.1,239.9,112.1,245,245h0.4   c0,6,4.7,10.7,10.7,10.7h42.3c6.2,0,11.1-5.1,10.9-11.1C506.2,141.1,370.9,5.8,203.2,0z M203.2,106.7c-6-0.2-11.1,4.9-11.1,10.9   v42.3c0,6,4.7,10.7,10.7,10.7v0.6c74.1,4.9,133.2,64,138.1,138.1h0.6c0,6,4.7,10.7,10.7,10.7h42.3c6,0,11.1-5.1,10.9-11.1   C399.5,200,312,112.5,203.2,106.7z M10.7,127.8c-6,0-10.7,4.7-10.7,10.7v234.8C0,449.7,62.3,512,138.7,512s138.7-62.3,138.7-138.7   s-62.3-138.7-138.7-138.7c-6,0-10.7,4.7-10.7,10.7v64c0,6,4.7,10.7,10.7,10.7c29.4,0,53.4,23.9,53.4,53.4s-23.9,53.4-53.4,53.4   s-53.4-23.9-53.4-53.4V138.5c0-6-4.7-10.7-10.7-10.7H10.7z"/></g></svg>
+            Blog
             </a>
           </li>
         </ul>
