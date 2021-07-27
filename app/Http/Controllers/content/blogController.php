@@ -44,7 +44,7 @@ class blogController extends Controller
                 $blog->update([ 'image_cover' => $path ]);
             }
 
-            return redirect()->route('blog.index')->withSuccess('Created post "' . $request->caption . '"');
+            return redirect()->route('blog.index')->withSuccess('Created post "' . $request->title . '"');
         }
 
     public function edit(Blog $blog)
