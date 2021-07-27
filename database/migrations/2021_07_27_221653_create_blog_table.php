@@ -14,6 +14,7 @@ class CreateBlogTable extends Migration
     public function up()
     {
         Schema::create('blog', function (Blueprint $table) {
+            $table->id();
 
             $table->string('title')->nullable();
             $table->json('categories')->nullable();
@@ -29,7 +30,6 @@ class CreateBlogTable extends Migration
             $table->string('image_logo')->nullable();
             $table->string('image_cover')->nullable();
 
-            $table->id();
             $table->timestamps();
         });
     }
