@@ -23,8 +23,8 @@
             <td>{{ $post->status }}</td>
             <td>{{ $post->categories }}</td>
             <td>
-            <form method="POST" action="{{ route('blog.destroy', $blog) }}">
-            <a href="{{ route('blog.edit', $blog) }}"><button type="button" class="btn-sm btn-secondary">Edit</button></a>
+            <form method="POST" action="{{ route('blog.destroy', $post) }}">
+            <a href="{{ route('blog.edit', $post) }}"><button type="button" class="btn-sm btn-secondary">Edit</button></a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn-sm btn-danger">Delete</button>
