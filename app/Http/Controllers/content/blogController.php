@@ -27,18 +27,23 @@ class blogController extends Controller
     public function store(Request $request)
         {
             $validated = $request->validate([
-                'caption' => 'required|max:255',
+                'title' => 'required|max:255',
             ]);
 
-
-            $banner = Blog::create($request->all()); // create banner
+            $blog = Blog::create($request->all()); // create blog
 
             // attach file
-            if ( isset($request->file_image) ) { // update image
-                $path = $request->file('file_image')->store('uploads/banners', 'public'); // upload image
-                $banner->update([ 'file_image' => $path ]);
+            if ( isset($request->image_logo) ) { // update image
+                $path = $request->file('image_logo')->store('uploads/blog/logo', 'public'); // upload logo
+                $blog->update([ 'image_logo' => $path ]);
             }
 
-            return redirect()->route('banners.index')->withSuccess('Created banner "' . $request->caption . '"');
+            // attach file
+            if ( isset($request->image_cover) ) { // update image
+                $path = $request->file('image_cover')->store('uploads/blog/cover', 'public'); // upload cover
+                $blog->update([ 'image_cover' => $path ]);
+            }
+
+            return redirect()->route('blog.index')->withSuccess('Created post "' . $request->caption . '"');
         }
 }
