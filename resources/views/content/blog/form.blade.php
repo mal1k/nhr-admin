@@ -39,15 +39,47 @@
 
       <div class="mb-2 col-12">
         <label for="categories" class="form-label mt-2 mb-1">Categories || <b>WAITING FOR RESPONSE</b></label>
-        <select name="categories[]" class="form-select select" multiple>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-          <option value="4">Four</option>
-          <option value="5">Five</option>
-          <option value="6">Six</option>
-          <option value="7">Seven</option>
-          <option value="8">Eight</option>
+        <select name="categories[]" class="form-select select" multiple="multiple">
+          <option @if ( isset( $blog->categories ) )
+                @if ( in_array(1, $blog->categories) )
+                  selected
+                @endif
+              @endif value="1">One</option>
+          <option @if ( isset( $blog->categories ) )
+                @if ( in_array(2, $blog->categories) )
+                  selected
+                @endif
+              @endif value="2">Two</option>
+          <option @if ( isset( $blog->categories ) )
+                @if ( in_array(3, $blog->categories) )
+                  selected
+                @endif
+              @endif value="3">Three</option>
+          <option @if ( isset( $blog->categories ) )
+                @if ( in_array(4, $blog->categories) )
+                  selected
+                @endif
+              @endif value="4">Four</option>
+          <option @if ( isset( $blog->categories ) )
+                @if ( in_array(5, $blog->categories) )
+                  selected
+                @endif
+              @endif value="5">Five</option>
+          <option @if ( isset( $blog->categories ) )
+                @if ( in_array(6, $blog->categories) )
+                  selected
+                @endif
+              @endif value="6">Six</option>
+          <option @if ( isset( $blog->categories ) )
+                @if ( in_array(7, $blog->categories) )
+                  selected
+                @endif
+              @endif value="7">Seven</option>
+          <option @if ( isset( $blog->categories ) )
+                @if ( in_array(8, $blog->categories) )
+                  selected
+                @endif
+              @endif value="8">Eight</option>
         </select>
       </div>
 
