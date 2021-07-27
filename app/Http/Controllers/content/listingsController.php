@@ -29,7 +29,7 @@ class listingsController extends Controller
                 'title' => 'required|max:255',
             ]);
 
-            // return dd($request->file());
+
             $listing = Listings::create($request->all()); // create listing
 
             // upload gallery

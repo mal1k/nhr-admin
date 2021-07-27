@@ -30,7 +30,7 @@ class bannersController extends Controller
                 'caption' => 'required|max:255',
             ]);
 
-            // return dd($request->file());
+
             $banner = Banners::create($request->all()); // create banner
 
             // attach file

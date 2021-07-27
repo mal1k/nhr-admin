@@ -30,7 +30,7 @@ class eventsController extends Controller
                 'title' => 'required|max:255',
             ]);
 
-            // return dd($request->file());
+
             $event = Events::create($request->all()); // create event
 
             // upload gallery
