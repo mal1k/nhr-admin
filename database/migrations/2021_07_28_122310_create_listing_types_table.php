@@ -32,7 +32,7 @@ class CreateListingTypesTable extends Migration
             $table->string('extra_checkbox_fields_tooltip')->nullable();
 
             $table->string('extra_dropdown_fields_label')->nullable();
-            $table->string('extra_dropdown_fields_dropdown_items')->nullable();
+            $table->text('extra_dropdown_fields_dropdown_items')->nullable();
             $table->string('extra_dropdown_fields_tooltip')->nullable();
             $table->string('extra_dropdown_fields_checkbox')->nullable();
 
