@@ -27,36 +27,39 @@ class listingTypesController extends Controller
 
             listingTypes::create($request->all()); // create listingTypes
 
-            return redirect()->route('listingTypes.index')->withSuccess('Created listing type "' . $request->title . '"');
+            return redirect()->route('listing-types.index')->withSuccess('Created listing type "' . $request->title . '"');
         }
 
-    public function edit(listingTypes $listingTypes)
+    public function edit(listingTypes $listingType)
         {
-            return view('content.listingTypes.form', compact('listingTypes'));
+            return view('content.listingTypes.form', compact('listingType'));
         }
 
-    public function update(Request $request, listingTypes $listingTypes)
+    public function update(Request $request, listingTypes $listingType)
         {
             $validated = $request->validate([
                 'title' => 'required|max:255',
             ]);
 
-            $listingTypes->update($request->all()); // update listingTypes
+            $listingType->update($request->all()); // update listingType
 
-            if ( empty($request->front) )
-                $listingTypes->update([ 'front' => null ]);
+            if ( empty($request->extra_dropdown_fields_checkbox) )
+                $listingType->update([ 'extra_dropdown_fields_checkbox' => null ]);
+            if ( empty($request->extra_text_fields_checkbox) )
+                $listingType->update([ 'extra_text_fields_checkbox' => null ]);
+            if ( empty($request->extra_short_description_fields_checkbox) )
+                $listingType->update([ 'extra_short_description_fields_checkbox' => null ]);
+            if ( empty($request->extra_long_description_fields_checkbox) )
+                $listingType->update([ 'extra_long_description_fields_checkbox' => null ]);
 
-            if ( empty($request->sponsors) )
-                $listingTypes->update([ 'sponsors' => null ]);
 
-
-            return redirect()->route('listingTypes.index')->withSuccess('Updated listing type "' . $request->title . '"');
+            return redirect()->route('listing-types.index')->withSuccess('Updated listing type "' . $request->title . '"');
         }
 
-    public function destroy(listingTypes $listingTypes)
+    public function destroy(listingTypes $listingType)
         {
-            $listingTypes->delete();
-            return redirect()->route('listingTypes.index')->withDanger('Deleted listingTypes "' . $listingTypes->question . '"');
+            $listingType->delete();
+            return redirect()->route('listing-types.index')->withDanger('Deleted listing type "' . $listingType->title . '"');
         }
 }
 
