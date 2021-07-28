@@ -179,6 +179,13 @@
             FAQ
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link @if(app()->view->getSections()['title'] == 'Listing Types')
+                                active
+                                @endif" href="{{ route('listing_types.index') }}">
+            Listing Types
+            </a>
+          </li>
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
