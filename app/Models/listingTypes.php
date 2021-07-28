@@ -35,4 +35,7 @@ class listingTypes extends Model
     'extra_long_description_fields_tooltip',
     'extra_long_description_fields_checkbox'
     ];
+    protected $casts = [
+        'categories' => 'array',
+    ];
 }
