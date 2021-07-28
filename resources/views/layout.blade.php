@@ -182,7 +182,7 @@
           <li class="nav-item">
             <a class="nav-link @if(app()->view->getSections()['title'] == 'Listing Types')
                                 active
-                                @endif" href="{{ route('listing_types.index') }}">
+                                @endif" href="#">
             Listing Types
             </a>
           </li>
