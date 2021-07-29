@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/manager/listing-types', listingTypesController::class);
         Route::resource('/manager/export', exportController::class);
         Route::post('/manager/export/cloud/export', [exportController::class, 'cloudexport'])->name('export.cloudexport');
+        Route::post('/manager/export/local/export', [exportController::class, 'localexport'])->name('export.localexport');
     });
 });
 
