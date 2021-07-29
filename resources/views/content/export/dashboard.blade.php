@@ -74,7 +74,19 @@
                 @foreach ($exportList as $item)
                 <tr>
                     <td>{{ $item->filename }}</td>
-                    <td>null</td>
+                    <td>
+                      @php
+                        $units = ['B','KB','MB','GB','TB'];
+                        $step = 1024;
+                        $i = 0;
+                        while (($item->filesize / $step) > 1) {
+                            $item->filesize = $item->filesize / $step;
+                            $i++;
+                        }
+                        $filesize = round($item->filesize, 2).' '.$units[$i];
+                      @endphp
+                      {{ $filesize }}
+                    </td>
                     <td>{{ $item->created_at }}</td>
                     <td>
                       <a class="btn btn-primary btn-sm" href="{{ route("export.downloadfile", $item->filename) }}">Download</a>
