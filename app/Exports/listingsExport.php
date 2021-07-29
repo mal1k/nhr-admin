@@ -3,9 +3,10 @@
 namespace App\Exports;
 
 use App\Models\Listings;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class listingsExport implements FromCollection
+class listingsExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
