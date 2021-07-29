@@ -179,6 +179,13 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link @if(app()->view->getSections()['title'] == 'Export')
+                                active
+                                @endif" href="{{ route('export.index') }}">
+            Export
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link @if(app()->view->getSections()['title'] == 'FAQ')
                                 active
                                 @endif" href="{{ route('faq.index') }}">
