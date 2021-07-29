@@ -39,4 +39,12 @@ class exportController extends Controller
         return Excel::download(new $classname, $filename.'.csv');
     }
 
+    public function download_file($filename)
+    {
+    	$filePath = storage_path("app/exportContent/$filename");
+    	$headers = ['Content-Type: text/csv'];
+
+    	return response()->download($filePath, $filename, $headers);
+    }
+
 }
