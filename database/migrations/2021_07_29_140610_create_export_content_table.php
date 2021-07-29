@@ -15,6 +15,10 @@ class CreateExportContentTable extends Migration
     {
         Schema::create('export_content', function (Blueprint $table) {
             $table->id();
+
+            $table->string('filename');
+            $table->double('filesize');
+
             $table->timestamps();
         });
     }
