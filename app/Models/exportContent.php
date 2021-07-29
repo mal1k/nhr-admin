@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class exportContent extends Model
 {
     use HasFactory;
+    protected $table = 'export_content';
+    protected $fillable = [
+    'filename',
+    'filesize'
+    ];
 }
