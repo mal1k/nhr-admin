@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\content;
 
-use App\Exports\bannersExport;
-use App\Exports\faqExport;
-
 use App\Http\Controllers\Controller;
 use App\Models\exportContent;
 use Illuminate\Http\Request;
@@ -43,7 +40,6 @@ class exportController extends Controller
     {
     	$filePath = storage_path("app/exportContent/$filename");
     	$headers = ['Content-Type: text/csv'];
-
     	return response()->download($filePath, $filename, $headers);
     }
 
