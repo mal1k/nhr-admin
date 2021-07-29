@@ -20,12 +20,14 @@ class exportController extends Controller
         $filename = $name . '_' . date('d-m-Y_H-i-s').'.csv';
         $classname = "App\Exports\\" . $request->category;
 
+        Excel::store(new $classname, 'exportContent/'.$filename, 'local');
+
+        $size = filesize(storage_path("app/exportContent/$filename"));
+
         exportContent::create([
             'filename' => $filename,
-            'filesize' => 123,
+            'filesize' => $size,
         ]);
-
-        Excel::store(new $classname, 'exportContent/'.$filename, 'local');
 
         return redirect()->route('export.index')->withSuccess('Created export file "' . $filename . '" on server');
     }
