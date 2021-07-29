@@ -70,21 +70,19 @@
                 </tr>
             </thead>
             <tbody>
+              @isset($exportList)
+                @foreach ($exportList as $item)
                 <tr>
-                    <td>export_Listing_3ac4aef6b244e5fb3b200cc3d4c459fa</td>
-                    <td>1.21 Mb</td>
-                    <td>03/02/2021 - 09:24:21</td>
+                    <td>{{ $item->filename }}</td>
+                    <td>null</td>
+                    <td>{{ $item->created_at }}</td>
                     <td>
-                        <a class="btn btn-primary btn-sm" href="#">Download</a>
-                        <!-- @isset ($event) -->
-                        <form class="col" method="POST" action="{{ route('export.destroy', $event) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger mb-3">Delete</button>
-                        </form>
-                        <!-- @endisset -->
+                      <a class="btn btn-primary btn-sm" href="{{ route("export.downloadfile", $item->filename) }}">Download</a>
+                      <a class="btn btn-danger btn-sm" href="{{ route('export.deletefile', $item->filename) }}">Delete</a>
                     </td>
                 </tr>
+                @endforeach
+              @endisset
             </tbody>
         </table>
     </div>
