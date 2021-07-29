@@ -43,13 +43,13 @@
 
         <label for="categories" class="form-label mt-2 mb-1">{{ __('Export Backup file') }}</b></label>
         <select name="category" class="form-select select">
-            <option value="listings">Listings</option>
-            <option value="deals">Deals</option>
-            <option value="banners">Banners</option>
-            <option value="events">Events</option>
-            <option value="blog">Blog</option>
-            <option value="listing_types">Listing Types</option>
-            <option value="faq">FAQ</option>
+            <option value="Listings">Listings</option>
+            <option value="Deals">Deals</option>
+            <option value="bannersExport">Banners</option>
+            <option value="Events">Events</option>
+            <option value="Blog">Blog</option>
+            <option value="ListingTypes">Listing Types</option>
+            <option value="faqExport">FAQ</option>
         </select>
 
       <div class="mt-2 col-12">
