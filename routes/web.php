@@ -8,6 +8,7 @@ use App\Http\Controllers\customers\businessController;
 use App\Http\Controllers\content\listingsController;
 use App\Http\Controllers\content\dealsController;
 use App\Http\Controllers\content\eventsController;
+use App\Http\Controllers\content\exportController;
 use App\Http\Controllers\content\faqController;
 use App\Http\Controllers\content\listingTypesController;
 
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/manager/blog', blogController::class);
         Route::resource('/manager/faq', faqController::class);
         Route::resource('/manager/listing-types', listingTypesController::class);
+        Route::resource('/manager/export', exportController::class);
     });
 });
 
