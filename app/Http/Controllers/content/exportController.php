@@ -4,6 +4,7 @@ namespace App\Http\Controllers\content;
 
 use App\Http\Controllers\Controller;
 use App\Models\exportContent;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -26,7 +27,7 @@ class exportController extends Controller
 
         Excel::store(new $classname, 'exportContent/'.$filename, 'local');
 
-        return redirect()->route('export.index')->withSuccess('Created export file "' . $request->category . '" on server');
+        return redirect()->route('export.index')->withSuccess('Created export file "' . $filename . '" on server');
     }
 
     public function localexport(Request $request) {
@@ -42,5 +43,12 @@ class exportController extends Controller
     	$headers = ['Content-Type: text/csv'];
     	return response()->download($filePath, $filename, $headers);
     }
+
+    public function delete_file($filename)
+        {
+            unlink(storage_path("app/exportContent/$filename"));
+            exportContent::where('filename', $filename)->delete();
+            return redirect()->route('export.index')->withDanger('Deleted file "' . $filename . '"');
+        }
 
 }
