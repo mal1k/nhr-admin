@@ -17,8 +17,8 @@
 
         <label for="category" class="form-label mt-2 mb-1">{{ __('Export on eDirectory format') }}</b></label>
         <select name="category" class="form-select select">
-            <option value="listings">Listings</option>
-            <option value="deals">Deals</option>
+            <option value="listingsExport">Listings</option>
+            <option value="dealsExport">Deals</option>
             <!-- <option value="banners">Banners</option>
             <option value="events">Events</option>
             <option value="blog">Blog</option>
@@ -43,12 +43,12 @@
 
         <label for="categories" class="form-label mt-2 mb-1">{{ __('Export Backup file') }}</b></label>
         <select name="category" class="form-select select">
-            <option value="Listings">Listings</option>
-            <option value="Deals">Deals</option>
+            <option value="listingsExport">Listings</option>
+            <option value="dealsExport">Deals</option>
             <option value="bannersExport">Banners</option>
-            <option value="Events">Events</option>
-            <option value="Blog">Blog</option>
-            <option value="ListingTypes">Listing Types</option>
+            <option value="eventsExport">Events</option>
+            <option value="blogExport">Blog</option>
+            <option value="listingTypesExport">Listing Types</option>
             <option value="faqExport">FAQ</option>
         </select>
 
