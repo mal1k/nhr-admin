@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/manager/export/cloud/export', [exportController::class, 'cloudexport'])->name('export.cloudexport');
         Route::post('/manager/export/local/export', [exportController::class, 'localexport'])->name('export.localexport');
         Route::get('/manager/export/download/{filename}', [exportController::class, 'download_file'])->name('export.downloadfile');
+        Route::get('/manager/export/delete/{filename}', [exportController::class, 'delete_file'])->name('export.deletefile');
     });
 });
 
