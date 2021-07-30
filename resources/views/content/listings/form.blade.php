@@ -215,6 +215,7 @@
         </label>
 
         <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+            @isset ($listing->basic_keywords)
             @php
                 if ( is_array($listing->basic_keywords) ) {
                     $basic_keywords = $listing->basic_keywords;
@@ -222,6 +223,8 @@
                     $basic_keywords = json_decode($listing->basic_keywords);
                 }
             @endphp
+            @endisset
+
 
             @isset($basic_keywords)
                 @foreach($basic_keywords as $value)
@@ -324,6 +327,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="list-features" style="display:flex; flex-wrap: wrap; font-family:Roboto,FontAwesome,Arial,sans-serif; font-style:normal">
+                        @isset ($listing->features)
                         @php
                             if ( is_array($listing->features) ) {
                                 $features = $listing->features;
@@ -331,6 +335,7 @@
                                 $features = json_decode($listing->features);
                             }
                         @endphp
+                        @endisset
 
                       @isset ($features)
                         @foreach ( $features as $item )
@@ -440,6 +445,7 @@
         <div class="form-group row">
           <div class="col-md-12">
               <div class="list-hours-work">
+                @isset ($listing->hours_work)
                 @php
                     if ( is_array($listing->hours_work) ) {
                         $hours_work = $listing->hours_work;
@@ -447,6 +453,7 @@
                         $hours_work = json_decode($listing->hours_work);
                     }
                 @endphp
+                @endisset
 
                 @isset ($hours_work)
                     @foreach ( $hours_work as $item )
@@ -628,6 +635,7 @@
         <div class="col-12">
             Gallery (multiple images):<br>
             <input type="file" multiple name="image_gallery[]">
+            @isset ($listing->image_gallery)
             @php
                 if ( is_array($listing->image_gallery) ) {
                     $image_gallery = $listing->image_gallery;
@@ -635,6 +643,7 @@
                     $image_gallery = json_decode($listing->image_gallery);
                 }
             @endphp
+            @endisset
 
             @isset ($image_gallery)
                  @foreach ($image_gallery as $item)
