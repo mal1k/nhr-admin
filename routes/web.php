@@ -10,6 +10,7 @@ use App\Http\Controllers\content\dealsController;
 use App\Http\Controllers\content\eventsController;
 use App\Http\Controllers\content\exportController;
 use App\Http\Controllers\content\faqController;
+use App\Http\Controllers\content\importController;
 use App\Http\Controllers\content\listingTypesController;
 
 /*
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/manager/export/local/export', [exportController::class, 'localexport'])->name('export.localexport');
         Route::get('/manager/export/download/{filename}', [exportController::class, 'download_file'])->name('export.downloadfile');
         Route::get('/manager/export/delete/{filename}', [exportController::class, 'delete_file'])->name('export.deletefile');
+        Route::resource('/manager/import', importController::class);
     });
 });
 

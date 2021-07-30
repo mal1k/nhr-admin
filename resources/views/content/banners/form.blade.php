@@ -123,10 +123,10 @@
 
             {{-- general categories --}}
             <div id="generalCategoryBlock">
-              <select id="generalCategory" name="generalCategory" class="input-dd-form-banner form-select">
+              <select id="generalCategory" name="general_category" class="input-dd-form-banner form-select">
                 @foreach ($generalCategory as $num => $name)
                 <span class="mr-3">
-                    <option {{ old('generalCategory', isset( $banner->generalCategory ) && ( $banner->generalCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                    <option {{ old('general_category', isset( $banner->general_category ) && ( $banner->general_category == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
                 </span>
                 @endforeach
               </select>
@@ -134,10 +134,10 @@
 
             {{-- listing/deals categories --}}
             <div id="listingDealsCategoryBlock" class='hidden'>
-              <select id="listingDealsCategory" name="listingDealsCategory" class="input-dd-form-banner form-select">
+              <select id="listingDealsCategory" name="listing_deals_category" class="input-dd-form-banner form-select">
                 @foreach ($listingDealsCategory as $num => $name)
                 <span class="mr-3">
-                    <option {{ old('listingDealsCategory', isset( $banner->listingDealsCategory ) && ( $banner->listingDealsCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                    <option {{ old('listing_deals_category', isset( $banner->listing_deals_category ) && ( $banner->listing_deals_category == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
                 </span>
                 @endforeach
               </select>
@@ -145,7 +145,7 @@
 
             {{-- event categories --}}
             <div id="eventCategoryBlock" class='hidden'>
-              <select id="eventCategory" name="eventCategory" class="input-dd-form-banner form-select">
+              <select id="eventCategory" name="event_category" class="input-dd-form-banner form-select">
                 @foreach ($eventCategory as $num => $name)
                 <span class="mr-3">
                     <option {{ old('eventCategory', isset( $banner->eventCategory ) && ( $banner->eventCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
@@ -156,10 +156,10 @@
 
             {{-- blog categories --}}
             <div id="blogCategoryBlock" class='hidden'>
-              <select id="blogCategory" name="blogCategory" class="input-dd-form-banner form-select">
+              <select id="blogCategory" name="blog_category" class="input-dd-form-banner form-select">
                 @foreach ($blogCategory as $num => $name)
                 <span class="mr-3">
-                    <option {{ old('blogCategory', isset( $banner->blogCategory ) && ( $banner->blogCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                    <option {{ old('blog_category', isset( $banner->blog_category ) && ( $banner->blog_category == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
                 </span>
                 @endforeach
               </select>
@@ -167,10 +167,10 @@
 
             {{-- global categories --}}
             <div id="globalCategoryBlock" class='hidden'>
-              <select id="globalCategory" name="globalCategory" class="input-dd-form-banner form-select">
+              <select id="globalCategory" name="global_category" class="input-dd-form-banner form-select">
                 @foreach ($globalCategory as $num => $name)
                 <span class="mr-3">
-                    <option {{ old('globalCategory', isset( $banner->globalCategory ) && ( $banner->globalCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                    <option {{ old('global_category', isset( $banner->global_category ) && ( $banner->global_category == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
                 </span>
                 @endforeach
               </select>

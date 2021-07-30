@@ -16,7 +16,7 @@ class CreateBannersTable extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
 
-            $table->boolean('banner_type')->nullable();
+            $table->string('banner_type')->nullable();
             $table->string('caption', 25)->nullable();
 
             $table->string('description_line', 30)->nullable();
@@ -29,11 +29,11 @@ class CreateBannersTable extends Migration
             $table->string('banner_section')->nullable();
             $table->string('banner_category')->nullable();
 
-            $table->string('generalCategory')->nullable();
-            $table->string('listingDealsCategory')->nullable();
-            $table->string('eventCategory')->nullable();
-            $table->string('blogCategory')->nullable();
-            $table->string('globalCategory')->nullable();
+            $table->string('general_category')->nullable();
+            $table->string('listing_deals_category')->nullable();
+            $table->string('event_category')->nullable();
+            $table->string('blog_category')->nullable();
+            $table->string('global_category')->nullable();
             $table->boolean('banner_new_window')->nullable();
             $table->string('banner_url')->nullable();
             $table->string('banner_script_checkbox')->nullable();
