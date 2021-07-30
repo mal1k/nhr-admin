@@ -140,15 +140,56 @@
 
       <div class="mb-2 col-12">
         <label for="basic_categories" class="form-label mt-2 mb-1">Categories || <b>WAITING FOR RESPONSE</b></label>
-        <select name="basic_categories[]" class="form-select select" multiple>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-          <option value="4">Four</option>
-          <option value="5">Five</option>
-          <option value="6">Six</option>
-          <option value="7">Seven</option>
-          <option value="8">Eight</option>
+        <select name="basic_categories[]" class="form-select select" multiple="multiple">
+            @isset ($listing->basic_categories)
+            @php
+            if ( is_array($listing->basic_categories) ) {
+                $categories = $listing->basic_categories;
+            } else {
+                $categories = json_decode($listing->basic_categories);
+            }
+            @endphp
+            @endisset
+          <option @if ( isset( $categories ) )
+                @if ( in_array(1, $categories) )
+                  selected
+                @endif
+              @endif value="1">One</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(2, $categories) )
+                  selected
+                @endif
+              @endif value="2">Two</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(3, $categories) )
+                  selected
+                @endif
+              @endif value="3">Three</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(4, $categories) )
+                  selected
+                @endif
+              @endif value="4">Four</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(5, $categories) )
+                  selected
+                @endif
+              @endif value="5">Five</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(6, $categories) )
+                  selected
+                @endif
+              @endif value="6">Six</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(7, $categories) )
+                  selected
+                @endif
+              @endif value="7">Seven</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(8, $categories) )
+                  selected
+                @endif
+              @endif value="8">Eight</option>
         </select>
       </div>
 
@@ -515,8 +556,18 @@
                 Keywords
             </label>
             <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                @isset($listing->seo_keywords)
-                    @foreach($listing->seo_keywords as $value)
+                @isset ($listing->seo_keywords)
+                @php
+                    if ( is_array($listing->seo_keywords) ) {
+                        $seo_keywords = $listing->seo_keywords;
+                    } else {
+                        $seo_keywords = json_decode($listing->seo_keywords);
+                    }
+                @endphp
+                @endisset
+
+                @isset($seo_keywords)
+                    @foreach($seo_keywords as $value)
                         <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                     @endforeach
                 @endisset
@@ -618,7 +669,7 @@
             Logo:<br>
             <input type="file" name="image_logo">
             @isset ($listing->image_logo)
-              <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_logo) }}"></span>
+              <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $listing->image_logo) }}"></span>
               <input name="image_logo_prev" type="hidden" value="{{ $listing->image_logo }}">
               <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
@@ -627,7 +678,7 @@
             Cover:<br>
             <input type="file" name="image_cover">
             @isset ($listing->image_cover)
-            <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
+            <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
             <input name="image_cover_prev" type="hidden" value="{{ $listing->image_cover }}">
             <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset

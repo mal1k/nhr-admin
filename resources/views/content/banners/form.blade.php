@@ -148,7 +148,7 @@
               <select id="eventCategory" name="event_category" class="input-dd-form-banner form-select">
                 @foreach ($eventCategory as $num => $name)
                 <span class="mr-3">
-                    <option {{ old('eventCategory', isset( $banner->eventCategory ) && ( $banner->eventCategory == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
+                    <option {{ old('eventCategory', isset( $banner->event_category ) && ( $banner->event_category == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
                 </span>
                 @endforeach
               </select>
@@ -183,7 +183,7 @@
             @php($months = array('No', 'Yes'))
               @foreach ($months as $num => $name)
               <span class="mr-3">
-                <input type="radio" name="banner_new_window" {{ old('banner_new_window', (isset( $banner->banner_new_window ) && ( $banner->banner_new_window == $num )) || (empty($banner) && 1 == $num )  ? 'checked' : '') }} value="{{ $num }}">{{ $name }}
+                <input type="radio" name="banner_new_window" {{ old('banner_new_window', (isset( $banner->banner_new_window ) && ( $banner->banner_new_window == $num )) || (empty($banner) && 1 == $num ) || (isset($banner) && $num != 1 )  ? 'checked' : '') }} value="{{ $num }}">{{ $name }}
               </span>
               @endforeach
           </div>

@@ -265,7 +265,7 @@
             Logo:<br>
             <input type="file" name="image_logo">
             @isset ($deal->image_logo)
-              <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $deal->image_logo) }}"></span>
+              <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $deal->image_logo) }}"></span>
               <input name="image_logo_prev" type="hidden" value="{{ $deal->image_logo }}">
               <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
@@ -274,7 +274,7 @@
             Cover:<br>
             <input type="file" name="image_cover">
             @isset ($deal->image_cover)
-            <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $deal->image_cover) }}"></span>
+            <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $deal->image_cover) }}"></span>
             <input name="image_cover_prev" type="hidden" value="{{ $deal->image_cover }}">
             <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset

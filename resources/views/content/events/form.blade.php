@@ -119,6 +119,7 @@
       <div class="mb-2 col-12">
         <label for="basic_categories" class="form-label mt-2 mb-1">Categories || <b>WAITING FOR RESPONSE</b></label>
         <select name="basic_categories[]" class="form-select select" multiple="multiple">
+            @isset ($event->basic_categories)
             @php
             if ( is_array($event->basic_categories) ) {
                 $categories = $event->basic_categories;
@@ -126,6 +127,7 @@
                 $categories = json_decode($event->basic_categories);
             }
             @endphp
+            @endisset
           <option @if ( isset( $categories ) )
                 @if ( in_array(1, $categories) )
                   selected
