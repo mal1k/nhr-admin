@@ -81,8 +81,16 @@
         </label>
 
         <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-            @isset($deal->basic_keywords)
-                @foreach($deal->basic_keywords as $value)
+            @php
+                if ( is_array($deal->basic_keywords) ) {
+                    $basic_keywords = $deal->basic_keywords;
+                } else {
+                    $basic_keywords = json_decode($deal->basic_keywords);
+                }
+            @endphp
+
+            @isset($basic_keywords)
+                @foreach($basic_keywords as $value)
                     <div class="multi-search-item"><span>{{ $value }}</span><input name="basic_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                 @endforeach
             @endisset
@@ -215,8 +223,16 @@
                 Keywords
             </label>
             <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                @isset($deal->seo_keywords)
-                    @foreach($deal->seo_keywords as $value)
+                @php
+                    if ( is_array($deal->seo_keywords) ) {
+                        $seo_keywords = $deal->seo_keywords;
+                    } else {
+                        $seo_keywords = json_decode($deal->seo_keywords);
+                    }
+                @endphp
+
+                @isset($seo_keywords)
+                    @foreach($seo_keywords as $value)
                         <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                     @endforeach
                 @endisset
