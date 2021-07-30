@@ -184,8 +184,18 @@
         </label>
 
         <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-            @isset($event->basic_keywords)
-                @foreach($event->basic_keywords as $value)
+            @isset ($event->image_gallery)
+            @php
+                if ( is_array($event->basic_keywords) ) {
+                    $basic_keywords = $event->basic_keywords;
+                } else {
+                    $basic_keywords = json_decode($event->basic_keywords);
+                }
+            @endphp
+            @endisset
+
+            @isset($basic_keywords)
+                @foreach($basic_keywords as $value)
                     <div class="multi-search-item"><span>{{ $value }}</span><input name="basic_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                 @endforeach
             @endisset
@@ -347,7 +357,7 @@
             <input type="number" id="day" name="event_recurring_every[days]" class="form-control" value="{{ old('event_recurring_every[days]', isset( $event->event_recurring_every['days'] ) ? $event->event_recurring_every['days'] : '') }}" maxlength="2">
             <span class="input-group-addon customized-addon">
               <span>of the Month</span>
-              @php($months = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'))
+              @php $months = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'); @endphp
               <select id="event_recurring_every_month" name="event_recurring_every[month]" class="input" style="">
                   @foreach ($months as $num => $name)
                     <option {{ old('event_recurring_every[month]', isset( $event->event_recurring_every['month'] ) && ( $event->event_recurring_every['month'] == $num ) ? 'selected' : '') }} value="{{ $num }}">{{ $name }}</option>
@@ -365,17 +375,27 @@
           </label>
           <div>
 
-            @php($last= 6)
-            @php($now = 0)
+            @php $last= 6; @endphp
+            @php $now = 0; @endphp
+
+            @isset ($event->event_recurring_dayofweek)
+            @php
+                if ( is_array($event->event_recurring_dayofweek) ) {
+                    $event_recurring_dayofweek = $event->event_recurring_dayofweek;
+                } else {
+                    $event_recurring_dayofweek = json_decode($event->event_recurring_dayofweek);
+                }
+            @endphp
+            @endisset
 
             @for ($i = $now; $i <=  $last; $i++)
-                <input type="checkbox" @isset($event->event_recurring_dayofweek) @if(in_array($i, $event->event_recurring_dayofweek)) checked @endif @endisset name="event_recurring_dayofweek[]" value="{{ $i }}">{{ jddayofweek($i-1, 2) }}</label>
+                <input type="checkbox" @isset($event_recurring_dayofweek) @if(in_array($i, $event_recurring_dayofweek)) checked @endif @endisset name="event_recurring_dayofweek[]" value="{{ $i }}">{{ jddayofweek($i-1, 2) }}</label>
             @endfor
           <div id="listOfRepeat">
           Week:
-            @php($listOfRepeat = array('First', 'Second', 'Third', 'Fourth', 'Last'))
+            @php $listOfRepeat = array('First', 'Second', 'Third', 'Fourth', 'Last'); @endphp
             @foreach ($listOfRepeat as $item)
-              <input type="checkbox" @isset($event->event_recurring_dayofweek) @if(in_array($item, $event->event_recurring_dayofweek)) checked @endif @endisset name="event_recurring_dayofweek[]" value="{{ $item }}">{{ $item }}</label>
+              <input type="checkbox" @isset($event_recurring_dayofweek) @if(in_array($item, $event_recurring_dayofweek)) checked @endif @endisset name="event_recurring_dayofweek[]" value="{{ $item }}">{{ $item }}</label>
             @endforeach
 
             <select id="event_recurring_every_once_month" name="event_recurring_every[every_month]" class="input" style="">
