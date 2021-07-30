@@ -45,7 +45,6 @@ class eventsExport implements FromCollection, WithHeadings
             'event_recurring_event',
             'event_recurring_repeat',
             'event_recurring_every',
-            'event_recurring_repeat',
             'event_recurring_ends_on',
             'event_recurring_dayofweek',
             'event_recurring_ends_on_until',
