@@ -81,6 +81,7 @@
         </label>
 
         <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+            @isset ($deal->basic_keywords)
             @php
                 if ( is_array($deal->basic_keywords) ) {
                     $basic_keywords = $deal->basic_keywords;
@@ -88,6 +89,7 @@
                     $basic_keywords = json_decode($deal->basic_keywords);
                 }
             @endphp
+            @endisset
 
             @isset($basic_keywords)
                 @foreach($basic_keywords as $value)
@@ -223,6 +225,7 @@
                 Keywords
             </label>
             <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+                @isset ($deal->seo_keywords)
                 @php
                     if ( is_array($deal->seo_keywords) ) {
                         $seo_keywords = $deal->seo_keywords;
@@ -230,6 +233,7 @@
                         $seo_keywords = json_decode($deal->seo_keywords);
                     }
                 @endphp
+                @endisset
 
                 @isset($seo_keywords)
                     @foreach($seo_keywords as $value)
