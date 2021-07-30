@@ -118,15 +118,54 @@
 
       <div class="mb-2 col-12">
         <label for="basic_categories" class="form-label mt-2 mb-1">Categories || <b>WAITING FOR RESPONSE</b></label>
-        <select name="basic_categories[]" class="form-select select" multiple>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-          <option value="4">Four</option>
-          <option value="5">Five</option>
-          <option value="6">Six</option>
-          <option value="7">Seven</option>
-          <option value="8">Eight</option>
+        <select name="basic_categories[]" class="form-select select" multiple="multiple">
+            @php
+            if ( is_array($event->basic_categories) ) {
+                $categories = $event->basic_categories;
+            } else {
+                $categories = json_decode($event->basic_categories);
+            }
+            @endphp
+          <option @if ( isset( $categories ) )
+                @if ( in_array(1, $categories) )
+                  selected
+                @endif
+              @endif value="1">One</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(2, $categories) )
+                  selected
+                @endif
+              @endif value="2">Two</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(3, $categories) )
+                  selected
+                @endif
+              @endif value="3">Three</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(4, $categories) )
+                  selected
+                @endif
+              @endif value="4">Four</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(5, $categories) )
+                  selected
+                @endif
+              @endif value="5">Five</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(6, $categories) )
+                  selected
+                @endif
+              @endif value="6">Six</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(7, $categories) )
+                  selected
+                @endif
+              @endif value="7">Seven</option>
+          <option @if ( isset( $categories ) )
+                @if ( in_array(8, $categories) )
+                  selected
+                @endif
+              @endif value="8">Eight</option>
         </select>
       </div>
 
@@ -269,13 +308,22 @@
 
         <label for="seo_page_name" class="form-label mt-2 mb-1">Start time</label>
         <div class="col-5 mb-2">
+            @isset ( $event->event_start_time )
+            @php
+                if ( is_array($event->event_start_time) ) {
+                    $event_start_time = $event->event_start_time;
+                } else {
+                    $event_start_time = json_decode($event->event_start_time, true);
+                }
+            @endphp
+            @endisset
 
             <select id="event_start_time[hours]" name="event_start_time[hours]" class="form-control ">
                 {{ $last= 12 }}
                 {{ $now = 1 }}
 
-                @for ($i = $now; $i <=  $last; $i++)
-                    <option value="{{ $i }}" {{ old('event_start_time[hours]', isset( $event->event_start_time['hours'] ) && ( $event->event_start_time['hours'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
+                @for ($i = $now; $i <= $last; $i++)
+                    <option value="{{ $i }}" {{ old('event_start_time[hours]', isset( $event_start_time['hours'] ) && ( $event_start_time['hours'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
                 @endfor
             </select>
         </div>
@@ -285,17 +333,17 @@
                 {{ $now = 00 }}
 
                 @for ($i = $now; $i <= $last; $i+=5)
-                    <option value="{{ $i }}" {{ old('event_start_time[minutes]', isset( $event->event_start_time['minutes'] ) && ( $event->event_start_time['minutes'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
+                    <option value="{{ $i }}" {{ old('event_start_time[minutes]', isset( $event_start_time['minutes'] ) && ( $event_start_time['minutes'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
                 @endfor
             </select>
         </div>
         <div class="col-2">
             <input type="radio" id="event_start_time[picker]"
-            name="event_start_time[picker]" value="AM" {{ old('event_start_time[picker]', isset( $event->event_start_time['picker'] ) && ( $event->event_start_time['picker'] == 'AM' ) ? 'checked' : '') }}>
+            name="event_start_time[picker]" value="AM" {{ old('event_start_time[picker]', isset( $event_start_time['picker'] ) && ( $event_start_time['picker'] == 'AM' ) ? 'checked' : '') }}>
             <label for="event_start_time[picker]">AM</label>
 
             <input type="radio" id="event_start_time[picker]"
-            name="event_start_time[picker]" value="PM" {{ old('event_start_time[picker]', isset( $event->event_start_time['picker'] ) && ( $event->event_start_time['picker'] == 'PM' ) ? 'checked' : '') }}>
+            name="event_start_time[picker]" value="PM" {{ old('event_start_time[picker]', isset( $event_start_time['picker'] ) && ( $event_start_time['picker'] == 'PM' ) ? 'checked' : '') }}>
             <label for="event_start_time[picker]">PM</label>
         </div>
 
@@ -303,11 +351,20 @@
         <div class="col-5 mb-2">
 
             <select id="event_end_time[hours]" name="event_end_time[hours]" class="form-control ">
+                @isset ( $event->event_end_time )
+                @php
+                    if ( is_array($event->event_end_time) ) {
+                        $event_end_time = $event->event_end_time;
+                    } else {
+                        $event_end_time = json_decode($event->event_end_time, true);
+                    }
+                @endphp
+                @endisset
                 {{ $last= 12 }}
                 {{ $now = 1 }}
 
                 @for ($i = $now; $i <=  $last; $i++)
-                    <option value="{{ $i }}" {{ old('event_end_time[hours]', isset( $event->event_end_time['hours'] ) && ( $event->event_end_time['hours'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
+                    <option value="{{ $i }}" {{ old('event_end_time[hours]', isset( $event_end_time['hours'] ) && ( $event_end_time['hours'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
                 @endfor
             </select>
         </div>
@@ -317,17 +374,17 @@
                 {{ $now = 00 }}
 
                 @for ($i = $now; $i <= $last; $i+=5)
-                    <option value="{{ $i }}" {{ old('event_end_time[minutes]', isset( $event->event_end_time['minutes'] ) && ( $event->event_end_time['minutes'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
+                    <option value="{{ $i }}" {{ old('event_end_time[minutes]', isset( $event_end_time['minutes'] ) && ( $event_end_time['minutes'] == $i ) ? 'selected' : '') }}>{{ $i }}</option>
                 @endfor
             </select>
         </div>
         <div class="col-2">
             <input type="radio" id="event_end_time[picker]"
-            name="event_end_time[picker]" value="AM" {{ old('event_end_time[picker]', isset( $event->event_end_time['picker'] ) && ( $event->event_end_time['picker'] == 'AM' ) ? 'checked' : '') }}>
+            name="event_end_time[picker]" value="AM" {{ old('event_end_time[picker]', isset( $event_end_time['picker'] ) && ( $event_end_time['picker'] == 'AM' ) ? 'checked' : '') }}>
             <label for="event_end_time[picker]">AM</label>
 
             <input type="radio" id="event_end_time[picker]"
-            name="event_end_time[picker]" value="PM" {{ old('event_end_time[picker]', isset( $event->event_end_time['picker'] ) && ( $event->event_end_time['picker'] == 'PM' ) ? 'checked' : '') }}>
+            name="event_end_time[picker]" value="PM" {{ old('event_end_time[picker]', isset( $event_end_time['picker'] ) && ( $event_end_time['picker'] == 'PM' ) ? 'checked' : '') }}>
             <label for="event_end_time[picker]">PM</label>
         </div>
 
@@ -449,8 +506,18 @@
                 Keywords
             </label>
             <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                @isset($event->seo_keywords)
-                    @foreach($event->seo_keywords as $value)
+                @isset ($event->seo_keywords)
+                @php
+                    if ( is_array($event->seo_keywords) ) {
+                        $seo_keywords = $event->seo_keywords;
+                    } else {
+                        $seo_keywords = json_decode($event->seo_keywords);
+                    }
+                @endphp
+                @endisset
+
+                @isset($seo_keywords)
+                    @foreach($seo_keywords as $value)
                         <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                     @endforeach
                 @endisset
@@ -486,8 +553,19 @@
         <div class="col-12">
             Gallery (multiple images):<br>
             <input type="file" multiple name="image_gallery[]">
+
             @isset ($event->image_gallery)
-                 @foreach ($event->image_gallery as $item)
+            @php
+                if ( is_array($event->image_gallery) ) {
+                    $image_gallery = $event->image_gallery;
+                } else {
+                    $image_gallery = json_decode($event->image_gallery);
+                }
+            @endphp
+            @endisset
+
+            @isset ($image_gallery)
+                 @foreach ($image_gallery as $item)
                     <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $item) }}"></span>
                     <input name="image_gallery_prev[]" type="hidden" value="{{ $item }}">
                     <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
