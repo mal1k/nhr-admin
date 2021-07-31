@@ -12,6 +12,7 @@ use App\Http\Controllers\content\exportController;
 use App\Http\Controllers\content\faqController;
 use App\Http\Controllers\content\importController;
 use App\Http\Controllers\content\listingTypesController;
+use App\Http\Controllers\content\referedByController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/manager/export/download/{filename}', [exportController::class, 'download_file'])->name('export.downloadfile');
         Route::get('/manager/export/delete/{filename}', [exportController::class, 'delete_file'])->name('export.deletefile');
         Route::resource('/manager/import', importController::class);
+        Route::resource('/manager/refered_by', referedByController::class);
     });
 });
 
