@@ -31,7 +31,7 @@
 
             <div class="mt-4">
                 <x-jet-label for="refered_by" value="{{ __('Refered by') }}" />
-                <x-jet-input id="refered_by" class="block mt-1 w-full" type="text" name="refered_by" />
+                <x-jet-input id="refered_by" class="block mt-1 w-full" type="text" name="refered_by" autocomplete="refered_by" />
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
