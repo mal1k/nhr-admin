@@ -20,12 +20,20 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        Validator::make($input, [
+
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
+            'refered_by' => ['exists:users,email'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
-        ])->validate();
+        ];
+
+        $customMessages = [
+            'exists' => 'This user is not found',
+        ];
+
+        Validator::make($input, $rules, $customMessages)->validate();
 
         return User::create([
             'name' => $input['name'],
@@ -34,4 +42,5 @@ class CreateNewUser implements CreatesNewUsers
             'refered_by' => $input['refered_by']
         ]);
     }
+
 }
