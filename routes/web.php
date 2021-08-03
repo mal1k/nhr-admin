@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\content\bannersController;
+use App\Http\Controllers\content\blogCategoriesController;
 use App\Http\Controllers\content\blogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\customers\UsersController;
@@ -41,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/manager/deals', dealsController::class);
         Route::resource('/manager/banners', bannersController::class);
         Route::resource('/manager/blog', blogController::class);
+        Route::resource('/manager/blog-categories', blogCategoriesController::class);
         Route::resource('/manager/faq', faqController::class);
         Route::resource('/manager/listing-types', listingTypesController::class);
         Route::resource('/manager/export', exportController::class);
