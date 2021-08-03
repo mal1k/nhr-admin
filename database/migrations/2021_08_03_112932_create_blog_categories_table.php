@@ -15,6 +15,25 @@ class CreateBlogCategoriesTable extends Migration
     {
         Schema::create('blog_categories', function (Blueprint $table) {
             $table->id();
+
+            $table->string('title');
+            $table->json('categories')->nullable();
+
+            $table->string('features_checkbox')->nullable();
+            $table->string('disable_checkbox')->nullable();
+
+            $table->string('main_category')->nullable();
+
+            $table->text('content')->nullable();
+
+            $table->string('seo_page_title')->nullable();
+            $table->string('seo_friendly_title')->nullable();
+            $table->json('seo_keywords')->nullable();
+            $table->string('seo_description')->nullable();
+
+            $table->string('image_logo')->nullable();
+            $table->string('image_icon')->nullable();
+
             $table->timestamps();
         });
     }
