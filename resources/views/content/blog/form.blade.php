@@ -40,6 +40,7 @@
       <div class="mb-2 col-12">
         <label for="categories" class="form-label mt-2 mb-1">Categories || <b>WAITING FOR RESPONSE</b></label>
         <select name="categories[]" class="form-select select" multiple="multiple">
+        @isset ($blog->categories)
         @php
             if ( is_array($blog->categories) ) {
                 $categories = $blog->categories;
@@ -47,46 +48,18 @@
                 $categories = json_decode($blog->categories);
             }
         @endphp
-          <option @if ( isset( $categories ) )
-                @if ( in_array(1, $categories) )
-                  selected
-                @endif
-              @endif value="1">One</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(2, $categories) )
-                  selected
-                @endif
-              @endif value="2">Two</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(3, $categories) )
-                  selected
-                @endif
-              @endif value="3">Three</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(4, $categories) )
-                  selected
-                @endif
-              @endif value="4">Four</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(5, $categories) )
-                  selected
-                @endif
-              @endif value="5">Five</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(6, $categories) )
-                  selected
-                @endif
-              @endif value="6">Six</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(7, $categories) )
-                  selected
-                @endif
-              @endif value="7">Seven</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(8, $categories) )
-                  selected
-                @endif
-              @endif value="8">Eight</option>
+        @endisset
+
+        @isset ( $blogCategories )
+          @foreach ( $blogCategories as $blogCategory )
+            <option
+            @if ( isset( $categories ) )
+              @if ( in_array($blogCategory->id, $categories) )
+                selected
+              @endif
+            @endif value="{{ $blogCategory->id }}">{{ $blogCategory->title }}</option>
+          @endforeach
+        @endisset
         </select>
       </div>
 
@@ -124,6 +97,7 @@
 
         <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
 
+            @isset ( $blog->keywords )
             @php
                 if ( is_array($blog->keywords) ) {
                     $keywords = $blog->keywords;
@@ -131,6 +105,7 @@
                     $keywords = json_decode($blog->keywords);
                 }
             @endphp
+            @endisset
 
             @isset($keywords)
                 @foreach($keywords as $value)
@@ -162,6 +137,7 @@
             </label>
             <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
 
+                @isset ( $blog->seo_keywords )
                 @php
                     if ( is_array($blog->seo_keywords) ) {
                         $seo_keywords = $blog->seo_keywords;
@@ -169,6 +145,7 @@
                         $seo_keywords = json_decode($blog->seo_keywords);
                     }
                 @endphp
+                @endisset
 
                 @isset($seo_keywords)
                     @foreach($seo_keywords as $value)
