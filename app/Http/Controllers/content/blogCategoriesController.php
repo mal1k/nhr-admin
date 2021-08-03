@@ -25,19 +25,19 @@ class blogCategoriesController extends Controller
                 'title' => 'required|max:255',
             ]);
 
-            $event = blogCategories::create($request->all()); // create category
+            $blog = blogCategories::create($request->all()); // create category
 
             if ( isset($request->image_logo) ) {
                 $path = $request->file('image_logo')->store('uploads/logo', 'public'); // upload logo image to server
-                $event->update([ 'image_logo' => $path ]);
+                $blog->update([ 'image_logo' => $path ]);
             }
 
             if ( isset($request->image_icon) ) {
                 $path = $request->file('image_icon')->store('uploads/cover', 'public'); // upload cover image to server
-                $event->update([ 'image_icon' => $path ]);
+                $blog->update([ 'image_icon' => $path ]);
             }
 
-            return redirect()->route('event-categories.index')->withSuccess('Created event category "' . $request->title . '"');
+            return redirect()->route('blog-categories.index')->withSuccess('Created blog category "' . $request->title . '"');
         }
 
     public function edit($id)
@@ -78,7 +78,7 @@ class blogCategoriesController extends Controller
             if ( empty($request->seo_keywords) )
                 $category->update([ 'seo_keywords' => null ]);
 
-            return redirect()->route('event-categories.index')->withSuccess('Updated event category "' . $request->title . '"');
+            return redirect()->route('blog-categories.index')->withSuccess('Updated blog category "' . $request->title . '"');
         }
 
     public function destroy($id)
@@ -86,7 +86,7 @@ class blogCategoriesController extends Controller
             $category = blogCategories::where('id',  '=', $id)->first();
             $category->delete();
 
-            return redirect()->route('event-categories.index')->withDanger('Deleted event category "' . $category->title . '"');
+            return redirect()->route('blog-categories.index')->withDanger('Deleted blog category "' . $category->title . '"');
 
         }
 }
