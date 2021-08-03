@@ -151,14 +151,16 @@
             @endphp
             @endisset
 
-            @foreach ( $listingCategories as $listingCategory )
+            @isset ( $listingCategories )
+              @foreach ( $listingCategories as $listingCategory )
                 <option
                 @if ( isset( $categories ) )
                   @if ( in_array($listingCategory->id, $categories) )
                     selected
                   @endif
                 @endif value="{{ $listingCategory->id }}">{{ $listingCategory->title }}</option>
-            @endforeach
+              @endforeach
+            @endisset
         </select>
       </div>
 
