@@ -4,6 +4,7 @@
 
 @section('content')
 <a href="{{ route('blog.create') }}"><button type="button" class="btn btn-primary mb-3">{{ __('Create post') }}</button></a>
+<a href="{{ route('blog-categories.index') }}"><button type="button" class="btn btn-warning mb-3">{{ __('Blog categories') }}</button></a>
 
     <table class="table table-sm">
     <thead>
