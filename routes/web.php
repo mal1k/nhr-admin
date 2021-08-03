@@ -11,6 +11,7 @@ use App\Http\Controllers\content\eventsController;
 use App\Http\Controllers\content\exportController;
 use App\Http\Controllers\content\faqController;
 use App\Http\Controllers\content\importController;
+use App\Http\Controllers\content\listingsCategoriesController;
 use App\Http\Controllers\content\listingTypesController;
 use App\Http\Controllers\content\referedByController;
 
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/manager/users', UsersController::class);
         Route::resource('/manager/business', businessController::class);
         Route::resource('/manager/listings', listingsController::class);
+        Route::resource('/manager/listing-categories', listingsCategoriesController::class);
         Route::resource('/manager/events', eventsController::class);
         Route::resource('/manager/deals', dealsController::class);
         Route::resource('/manager/banners', bannersController::class);
