@@ -21,7 +21,8 @@ class listingsController extends Controller
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
-            return view('content.listings.form', compact('users'));
+            $listingCategories = listingsCategories::orderByDesc('id')->paginate(0);
+            return view('content.listings.form', compact('users', 'listingCategories'));
         }
 
     public function store(Request $request)

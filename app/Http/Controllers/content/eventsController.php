@@ -4,6 +4,7 @@ namespace App\Http\Controllers\content;
 
 use App\Http\Controllers\Controller;
 use App\Models\Events;
+use App\Models\eventsCategories;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class eventsController extends Controller
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
-            return view('content.events.form', compact('users'));
+            $eventCategories = eventsCategories::orderByDesc('id')->paginate(0);
+            return view('content.events.form', compact('users', 'eventCategories'));
         }
 
     public function store(Request $request)
@@ -56,8 +58,9 @@ class eventsController extends Controller
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
+            $eventCategories = eventsCategories::orderByDesc('id')->paginate(0);
 
-            return view('content.events.form', compact('event', 'users'));
+            return view('content.events.form', compact('event', 'users', 'eventCategories'));
         }
 
     public function update(Request $request, Events $event)
