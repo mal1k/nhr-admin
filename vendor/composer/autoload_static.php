@@ -735,6 +735,7 @@ class ComposerStaticInit9e455a2c3674bab5bad5235dcea57233
         'App\\Models\\exportContent' => __DIR__ . '/../..' . '/app/Models/exportContent.php',
         'App\\Models\\importContent' => __DIR__ . '/../..' . '/app/Models/importContent.php',
         'App\\Models\\listingTypes' => __DIR__ . '/../..' . '/app/Models/listingTypes.php',
+        'App\\Models\\listingsCategories' => __DIR__ . '/../..' . '/app/Models/listingsCategories.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

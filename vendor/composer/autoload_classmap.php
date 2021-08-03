@@ -64,6 +64,7 @@ return array(
     'App\\Models\\exportContent' => $baseDir . '/app/Models/exportContent.php',
     'App\\Models\\importContent' => $baseDir . '/app/Models/importContent.php',
     'App\\Models\\listingTypes' => $baseDir . '/app/Models/listingTypes.php',
+    'App\\Models\\listingsCategories' => $baseDir . '/app/Models/listingsCategories.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
