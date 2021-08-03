@@ -4,6 +4,7 @@ namespace App\Http\Controllers\content;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\blogCategories;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,9 @@ class blogController extends Controller
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
+            $blogCategories = blogCategories::orderByDesc('id')->paginate(0);
 
-            return view('content.blog.form', compact('users'));
+            return view('content.blog.form', compact('users', 'blogCategories'));
         }
 
     public function store(Request $request)
@@ -52,8 +54,9 @@ class blogController extends Controller
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
+            $blogCategories = blogCategories::orderByDesc('id')->paginate(0);
 
-            return view('content.blog.form', compact('blog', 'users'));
+            return view('content.blog.form', compact('blog', 'users', 'blogCategories'));
         }
 
     public function update(Request $request, Blog $blog)
