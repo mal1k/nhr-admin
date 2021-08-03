@@ -139,7 +139,7 @@
       <h4 class="mb-1 mt-3">Basic information</h4>
 
       <div class="mb-2 col-12">
-        <label for="basic_categories" class="form-label mt-2 mb-1">Categories || <b>WAITING FOR RESPONSE</b></label>
+        <label for="basic_categories" class="form-label mt-2 mb-1">Categories</label>
         <select name="basic_categories[]" class="form-select select" multiple="multiple">
             @isset ($listing->basic_categories)
             @php
@@ -150,46 +150,15 @@
             }
             @endphp
             @endisset
-          <option @if ( isset( $categories ) )
-                @if ( in_array(1, $categories) )
-                  selected
-                @endif
-              @endif value="1">One</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(2, $categories) )
-                  selected
-                @endif
-              @endif value="2">Two</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(3, $categories) )
-                  selected
-                @endif
-              @endif value="3">Three</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(4, $categories) )
-                  selected
-                @endif
-              @endif value="4">Four</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(5, $categories) )
-                  selected
-                @endif
-              @endif value="5">Five</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(6, $categories) )
-                  selected
-                @endif
-              @endif value="6">Six</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(7, $categories) )
-                  selected
-                @endif
-              @endif value="7">Seven</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(8, $categories) )
-                  selected
-                @endif
-              @endif value="8">Eight</option>
+
+            @foreach ( $listingCategories as $listingCategory )
+                <option
+                @if ( isset( $categories ) )
+                  @if ( in_array($listingCategory->id, $categories) )
+                    selected
+                  @endif
+                @endif value="{{ $listingCategory->id }}">{{ $listingCategory->title }}</option>
+            @endforeach
         </select>
       </div>
 

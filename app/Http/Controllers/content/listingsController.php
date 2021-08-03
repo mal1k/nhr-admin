@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Listings;
+use App\Models\listingsCategories;
 
 class listingsController extends Controller
 {
@@ -66,8 +67,9 @@ class listingsController extends Controller
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
+            $listingCategories = listingsCategories::orderByDesc('id')->paginate(0);
 
-            return view('content.listings.form', compact('listing', 'users'));
+            return view('content.listings.form', compact('listing', 'users', 'listingCategories'));
         }
 
     public function update(Request $request, Listings $listing)

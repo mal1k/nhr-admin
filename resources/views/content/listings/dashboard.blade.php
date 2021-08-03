@@ -5,6 +5,8 @@
 @section('content')
 <a href="{{ route('listings.create') }}"><button type="button" class="btn btn-primary mb-3">{{ __('Create listing') }}</button></a>
 
+<a href="{{ route('listing-categories.index') }}"><button type="button" class="btn btn-warning mb-3">{{ __('Listing categories') }}</button></a>
+
     <table class="table table-sm">
     <thead>
         <tr>
