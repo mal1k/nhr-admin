@@ -7,6 +7,7 @@ use App\Http\Controllers\customers\UsersController;
 use App\Http\Controllers\customers\businessController;
 use App\Http\Controllers\content\listingsController;
 use App\Http\Controllers\content\dealsController;
+use App\Http\Controllers\content\eventsCategoriesController;
 use App\Http\Controllers\content\eventsController;
 use App\Http\Controllers\content\exportController;
 use App\Http\Controllers\content\faqController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/manager/listings', listingsController::class);
         Route::resource('/manager/listing-categories', listingsCategoriesController::class);
         Route::resource('/manager/events', eventsController::class);
+        Route::resource('/manager/event-categories', eventsCategoriesController::class);
         Route::resource('/manager/deals', dealsController::class);
         Route::resource('/manager/banners', bannersController::class);
         Route::resource('/manager/blog', blogController::class);
