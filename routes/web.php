@@ -31,6 +31,14 @@ use App\Http\Controllers\content\referedByController;
 Route::redirect('/', 'manager', 301);
 Route::redirect('dashboard', '/manager', 301);
 
+Route::get('/metronic', function() {
+    return view('metronic');
+});
+
+Route::get('/new-dashboard', function() {
+    return view('newDashboard');
+});
+
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:super-admin|admin']], function () {
         Route::resource('/manager/users', UsersController::class);
