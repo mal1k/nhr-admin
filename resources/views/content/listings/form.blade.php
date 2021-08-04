@@ -139,16 +139,28 @@
       <h4 class="mb-1 mt-3">Basic information</h4>
 
       <div class="mb-2 col-12">
-        <label for="basic_categories" class="form-label mt-2 mb-1">Categories || <b>WAITING FOR RESPONSE</b></label>
-        <select name="basic_categories[]" class="form-select select" multiple>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-          <option value="4">Four</option>
-          <option value="5">Five</option>
-          <option value="6">Six</option>
-          <option value="7">Seven</option>
-          <option value="8">Eight</option>
+        <label for="basic_categories" class="form-label mt-2 mb-1">Categories</label>
+        <select name="basic_categories[]" class="form-select select" multiple="multiple">
+            @isset ($listing->basic_categories)
+            @php
+            if ( is_array($listing->basic_categories) ) {
+                $categories = $listing->basic_categories;
+            } else {
+                $categories = json_decode($listing->basic_categories);
+            }
+            @endphp
+            @endisset
+
+            @isset ( $listingCategories )
+              @foreach ( $listingCategories as $listingCategory )
+                <option
+                @if ( isset( $categories ) )
+                  @if ( in_array($listingCategory->id, $categories) )
+                    selected
+                  @endif
+                @endif value="{{ $listingCategory->id }}">{{ $listingCategory->title }}</option>
+              @endforeach
+            @endisset
         </select>
       </div>
 
@@ -215,8 +227,19 @@
         </label>
 
         <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-            @isset($listing->basic_keywords)
-                @foreach($listing->basic_keywords as $value)
+            @isset ($listing->basic_keywords)
+            @php
+                if ( is_array($listing->basic_keywords) ) {
+                    $basic_keywords = $listing->basic_keywords;
+                } else {
+                    $basic_keywords = json_decode($listing->basic_keywords);
+                }
+            @endphp
+            @endisset
+
+
+            @isset($basic_keywords)
+                @foreach($basic_keywords as $value)
                     <div class="multi-search-item"><span>{{ $value }}</span><input name="basic_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                 @endforeach
             @endisset
@@ -316,17 +339,27 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="list-features" style="display:flex; flex-wrap: wrap; font-family:Roboto,FontAwesome,Arial,sans-serif; font-style:normal">
-                      @isset ($listing->features)
-                        @foreach ( $listing->features as $item )
+                        @isset ($listing->features)
+                        @php
+                            if ( is_array($listing->features) ) {
+                                $features = $listing->features;
+                            } else {
+                                $features = json_decode($listing->features);
+                            }
+                        @endphp
+                        @endisset
+
+                      @isset ($features)
+                        @foreach ( $features as $item )
                           @foreach ($item as $key => $value)
                             @if ($key == 'icon')
-                                @php ($feature_icons[] = $value)
+                                @php $feature_icons[] = $value; @endphp
                             @else
-                                @php ($feature_title[] = $value)
+                                @php $feature_title[] = $value; @endphp
                             @endif
                           @endforeach
                         @endforeach
-                        @php ( $n = 0 )
+                        @php $n = 0; @endphp
                         @foreach ($feature_icons as $icon)
                             <div class="group-feature p-3" data-feature-id="{{ $n }}">
                                 <input type="hidden" name="features[][icon]" class="input-feature-icon" value="{{ $icon }}">
@@ -336,7 +369,7 @@
                                 </div>
                                 <a href="javascript:;" class="group-feature-link">{{ $feature_title[$n] }}</a>
                             </div>
-                          @php ( $n += 1 )
+                          @php $n += 1; @endphp
                         @endforeach
                       @endisset
                     </div>
@@ -366,13 +399,13 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" name="feature_title" id="feature_title" class="form-control " placeholder="Ex: Wifi" tabindex="68">
+                    <input type="text" name="feature_title" id="feature_title" class="form-control " placeholder="Ex: Wifi">
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary btn-save-feature" data-add tabindex="69">Add</button>
+                    <button type="button" class="btn btn-primary btn-save-feature" data-add>Add</button>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-danger btn-delete-feature tabindex="70" style="display:none">
+                    <button type="button" class="btn btn-danger btn-delete-feature" style="display:none">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -424,21 +457,30 @@
         <div class="form-group row">
           <div class="col-md-12">
               <div class="list-hours-work">
-
                 @isset ($listing->hours_work)
-                    @foreach ( $listing->hours_work as $item )
+                @php
+                    if ( is_array($listing->hours_work) ) {
+                        $hours_work = $listing->hours_work;
+                    } else {
+                        $hours_work = json_decode($listing->hours_work);
+                    }
+                @endphp
+                @endisset
+
+                @isset ($hours_work)
+                    @foreach ( $hours_work as $item )
                       @foreach ($item as $key => $value)
                         @if ($key == 'weekday')
-                            @php ($weekday[] = $value)
+                            @php $weekday[] = $value; @endphp
                         @elseif ($key == 'hours_start')
-                            @php ($hours_start[] = $value)
+                            @php $hours_start[] = $value; @endphp
                         @elseif ($key == 'hours_end')
-                            @php ($hours_end[] = $value)
+                            @php $hours_end[] = $value; @endphp
                         @endif
                       @endforeach
                     @endforeach
 
-                    @php ( $n = 0 )
+                    @php $n = 0; @endphp
                     @foreach ($weekday as $day)
                         <div class="form-group row group-hours-work mb-2" data-hours-work-id="" data-feature-id="{{ $n }}">
                             <input type="hidden" name="hours_work[][weekday]" value="{{ $day }}">
@@ -457,7 +499,7 @@
                                 <a href="javascript:;" class="btn btn-block btn-link remove-hours-work">Remove</a>
                             </div>
                         </div>
-                        @php ( $n += 1 )
+                        @php $n += 1; @endphp
                     @endforeach
                 @endisset
 
@@ -485,8 +527,18 @@
                 Keywords
             </label>
             <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                @isset($listing->seo_keywords)
-                    @foreach($listing->seo_keywords as $value)
+                @isset ($listing->seo_keywords)
+                @php
+                    if ( is_array($listing->seo_keywords) ) {
+                        $seo_keywords = $listing->seo_keywords;
+                    } else {
+                        $seo_keywords = json_decode($listing->seo_keywords);
+                    }
+                @endphp
+                @endisset
+
+                @isset($seo_keywords)
+                    @foreach($seo_keywords as $value)
                         <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                     @endforeach
                 @endisset
@@ -538,16 +590,40 @@
         </div>
       </div>
 
-      <div id="listing_badges_section" class='row'>
-        <h4 class="mb-1 mt-3">Listing badges</h4>
-        <div class="col-12 mb-2">
-            <label for="attach_file" class="form-label mt-2 mb-1">image here</label>
-            <img src="#">
+    <style>
+        .listing_badges {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 500px;
+        }
+        .panel-heading {
+            border: none;
+            border-bottom: 1px solid #e6e6e6;
+            font-size: 1.2em;
+            color: #8d8b87;
+            padding: .7em 1em .8em;
+        }
+        .panel-body {
+            text-align: center;
+            border: none;
+            padding: 1.8em 2.2em 1em 2.2em;
+        }
+    </style>
+      <div id="listing_badges_section" class='row listing_badges'>
+        <div class="mb-1 mt-3 listing_badges__title panel-heading">Listing Badges
+            <div class="pull-right"><small><a class="text-info" href="#" target="_blank">Want to change your badges? Click here.</a></small></div>
         </div>
-        <div>
-          <input name="badges_checkbox" class="form-check-input" type="checkbox" id="badges_checkbox" {{ isset( $listing->badges_checkbox ) ? 'checked' : '' }}>
+        <div class="panel-body">
+            <div class="col-12 mb-2">
+                <img src="{{asset('img/sitemgr_photo.png')}}">
+            </div>
+            <div>
+                <input name="badges_checkbox" class="form-check-input" type="checkbox" id="badges_checkbox" {{ isset( $listing->badges_checkbox ) ? 'checked' : '' }}>
+                <label class="form-check-label" for="badges_checkbox">
+                Local Supporter
+                </label>
+            </div>
         </div>
-
       </div>
 
       <div class="mb-2 col-12">
@@ -564,7 +640,7 @@
             Logo:<br>
             <input type="file" name="image_logo">
             @isset ($listing->image_logo)
-              <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_logo) }}"></span>
+              <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $listing->image_logo) }}"></span>
               <input name="image_logo_prev" type="hidden" value="{{ $listing->image_logo }}">
               <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
@@ -573,7 +649,7 @@
             Cover:<br>
             <input type="file" name="image_cover">
             @isset ($listing->image_cover)
-            <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
+            <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
             <input name="image_cover_prev" type="hidden" value="{{ $listing->image_cover }}">
             <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
@@ -582,7 +658,17 @@
             Gallery (multiple images):<br>
             <input type="file" multiple name="image_gallery[]">
             @isset ($listing->image_gallery)
-                 @foreach ($listing->image_gallery as $item)
+            @php
+                if ( is_array($listing->image_gallery) ) {
+                    $image_gallery = $listing->image_gallery;
+                } else {
+                    $image_gallery = json_decode($listing->image_gallery);
+                }
+            @endphp
+            @endisset
+
+            @isset ($image_gallery)
+                 @foreach ($image_gallery as $item)
                     <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $item) }}"></span>
                     <input name="image_gallery_prev[]" type="hidden" value="{{ $item }}">
                     <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>

@@ -81,8 +81,18 @@
         </label>
 
         <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-            @isset($deal->basic_keywords)
-                @foreach($deal->basic_keywords as $value)
+            @isset ($deal->basic_keywords)
+            @php
+                if ( is_array($deal->basic_keywords) ) {
+                    $basic_keywords = $deal->basic_keywords;
+                } else {
+                    $basic_keywords = json_decode($deal->basic_keywords);
+                }
+            @endphp
+            @endisset
+
+            @isset($basic_keywords)
+                @foreach($basic_keywords as $value)
                     <div class="multi-search-item"><span>{{ $value }}</span><input name="basic_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                 @endforeach
             @endisset
@@ -124,13 +134,13 @@
                 <label class="form-label mt-2 mb-1">Discount Type</label>
                 <br>
                 <label class="radio-inline mr-3">
-                  <input  type="radio" id="type_monetary" name="deal_type" value="monetary value" {{ isset( $deal->deal_type ) && $deal->deal_type == 'monetary value' ? 'checked' : '' }}
+                  <input  type="radio" id="type_monetary" name="deal_type" checked value="monetary value" {{ isset( $deal->deal_type ) && $deal->deal_type == 'monetary value' ? 'checked' : '' }}
                           onclick="showAmountType('$', 'not');">
                     Fixed Value Discount
                 </label>
 
                 <label class="radio-inline">
-                    <input  type="radio" id="type_percentage" name="deal_type" value="percentage" {{ isset( $deal->deal_type ) && $deal->deal_type == 'percentage' ? 'checked' : '' }}
+                    <input  type="radio" id="type_percentage" name="deal_type"  value="percentage" {{ isset( $deal->deal_type ) && $deal->deal_type == 'percentage' ? 'checked' : '' }}
                             onclick="showAmountType('%', 'not');">
                     Percentage Discount
                 </label>
@@ -215,8 +225,18 @@
                 Keywords
             </label>
             <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                @isset($deal->seo_keywords)
-                    @foreach($deal->seo_keywords as $value)
+                @isset ($deal->seo_keywords)
+                @php
+                    if ( is_array($deal->seo_keywords) ) {
+                        $seo_keywords = $deal->seo_keywords;
+                    } else {
+                        $seo_keywords = json_decode($deal->seo_keywords);
+                    }
+                @endphp
+                @endisset
+
+                @isset($seo_keywords)
+                    @foreach($seo_keywords as $value)
                         <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                     @endforeach
                 @endisset
@@ -245,7 +265,7 @@
             Logo:<br>
             <input type="file" name="image_logo">
             @isset ($deal->image_logo)
-              <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $deal->image_logo) }}"></span>
+              <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $deal->image_logo) }}"></span>
               <input name="image_logo_prev" type="hidden" value="{{ $deal->image_logo }}">
               <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
@@ -254,7 +274,7 @@
             Cover:<br>
             <input type="file" name="image_cover">
             @isset ($deal->image_cover)
-            <div class="multi-search-item"><span><img src="{{ asset('/storage/' . $deal->image_cover) }}"></span>
+            <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $deal->image_cover) }}"></span>
             <input name="image_cover_prev" type="hidden" value="{{ $deal->image_cover }}">
             <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
@@ -323,7 +343,12 @@
       if(!$('#discount-information').length){
         return;
       }
-      showAmountType('$', 'show');
+      if ($('#type_monetary').is(':checked')){
+        showAmountType('$', 'show');
+      } else{
+        showAmountType('%', 'show');
+      }
+
       calculateDiscount();
     });
 

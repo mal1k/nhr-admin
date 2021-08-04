@@ -4,9 +4,7 @@
 
 @section('content')
 <a href="{{ route('deals.create') }}"><button type="button" class="btn btn-primary mb-3">{{ __('Create deal') }}</button></a>
-      @isset ($path)
-        <img src="{{ asset('/storage/' . $path) }}"
-      @endisset
+
     <table class="table table-sm">
     <thead>
         <tr>
