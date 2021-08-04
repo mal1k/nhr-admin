@@ -6,9 +6,12 @@
     <meta name="description" content="">
     <meta name="author" content="Alex-K">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{ URL::asset('css/content/style.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/content/plugins.css') }}">
-    <link rel="stylesheet" href="{{ URL::asset('css/content/fullcalendar.css') }}">
+
+    <link href="{{ URL::asset('plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ URL::asset('plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     {{-- JQuery cdn --}}
@@ -8489,16 +8492,16 @@
     <!--end::Main-->
     <!--begin::Javascript-->
     <!--begin::Global Javascript Bundle(used by all pages)-->
-    <script src="{{ URL::asset('js/content/plugins.js') }}"></script>
-    <script src="{{ URL::asset('js/content/scripts.js') }}"></script>
+    <script src="{{ URL::asset('plugins/global/plugins.bundle.js') }}"></script>
+    <script src="{{ URL::asset('js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Vendors Javascript(used by this page)-->
-    <script src="{{ URL::asset('js/content/fullcalendar.js') }}"></script>
+    <script src="{{ URL::asset('plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
     <!--end::Page Vendors Javascript-->
     <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="{{ URL::asset('js/content/widgets.js') }}"></script>
-    <script src="{{ URL::asset('js/content/chat.js') }}"></script>
-    <script src="{{ URL::asset('js/content/create-app.js') }}"></script>
+    <script src="{{ URL::asset('js/custom/widgets.js') }}"></script>
+    <script src="{{ URL::asset('js/custom/apps/chat/chat.js') }}"></script>
+    <script src="{{ URL::asset('js/custom/modals/create-app.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
 </body>

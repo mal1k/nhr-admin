@@ -1,7 +1,7 @@
-@extends ('newLayout')
+@extends ('new-layout')
 
 @section('title', 'Dashboard')
 
 @section('content')
-    Content here
+    Dashboard content here
 @endsection
