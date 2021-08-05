@@ -44,7 +44,7 @@
                 <!--begin::Table body-->
                 <tbody>
                     @foreach($users as $user)
-                    @isset ( $user->business )
+                    @if ( $user->role = 'businessUser' )
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
@@ -94,7 +94,7 @@
                             </form>
                         </td>
                         </tr>
-                    @endisset
+                    @endif
                     @endforeach
                 </tbody>
                 <!--end::Table body-->
