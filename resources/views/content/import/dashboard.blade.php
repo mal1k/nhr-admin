@@ -31,10 +31,10 @@
             <!-- <input type="file" class="custom-file-input mt-2" name="import_file" /><br> -->
             <label for="import_file" class="form-label mt-2 mb-1">Choose your import file:</label>
             <div>
-                <input type="file" id="import_file" name="import_file" class="choose btn btn-outline btn-outline-dashed btn-outline-default me-2 mb-2"><br>
+                <input type="file" id="import_file" name="import_file" class="choose me-2 mb-2"><br>
             </div>
 
-            <button class="btn btn-primary mt-2">Import File</button>
+            <button class="btn btn-sm btn-light-primary mt-2">Import File</button>
         </form>
 
         <!--begin::Table container-->
