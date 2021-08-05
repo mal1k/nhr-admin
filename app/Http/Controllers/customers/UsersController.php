@@ -19,7 +19,7 @@ class UsersController extends Controller
         // $users = User::paginate(10);
 
         $users_query = User::orderByDesc('id');
-        $users_query->whereNull('business');
+        $users_query->where('role', '!=', 'businessUser');
         $users = $users_query->paginate(10);
 
         return view('customers.users.dashboard', compact('users'));
@@ -74,7 +74,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        if ( isset($user->business))
+        if ( $user->role == 'businessUser' )
             return view('customers.business.businessForm', compact('user'));
 
         return view('customers.users.userForm', compact('user'));
@@ -93,7 +93,7 @@ class UsersController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->business = $request->business;
-            $user->role = 'user';
+            $user->role = 'businessUser';
           $user->save();
           return redirect()->route('business.index')->withSuccess('Updated business user ' . $user->name);
         } else {

@@ -17,7 +17,7 @@ class businessController extends Controller
     public function index()
     {
         $users_query = User::orderByDesc('id');
-        $users_query->whereNotNull('business');
+        $users_query->where('role', '=', 'businessUser');
         $users = $users_query->paginate(10);
         return view('customers.business.dashboard', compact('users'));
     }
@@ -40,15 +40,18 @@ class businessController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $validated = $request->validate([
+            'business' => 'required|max:255',
+        ]);
         $password = Hash::make('password', ['rounds' => 12]);
         $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = $password;
             $user->business = $request->business;
-            $user->role = 'user';
+            $user->role = 'businessUser';
         $user->save();
-        $user->assignRole('user');
+        $user->assignRole('businessUser');
 
         return redirect()->route('business.index')->withSuccess('Created business user ' . $user->name);
     }
