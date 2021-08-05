@@ -59,6 +59,6 @@ class faqController extends Controller
     public function destroy(Faq $faq)
         {
             $faq->delete();
-            return redirect()->route('faq.index')->withDanger('Deleted FAQ "' . $faq->question . '"');
+            return redirect()->route('faq.index')->withSuccess('Deleted FAQ "' . $faq->question . '"');
         }
 }

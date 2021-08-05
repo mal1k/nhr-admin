@@ -116,9 +116,9 @@ class UsersController extends Controller
         $user->delete();
 
         if ( isset($user->business))
-            return redirect()->route('business.index')->withDanger('Deleted business user ' . $user->name);
+            return redirect()->route('business.index')->withSuccess('Deleted business user ' . $user->name);
 
-        return redirect()->route('users.index')->withDanger('Deleted user ' . $user->name);
+        return redirect()->route('users.index')->withSuccess('Deleted user ' . $user->name);
 
     }
 }

@@ -89,7 +89,7 @@ class dealsController extends Controller
         {
             $deal->delete();
 
-            return redirect()->route('deals.index')->withDanger('Deleted deal "' . $deal->title . '"');
+            return redirect()->route('deals.index')->withSuccess('Deleted deal "' . $deal->title . '"');
 
         }
 

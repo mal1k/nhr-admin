@@ -107,7 +107,7 @@ class blogController extends Controller
         {
             $blog->delete();
 
-            return redirect()->route('blog.index')->withDanger('Deleted post "' . $blog->title . '"');
+            return redirect()->route('blog.index')->withSuccess('Deleted post "' . $blog->title . '"');
 
         }
 }
