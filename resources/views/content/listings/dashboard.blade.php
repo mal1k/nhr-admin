@@ -60,15 +60,15 @@
                         <td>
                             <div class="d-flex align-items-center">
                                 <div class="d-flex justify-content-start flex-column">
-                                    <a href="#" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $listing->id }}</a>
+                                    <a href="#" class="text-dark fw-bolder mb-1 fs-6">{{ $listing->id }}</a>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <a href="#" class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">{{ $listing->title }}</a>
+                            <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">{{ $listing->title }}</a>
                         </td>
                         <td>
-                            <a href="#" class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">{{ $listing->level }}</a>
+                            <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">{{ $listing->level }}</a>
                         </td>
                         <td>
                             <span class="badge badge-light-primary fs-7 fw-bold">{{ $listing->basic_status }}</span>
