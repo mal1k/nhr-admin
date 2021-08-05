@@ -3008,7 +3008,7 @@
                                                 <a href="#" class="menu-link px-5">
                                                     <span class="menu-title position-relative">Language
                                                     <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-                                                    <img class="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg" alt="metronic" /></span></span>
+                                                    <img class="w-15px h-15px rounded-1 ms-2" src="{{ URL::asset('img/flags/united-states.svg') }}" alt="metronic" /></span></span>
                                                 </a>
                                                 <!--begin::Menu sub-->
                                                 <div class="menu-sub menu-sub-dropdown w-175px py-4">
@@ -3016,7 +3016,7 @@
                                                     <div class="menu-item px-3">
                                                         <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5 active">
                                                         <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/united-states.svg" alt="metronic" />
+                                                            <img class="rounded-1" src="{{ URL::asset('img/flags/united-states.svg') }}" alt="metronic" />
                                                         </span>English</a>
                                                     </div>
                                                     <!--end::Menu item-->
@@ -3024,32 +3024,8 @@
                                                     <div class="menu-item px-3">
                                                         <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
                                                         <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/spain.svg" alt="metronic" />
-                                                        </span>Spanish</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-                                                        <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/germany.svg" alt="metronic" />
+                                                            <img class="rounded-1" src="{{ URL::asset('img/flags/germany.svg') }}" alt="metronic" />
                                                         </span>German</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-                                                        <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/japan.svg" alt="metronic" />
-                                                        </span>Japanese</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-                                                        <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/france.svg" alt="metronic" />
-                                                        </span>French</a>
                                                     </div>
                                                     <!--end::Menu item-->
                                                 </div>
@@ -3067,18 +3043,18 @@
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu separator-->
-                                            <div class="separator my-2"></div>
+                                            {{--  <div class="separator my-2"></div>  --}}
                                             <!--end::Menu separator-->
                                             <!--begin::Menu item-->
-                                            <div class="menu-item px-5">
+                                            {{--  <div class="menu-item px-5">
                                                 <div class="menu-content px-5">
                                                     <label class="form-check form-switch form-check-custom form-check-solid pulse pulse-success" for="kt_user_menu_dark_mode_toggle">
-                                                        <input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="skin" id="kt_user_menu_dark_mode_toggle" data-kt-url="../../demo1/dist/index.html" />
+                                                        <input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="skin" id="kt_user_menu_dark_mode_toggle" data-kt-url="#" />
                                                         <span class="pulse-ring ms-n1"></span>
                                                         <span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
                                                     </label>
                                                 </div>
-                                            </div>
+                                            </div>  --}}
                                             <!--end::Menu item-->
                                         </div>
                                         <!--end::Menu-->
@@ -3681,10 +3657,12 @@
                                     </div>
                                     <!--end::Notifications-->
                                     <!--begin::User-->
-                                    <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+                                    <div class="d-flex align-items-center ms-1 ms-lg-3" >
                                         <!--begin::Menu wrapper-->
-                                        <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                                            <img src="assets/media/avatars/150-26.jpg" alt="metronic">
+                                        <div class="d-flex flex-column cursor-pointer" id="kt_header_user_menu_toggle" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
+                                            <div class="fw-bolder d-flex align-items-center fs-5">{{ Auth::user()->name }}
+                                            <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">{{ Auth::user()->role }}</span></div>
+                                            <span class="fw-bold text-muted fs-7">{{ Auth::user()->email }}</span>
                                         </div>
                                         <!--begin::Menu-->
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -3692,15 +3670,15 @@
                                             <div class="menu-item px-3">
                                                 <div class="menu-content d-flex align-items-center px-3">
                                                     <!--begin::Avatar-->
-                                                    <div class="symbol symbol-50px me-5">
+                                                    {{-- <div class="symbol symbol-50px me-5">
                                                         <img alt="Logo" src="assets/media/avatars/150-26.jpg">
-                                                    </div>
+                                                    </div> --}}
                                                     <!--end::Avatar-->
                                                     <!--begin::Username-->
                                                     <div class="d-flex flex-column">
-                                                        <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-                                                        <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                                        <div class="fw-bolder d-flex align-items-center fs-5">{{ Auth::user()->name }}
+                                                        <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">{{ Auth::user()->role }}</span></div>
+                                                        <span class="fw-bold text-muted fs-7">{{ Auth::user()->email }}</span>
                                                     </div>
                                                     <!--end::Username-->
                                                 </div>
@@ -3711,21 +3689,21 @@
                                             <!--end::Menu separator-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-5">
-                                                <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My Profile</a>
+                                                <a href="#" class="menu-link px-5">My Profile</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
-                                            <div class="menu-item px-5">
+                                            {{-- <div class="menu-item px-5">
                                                 <a href="../../demo1/dist/pages/projects/list.html" class="menu-link px-5">
                                                     <span class="menu-text">My Projects</span>
                                                     <span class="menu-badge">
                                                         <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
                                                     </span>
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
-                                            <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start" data-kt-menu-flip="bottom">
+                                            {{-- <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start" data-kt-menu-flip="bottom">
                                                 <a href="#" class="menu-link px-5">
                                                     <span class="menu-title">My Subscription</span>
                                                     <span class="menu-arrow"></span>
@@ -3768,12 +3746,12 @@
                                                     <!--end::Menu item-->
                                                 </div>
                                                 <!--end::Menu sub-->
-                                            </div>
+                                            </div> --}}
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
-                                            <div class="menu-item px-5">
+                                            {{-- <div class="menu-item px-5">
                                                 <a href="../../demo1/dist/account/statements.html" class="menu-link px-5">My Statements</a>
-                                            </div>
+                                            </div> --}}
                                             <!--end::Menu item-->
                                             <!--begin::Menu separator-->
                                             <div class="separator my-2"></div>
@@ -3783,48 +3761,24 @@
                                                 <a href="#" class="menu-link px-5">
                                                     <span class="menu-title position-relative">Language
                                                     <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-                                                    <img class="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg" alt="metronic"></span></span>
+                                                    <img class="w-15px h-15px rounded-1 ms-2" src="{{ URL::asset('img/flags/united-states.svg') }}" alt="metronic"></span></span>
                                                 </a>
                                                 <!--begin::Menu sub-->
                                                 <div class="menu-sub menu-sub-dropdown w-175px py-4">
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5 active">
+                                                        <a href="#" class="menu-link d-flex px-5 active">
                                                         <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/united-states.svg" alt="metronic">
+                                                            <img class="rounded-1" src="{{ URL::asset('img/flags/united-states.svg') }}" alt="metronic">
                                                         </span>English</a>
                                                     </div>
                                                     <!--end::Menu item-->
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
+                                                        <a href="#" class="menu-link d-flex px-5">
                                                         <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/spain.svg" alt="metronic">
-                                                        </span>Spanish</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-                                                        <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/germany.svg" alt="metronic">
+                                                            <img class="rounded-1" src="{{ URL::asset('img/flags/germany.svg') }}" alt="metronic">
                                                         </span>German</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-                                                        <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/japan.svg" alt="metronic">
-                                                        </span>Japanese</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
-                                                        <span class="symbol symbol-20px me-4">
-                                                            <img class="rounded-1" src="assets/media/flags/france.svg" alt="metronic">
-                                                        </span>French</a>
                                                     </div>
                                                     <!--end::Menu item-->
                                                 </div>
@@ -3833,27 +3787,34 @@
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-5 my-1">
-                                                <a href="../../demo1/dist/account/settings.html" class="menu-link px-5">Account Settings</a>
+                                                <a href="#" class="menu-link px-5">Account Settings</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-5">
-                                                <a href="../../demo1/dist/authentication/flows/basic/sign-in.html" class="menu-link px-5">Sign Out</a>
+                                            <form class="form-p0 nav-link px-3 text-white" method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <a href="{{ route('logout') }}" class="menu-link px-5"
+                                                            onclick="event.preventDefault();
+                                                                this.closest('form').submit();">
+                                                    {{ __('Sign out') }}
+                                                </a>
+                                            </form>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu separator-->
-                                            <div class="separator my-2"></div>
+                                            {{--  <div class="separator my-2"></div>  --}}
                                             <!--end::Menu separator-->
                                             <!--begin::Menu item-->
-                                            <div class="menu-item px-5">
+                                            {{--  <div class="menu-item px-5">
                                                 <div class="menu-content px-5">
                                                     <label class="form-check form-switch form-check-custom form-check-solid pulse pulse-success" for="kt_user_menu_dark_mode_toggle">
-                                                        <input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="skin" id="kt_user_menu_dark_mode_toggle" data-kt-url="../../demo1/dist/index.html">
+                                                        <input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="skin" id="kt_user_menu_dark_mode_toggle" data-kt-url="#">
                                                         <span class="pulse-ring ms-n1"></span>
                                                         <span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
                                                     </label>
                                                 </div>
-                                            </div>
+                                            </div>  --}}
                                             <!--end::Menu item-->
                                         </div>
                                         <!--end::Menu-->

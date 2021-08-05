@@ -35,9 +35,7 @@ Route::get('/metronic', function() {
     return view('metronic');
 });
 
-Route::get('/new-dashboard', function() {
-    return view('newDashboard');
-});
+Route::view('/new-dashboard', 'newDashboard');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:super-admin|admin']], function () {
@@ -65,5 +63,5 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/manager', function () {
-    return view('dashboard');
+    return view('new-dashboard');
 })->name('dashboard');
