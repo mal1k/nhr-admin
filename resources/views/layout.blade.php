@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ URL::asset('css/content_management/style.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/content/style.css') }}">
+    <link href="{{ URL::asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Bootstrap core CSS -->
