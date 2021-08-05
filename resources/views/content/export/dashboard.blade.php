@@ -37,7 +37,7 @@
                 </select>
 
                 <div class="mt-2 col-12">
-                    <button type="submit" class="btn btn-primary">{{ __('Export') }}</button>
+                    <button type="submit" class="btn btn-sm btn-light-warning">{{ __('Export on eDirectory') }}</button>
                 </div>
             </form>
 
@@ -62,7 +62,7 @@
                     </select>
 
                 <div class="mt-2 col-12">
-                    <button data-href="/manager/export/local/export" type="submit" class="btn btn-primary" onclick="exportTasks(event.target);">{{ __('Export') }}</button>
+                    <button data-href="/manager/export/local/export" type="submit" class="btn btn-sm btn-light-primary" onclick="exportTasks(event.target);">{{ __('Export') }}</button>
                 </div>
             </form>
         </div>
