@@ -89,7 +89,7 @@ class UsersController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        if ( isset($user->business) ) {
+        if ( $user->role == 'businessUser' ) {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->business = $request->business;
@@ -115,7 +115,7 @@ class UsersController extends Controller
     {
         $user->delete();
 
-        if ( isset($user->business))
+        if ( $user->role == 'businessUser')
             return redirect()->route('business.index')->withSuccess('Deleted business user ' . $user->name);
 
         return redirect()->route('users.index')->withSuccess('Deleted user ' . $user->name);
