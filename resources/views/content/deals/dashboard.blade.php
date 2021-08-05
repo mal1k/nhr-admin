@@ -59,7 +59,13 @@
                             <a href="#" class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">{{ $deal->basic_account }}</a>
                         </td>
                         <td>
-                            <span class="badge badge-light-primary fs-7 fw-bold">{{ $deal->basic_listing }}</span>
+                            <span class="badge badge-light-primary fs-7 fw-bold">
+                                @foreach ( $listings as $listing )
+                                  @if ( $deal->basic_listing == $listing->id )
+                                    <a href="{{ route('listings.edit', $listing) }}">{{ $listing->title }}</a>
+                                  @endif
+                                @endforeach
+                            </span>
                         </td>
                         <td class="text-end">
                             <form id="delete_deal_{{ $deal->id }}" method="POST" action="{{ route('deals.destroy', $deal) }}">

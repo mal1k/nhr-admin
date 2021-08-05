@@ -13,7 +13,8 @@ class dealsController extends Controller
     public function index()
         {
             $deals = Deals::orderByDesc('id')->paginate(15);
-            return view('content.deals.dashboard', compact('deals'));
+            $listings = Listings::query()->paginate(0);
+            return view('content.deals.dashboard', compact('deals', 'listings'));
         }
 
     public function create()
