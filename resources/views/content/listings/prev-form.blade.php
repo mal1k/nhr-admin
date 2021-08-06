@@ -1,4 +1,4 @@
-@extends ('new-layout')
+@extends ('layout')
 
 @section('title', isset($listing) ?  'Update '.$listing->title : 'Create listing')
 
@@ -99,175 +99,168 @@
         @method('PUT')
     @endisset
 
-<div class="row">
-  <div class="col-8">
-    <div class="card mb-5 mb-xl-8 p-5 py-1 mt-3">
-        <div class="row">
-        <div class="mb-2 col">
-            <label for="title" class="form-label mt-2 mb-1">Title</label>
-            <input name="title" type="text" class="form-control" id="title" placeholder="Type your listing title here." value="{{ old('title', isset( $listing->title ) ? $listing->title : '') }}">
-            @error('title')
-                <div class="alert alert-danger mb-0">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="mb-2 col-4">
-            <label for="level" class="form-label mt-2 mb-1">Listing level</label>
-            <select name="level" id="level" class="form-select">
-            <option selected disabled>Choose...</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->level === 'bronze' )
-                    selected
-                    @endif
-                @endif value="bronze">Bronze</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->level === 'silver' )
-                    selected
-                    @endif
-                @endif value="silver">Silver</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->level === 'gold' )
-                    selected
-                    @endif
-                @endif value="gold">Gold</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->level === 'platinum' )
-                    selected
-                    @endif
-                @endif value="platinum">Platinum</option>
-            </select>
-        </div>
-        </div>
+    <div class="col-8">
+    <div class="row">
+      <div class="mb-2 col">
+        <label for="title" class="form-label mt-2 mb-1">Title</label>
+        <input name="title" type="text" class="form-control" id="title" placeholder="Type your listing title here." value="{{ old('title', isset( $listing->title ) ? $listing->title : '') }}">
+        @error('title')
+            <div class="alert alert-danger mb-0">{{ $message }}</div>
+        @enderror
+      </div>
+      <div class="mb-2 col-4">
+        <label for="level" class="form-label mt-2 mb-1">Listing level</label>
+        <select name="level" id="level" class="form-select">
+          <option selected disabled>Choose...</option>
+          <option @if ( isset( $listing ) )
+                @if ($listing->level === 'bronze' )
+                  selected
+                @endif
+              @endif value="bronze">Bronze</option>
+          <option @if ( isset( $listing ) )
+                @if ($listing->level === 'silver' )
+                  selected
+                @endif
+              @endif value="silver">Silver</option>
+          <option @if ( isset( $listing ) )
+                @if ($listing->level === 'gold' )
+                  selected
+                @endif
+              @endif value="gold">Gold</option>
+          <option @if ( isset( $listing ) )
+                @if ($listing->level === 'platinum' )
+                  selected
+                @endif
+              @endif value="platinum">Platinum</option>
+        </select>
     </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="basic_information" class='row'>
-        <h4 class="mb-1 mt-3">Basic information</h4>
+    <div id="basic_information" class=''>
+      <h4 class="mb-1 mt-3">Basic information</h4>
 
-        <div class="mb-2 col-12">
-            <label for="basic_categories" class="form-label mt-2 mb-1">Categories</label>
-            <select name="basic_categories[]" class="form-select select" multiple="multiple">
-                @isset ($listing->basic_categories)
-                @php
-                if ( is_array($listing->basic_categories) ) {
-                    $categories = $listing->basic_categories;
+      <div class="mb-2 col-12">
+        <label for="basic_categories" class="form-label mt-2 mb-1">Categories</label>
+        <select name="basic_categories[]" class="form-select select" multiple="multiple">
+            @isset ($listing->basic_categories)
+            @php
+            if ( is_array($listing->basic_categories) ) {
+                $categories = $listing->basic_categories;
+            } else {
+                $categories = json_decode($listing->basic_categories);
+            }
+            @endphp
+            @endisset
+
+            @isset ( $listingCategories )
+              @foreach ( $listingCategories as $listingCategory )
+                <option
+                @if ( isset( $categories ) )
+                  @if ( in_array($listingCategory->id, $categories) )
+                    selected
+                  @endif
+                @endif value="{{ $listingCategory->id }}">{{ $listingCategory->title }}</option>
+              @endforeach
+            @endisset
+        </select>
+      </div>
+
+      <div class="mb-2 col">
+        <label for="basic_account" class="form-label mt-2 mb-1">Account</label>
+
+        <select name="basic_account" id="basic_account" class="form-select col">
+          @foreach ( $users as $user )
+            <option {{ isset($listing->basic_account) && $listing->basic_account == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="mb-2 col">
+        <label for="basic_status" class="form-label mt-2 mb-1">Status</label>
+        <select name="basic_status" id="basic_status" class="form-select col">
+          <option selected disabled>Choose...</option>
+          <option @if ( isset( $listing ) )
+                @if ($listing->basic_status === 'active' )
+                  selected
+                @endif
+              @endif value="active">Active</option>
+          <option @if ( isset( $listing ) )
+                @if ($listing->basic_status === 'suspended' )
+                  selected
+                @endif
+              @endif value="suspended">Suspended</option>
+          <option @if ( isset( $listing ) )
+                @if ($listing->basic_status === 'pending' )
+                  selected
+                @endif
+              @endif value="pending">Pending</option>
+        </select>
+      </div>
+
+      <div class="mb-2 col">
+        <label for="basic_renewal_date" class="form-label mt-2 mb-1">Renewal date</label>
+        <input name="basic_renewal_date" type="date" class="form-control" id="basic_renewal_date" placeholder="Change Expiration Date" value="{{ old('basic_renewal_date', isset( $listing->basic_renewal_date ) ? $listing->basic_renewal_date : '') }}">
+      </div>
+
+      <div class="mb-2 mt-3 col-12">
+        <div class="form-check">
+          <input name="basic_disable_claim" class="form-check-input" type="checkbox" id="claim_disable" {{ isset( $listing->basic_disable_claim ) ? 'checked' : '' }}>
+          <label class="form-check-label" for="claim_disable">
+            Disable claim feature for this listing
+          </label>
+        </div>
+      </div>
+
+      <div class="form-label mb-1">
+        <label for="basic_summary_desc">Summary Description</label>
+        <textarea name="basic_summary_desc" class="form-control" placeholder="Brief description of the listing." id="basic_summary_desc" style="height: 100px">{{ old('basic_renewal_date', isset( $listing->basic_summary_desc ) ? $listing->basic_summary_desc : '') }}</textarea>
+        <div class="text-right"><p class="help-block text-right">250 characters left</p></div>
+      </div>
+
+      <div class="form-label mb-1">
+        <label for="basic_description">Description</label>
+        <textarea name="basic_description" class="form-control" placeholder="Introduce the listing to the public in a clear and efficient way. Describe all features that make the establishment unique and a great option for clients." id="basic_description" style="height: 100px">{{ old('basic_description', isset( $listing->basic_description ) ? $listing->basic_description : '') }}</textarea>
+      </div>
+
+      <div class="mb-2 col-12">
+        <label class="form-check-label" for="claim_disable">
+            Keywords for the search
+        </label>
+
+        <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+            @isset ($listing->basic_keywords)
+            @php
+                if ( is_array($listing->basic_keywords) ) {
+                    $basic_keywords = $listing->basic_keywords;
                 } else {
-                    $categories = json_decode($listing->basic_categories);
+                    $basic_keywords = json_decode($listing->basic_keywords);
                 }
-                @endphp
-                @endisset
+            @endphp
+            @endisset
 
-                @isset ( $listingCategories )
-                @foreach ( $listingCategories as $listingCategory )
-                    <option
-                    @if ( isset( $categories ) )
-                    @if ( in_array($listingCategory->id, $categories) )
-                        selected
-                    @endif
-                    @endif value="{{ $listingCategory->id }}">{{ $listingCategory->title }}</option>
+
+            @isset($basic_keywords)
+                @foreach($basic_keywords as $value)
+                    <div class="multi-search-item"><span>{{ $value }}</span><input name="basic_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                 @endforeach
-                @endisset
-            </select>
+            @endisset
+            <input type="text" id="keywords" onkeydown="multiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
         </div>
-
-        <div class="mb-2 col">
-            <label for="basic_account" class="form-label mt-2 mb-1">Account</label>
-
-            <select name="basic_account" id="basic_account" class="form-select col">
-            @foreach ( $users as $user )
-                <option {{ isset($listing->basic_account) && $listing->basic_account == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
-            @endforeach
-            </select>
-        </div>
-
-        <div class="mb-2 col">
-            <label for="basic_status" class="form-label mt-2 mb-1">Status</label>
-            <select name="basic_status" id="basic_status" class="form-select col">
-            <option selected disabled>Choose...</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'active' )
-                    selected
-                    @endif
-                @endif value="active">Active</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'suspended' )
-                    selected
-                    @endif
-                @endif value="suspended">Suspended</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->basic_status === 'pending' )
-                    selected
-                    @endif
-                @endif value="pending">Pending</option>
-            </select>
-        </div>
-
-        <div class="mb-2 col">
-            <label for="basic_renewal_date" class="form-label mt-2 mb-1">Renewal date</label>
-            <input name="basic_renewal_date" type="date" class="form-control" id="basic_renewal_date" placeholder="Change Expiration Date" value="{{ old('basic_renewal_date', isset( $listing->basic_renewal_date ) ? $listing->basic_renewal_date : '') }}">
-        </div>
-
-        <div class="mb-2 mt-3 col-12">
-            <div class="form-check">
-            <input name="basic_disable_claim" class="form-check-input" type="checkbox" id="claim_disable" {{ isset( $listing->basic_disable_claim ) ? 'checked' : '' }}>
-            <label class="form-check-label" for="claim_disable">
-                Disable claim feature for this listing
-            </label>
-            </div>
-        </div>
-
-        <div class="form-label mb-1">
-            <label for="basic_summary_desc">Summary Description</label>
-            <textarea name="basic_summary_desc" class="form-control" placeholder="Brief description of the listing." id="basic_summary_desc" style="height: 100px">{{ old('basic_renewal_date', isset( $listing->basic_summary_desc ) ? $listing->basic_summary_desc : '') }}</textarea>
-            <div class="text-right"><p class="help-block text-right">250 characters left</p></div>
-        </div>
-
-        <div class="form-label mb-1">
-            <label for="basic_description">Description</label>
-            <textarea name="basic_description" class="form-control" placeholder="Introduce the listing to the public in a clear and efficient way. Describe all features that make the establishment unique and a great option for clients." id="basic_description" style="height: 100px">{{ old('basic_description', isset( $listing->basic_description ) ? $listing->basic_description : '') }}</textarea>
-        </div>
-
-        <div class="mb-2 col-12">
-            <label class="form-check-label" for="claim_disable">
-                Keywords for the search
-            </label>
-
-            <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                @isset ($listing->basic_keywords)
-                @php
-                    if ( is_array($listing->basic_keywords) ) {
-                        $basic_keywords = $listing->basic_keywords;
-                    } else {
-                        $basic_keywords = json_decode($listing->basic_keywords);
-                    }
-                @endphp
-                @endisset
-
-
-                @isset($basic_keywords)
-                    @foreach($basic_keywords as $value)
-                        <div class="multi-search-item"><span>{{ $value }}</span><input name="basic_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
-                    @endforeach
-                @endisset
-                <input type="text" id="keywords" onkeydown="multiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
-            </div>
-            <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
-        </div>
-        </div>
+        <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
+      </div>
     </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="contact_information" class='row'>
-            <h4 class="mb-1 mt-3">Contact information</h4>
+    <div id="contact_information" class='row'>
+        <h4 class="mb-1 mt-3">Contact information</h4>
 
-            <div class="col-6 mb-2">
-                <label for="contact_email" class="form-label mt-2 mb-1">Email</label>
-                <input name="contact_email" type="text" class="form-control" id="contact_email" placeholder="Ex: www.website.com" value="{{ old('contact_email', isset( $listing->contact_email ) ? $listing->contact_email : '') }}">
-            </div>
+        <div class="col-6 mb-2">
+            <label for="contact_email" class="form-label mt-2 mb-1">Email</label>
+            <input name="contact_email" type="text" class="form-control" id="contact_email" placeholder="Ex: www.website.com" value="{{ old('contact_email', isset( $listing->contact_email ) ? $listing->contact_email : '') }}">
+        </div>
 
-            <div class="col-6 mb-2">
-                <label for="contact_url" class="form-label mt-2 mb-1">URL</label>
-                <input name="contact_url" type="text" class="form-control" id="contact_url" placeholder="Ex: www.website.com" value="{{ old('contact_url', isset( $listing->contact_url ) ? $listing->contact_url : '') }}">
-            </div>
+        <div class="col-6 mb-2">
+            <label for="contact_url" class="form-label mt-2 mb-1">URL</label>
+            <input name="contact_url" type="text" class="form-control" id="contact_url" placeholder="Ex: www.website.com" value="{{ old('contact_url', isset( $listing->contact_url ) ? $listing->contact_url : '') }}">
+        </div>
 
             <div class="col-6 mb-2">
                 <label for="contact_phone" class="form-label mt-2 mb-1">Phone</label>
@@ -275,7 +268,8 @@
             </div>
 
             <div class="col-6">
-                <div class="row">
+
+              <div class="row">
                 <span class="form-label mt-2 mb-1">Additional phone</span>
                 <div class="col-4 mb-2">
                     <input name="contact_additional_label" type="text" class="form-control" id="contact_additional_label" placeholder="Label" value="{{ old('contact_additional_label', isset( $listing->contact_additional_label ) ? $listing->contact_additional_label : '') }}">
@@ -283,64 +277,62 @@
                 <div class="col-8 mb-2">
                     <input name="contact_additional_phone" type="text" class="form-control" id="contact_additional_phone" placeholder="Additional phone" value="{{ old('contact_additional_phone', isset( $listing->contact_additional_phone ) ? $listing->contact_additional_phone : '') }}">
                 </div>
-                </div>
-            </div>
+              </div>
 
-            <div class="col-12 mb-2">
-                <label for="contact_address" class="form-label mt-2 mb-1">Address</label>
-                <input name="contact_address" type="text" class="form-control" id="contact_address" placeholder="Street Address, P.O. box" value="{{ old('contact_address', isset( $listing->contact_address ) ? $listing->contact_address : '') }}">
-            </div>
-
-            <div class="col-6 mb-2">
-                <label for="contact_address2" class="form-label mt-2 mb-1">Address 2</label>
-                <input name="contact_address2" type="text" class="form-control" id="contact_address2" placeholder="Apartment, suite, unit, building, floor, etc." value="{{ old('contact_address2', isset( $listing->contact_address2 ) ? $listing->contact_address2 : '') }}">
-            </div>
-
-            <div class="col-6 mb-2">
-                <label for="contact_zip_code" class="form-label mt-2 mb-1">Zip Code</label>
-                <input name="contact_zip_code" type="text" class="form-control" id="contact_zip_code" value="{{ old('contact_zip_code', isset( $listing->contact_zip_code ) ? $listing->contact_zip_code : '') }}">
-            </div>
-
-            <div class="my-2">
-                <div id="map"></div>
             </div>
 
 
-            <div class="col-12 mb-2">
-                <label for="contact_reference" class="form-label mt-2 mb-1">Reference</label>
-                <textarea name="contact_reference" type="text" class="form-control" id="contact_reference" placeholder="Enter a landmark or point of reference for your listing's location.">{{ old('contact_reference', isset( $listing->contact_reference ) ? $listing->contact_reference : '') }}</textarea>
-            </div>
+        <div class="col-12 mb-2">
+            <label for="contact_address" class="form-label mt-2 mb-1">Address</label>
+            <input name="contact_address" type="text" class="form-control" id="contact_address" placeholder="Street Address, P.O. box" value="{{ old('contact_address', isset( $listing->contact_address ) ? $listing->contact_address : '') }}">
+        </div>
 
-            <div class="col-12 mb-2">
-                <label for="contact_map_info" class="form-label mt-2 mb-1">MAPINFO</label>
-                <input name="contact_map_info" type="text" class="form-control" id="contact_map_info" value="{{ old('contact_map_info', isset( $listing->contact_map_info ) ? $listing->contact_map_info : '') }}">
-            </div>
+        <div class="col-6 mb-2">
+            <label for="contact_address2" class="form-label mt-2 mb-1">Address 2</label>
+            <input name="contact_address2" type="text" class="form-control" id="contact_address2" placeholder="Apartment, suite, unit, building, floor, etc." value="{{ old('contact_address2', isset( $listing->contact_address2 ) ? $listing->contact_address2 : '') }}">
+        </div>
+
+        <div class="col-6 mb-2">
+            <label for="contact_zip_code" class="form-label mt-2 mb-1">Zip Code</label>
+            <input name="contact_zip_code" type="text" class="form-control" id="contact_zip_code" value="{{ old('contact_zip_code', isset( $listing->contact_zip_code ) ? $listing->contact_zip_code : '') }}">
+        </div>
+
+        <div class="my-2">
+            <div id="map"></div>
+        </div>
+
+
+        <div class="col-12 mb-2">
+            <label for="contact_reference" class="form-label mt-2 mb-1">Reference</label>
+            <textarea name="contact_reference" type="text" class="form-control" id="contact_reference" placeholder="Enter a landmark or point of reference for your listing's location.">{{ old('contact_reference', isset( $listing->contact_reference ) ? $listing->contact_reference : '') }}</textarea>
+        </div>
+
+        <div class="col-12 mb-2">
+            <label for="contact_map_info" class="form-label mt-2 mb-1">MAPINFO</label>
+            <input name="contact_map_info" type="text" class="form-control" id="contact_map_info" value="{{ old('contact_map_info', isset( $listing->contact_map_info ) ? $listing->contact_map_info : '') }}">
         </div>
     </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="seo_information" class='row'>
-            <h4 class="mb-1 mt-3">Social networks</h4>
+      <div id="seo_information" class='row'>
+        <h4 class="mb-1 mt-3">Social networks</h4>
 
-            <div class="col-6 mb-2">
-                <label for="social_facebook" class="form-label mt-2 mb-1">Facebook page</label>
-                <input name="social_facebook" type="text" class="form-control" id="social_facebook" value="{{ old('social_facebook', isset( $listing->social_facebook ) ? $listing->social_facebook : '') }}">
-            </div>
-
-            <div class="col-6 mb-2">
-                <label for="social_instagram" class="form-label mt-2 mb-1">Instagram</label>
-                <input name="social_instagram" type="text" class="form-control" id="social_instagram" value="{{ old('social_instagram', isset( $listing->social_instagram ) ? $listing->social_instagram : '') }}">
-            </div>
-
-            <div class="col-6 mb-2">
-                <label for="social_twitter" class="form-label mt-2 mb-1">Twitter</label>
-                <input name="social_twitter" type="text" class="form-control" id="social_twitter" value="{{ old('social_twitter', isset( $listing->social_twitter ) ? $listing->social_twitter : '') }}">
-            </div>
+        <div class="col-6 mb-2">
+            <label for="social_facebook" class="form-label mt-2 mb-1">Facebook page</label>
+            <input name="social_facebook" type="text" class="form-control" id="social_facebook" value="{{ old('social_facebook', isset( $listing->social_facebook ) ? $listing->social_facebook : '') }}">
         </div>
-    </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="features" class='row'>
+        <div class="col-6 mb-2">
+            <label for="social_instagram" class="form-label mt-2 mb-1">Instagram</label>
+            <input name="social_instagram" type="text" class="form-control" id="social_instagram" value="{{ old('social_instagram', isset( $listing->social_instagram ) ? $listing->social_instagram : '') }}">
+        </div>
+
+        <div class="col-6 mb-2">
+            <label for="social_twitter" class="form-label mt-2 mb-1">Twitter</label>
+            <input name="social_twitter" type="text" class="form-control" id="social_twitter" value="{{ old('social_twitter', isset( $listing->social_twitter ) ? $listing->social_twitter : '') }}">
+        </div>
+      </div>
+
+      <div id="features" class='row'>
         <h4 class="mb-1 mt-3">Features</h4>
 
         <div class="form-group" id="tour-features">
@@ -357,15 +349,15 @@
                         @endphp
                         @endisset
 
-                        @isset ($features)
+                      @isset ($features)
                         @foreach ( $features as $item )
-                            @foreach ($item as $key => $value)
+                          @foreach ($item as $key => $value)
                             @if ($key == 'icon')
                                 @php $feature_icons[] = $value; @endphp
                             @else
                                 @php $feature_title[] = $value; @endphp
                             @endif
-                            @endforeach
+                          @endforeach
                         @endforeach
                         @php $n = 0; @endphp
                         @foreach ($feature_icons as $icon)
@@ -377,9 +369,9 @@
                                 </div>
                                 <a href="javascript:;" class="group-feature-link">{{ $feature_title[$n] }}</a>
                             </div>
-                            @php $n += 1; @endphp
+                          @php $n += 1; @endphp
                         @endforeach
-                        @endisset
+                      @endisset
                     </div>
                 </div>
             </div>
@@ -420,15 +412,15 @@
             </div>
             <div class="alert alert-danger mt-3" id="alert-features" style="display:none"></div>
         </div>
-        </div>
+      </div>
 
-        <div id="hours-block" class='row'>
+      <div id="hours-block" class='row'>
         <h4 class="mb-1 mt-3">Hours</h4>
 
         <div class="form-group mb-3 mt-3">
-            <div class="row">
+          <div class="row">
             <div class="col-sm-6">
-                <select class="form-control" id="weekday">
+              <select class="form-control" id="weekday">
                 <option value="" disabled selected>Select the day of the week</option>
                 <option value="">--</option>
                 <option value="0">Sunday</option>
@@ -438,12 +430,12 @@
                 <option value="4">Thursday</option>
                 <option value="5">Friday</option>
                 <option value="6">Saturday</option>
-                </select>
+              </select>
             </div>
-            </div>
+          </div>
         </div>
         <div class="form-group mb-3">
-            <div class="row">
+          <div class="row">
             <div class="col-md-2">
                 <label for="hours-start">Start Time</label>
             </div>
@@ -459,12 +451,12 @@
             <div class="col-md-2">
                 <button type="button" class="btn btn-primary btn-add-hours" full-width="true">Add</button>
             </div>
-            </div>
-            <input type="hidden" id="end-nextday">
+          </div>
+          <input type="hidden" id="end-nextday">
         </div>
         <div class="form-group row">
-            <div class="col-md-12">
-                <div class="list-hours-work">
+          <div class="col-md-12">
+              <div class="list-hours-work">
                 @isset ($listing->hours_work)
                 @php
                     if ( is_array($listing->hours_work) ) {
@@ -477,7 +469,7 @@
 
                 @isset ($hours_work)
                     @foreach ( $hours_work as $item )
-                        @foreach ($item as $key => $value)
+                      @foreach ($item as $key => $value)
                         @if ($key == 'weekday')
                             @php $weekday[] = $value; @endphp
                         @elseif ($key == 'hours_start')
@@ -485,7 +477,7 @@
                         @elseif ($key == 'hours_end')
                             @php $hours_end[] = $value; @endphp
                         @endif
-                        @endforeach
+                      @endforeach
                     @endforeach
 
                     @php $n = 0; @endphp
@@ -511,71 +503,65 @@
                     @endforeach
                 @endisset
 
-                </div>
-            </div>
+              </div>
+          </div>
         </div>
         <div class="alert alert-danger alert-hours-of-work" style="display: none;"></div>
+      </div>
+
+      <div id="seo_information" class='row'>
+        <h4 class="mb-1 mt-3">SEO</h4>
+
+        <div class="col-6 mb-2">
+            <label for="seo_title" class="form-label mt-2 mb-1">SEO title</label>
+            <input name="seo_title" type="text" class="form-control" id="seo_title" placeholder="Type your listing title here." value="{{ old('seo_title', isset( $listing->seo_title ) ? $listing->seo_title : '') }}">
         </div>
-    </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="seo_information" class='row'>
-            <h4 class="mb-1 mt-3">SEO</h4>
-
-            <div class="col-6 mb-2">
-                <label for="seo_title" class="form-label mt-2 mb-1">SEO title</label>
-                <input name="seo_title" type="text" class="form-control" id="seo_title" placeholder="Type your listing title here." value="{{ old('seo_title', isset( $listing->seo_title ) ? $listing->seo_title : '') }}">
-            </div>
-
-            <div class="col-6 mb-2">
-                <label for="seo_page_name" class="form-label mt-2 mb-1">Page name</label>
-                <input name="seo_page_name" type="text" class="form-control" id="seo_page_name" value="{{ old('seo_page_name', isset( $listing->seo_page_name ) ? $listing->seo_page_name : '') }}">
-            </div>
-
-            <div class="mb-2 col-12">
-                <label class="form-check-label" for="seo_keywords">
-                    Keywords
-                </label>
-                <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                    @isset ($listing->seo_keywords)
-                    @php
-                        if ( is_array($listing->seo_keywords) ) {
-                            $seo_keywords = $listing->seo_keywords;
-                        } else {
-                            $seo_keywords = json_decode($listing->seo_keywords);
-                        }
-                    @endphp
-                    @endisset
-
-                    @isset($seo_keywords)
-                        @foreach($seo_keywords as $value)
-                            <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
-                        @endforeach
-                    @endisset
-                    <input type="text" id="seo_keywords" onkeydown="SEOmultiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
-                </div>
-                <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
-            </div>
-
-            <div class="col-12 mb-2">
-                <label for="seo_description" class="form-label mt-2 mb-1">Description</label>
-                <textarea name="seo_description" type="text" class="form-control" id="seo_description">{{ old('seo_description', isset( $listing->seo_description ) ? $listing->seo_description : '') }}</textarea>
-            </div>
+        <div class="col-6 mb-2">
+            <label for="seo_page_name" class="form-label mt-2 mb-1">Page name</label>
+            <input name="seo_page_name" type="text" class="form-control" id="seo_page_name" value="{{ old('seo_page_name', isset( $listing->seo_page_name ) ? $listing->seo_page_name : '') }}">
         </div>
-    </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="promotional_section" class='row'>
+        <div class="mb-2 col-12">
+            <label class="form-check-label" for="seo_keywords">
+                Keywords
+            </label>
+            <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+                @isset ($listing->seo_keywords)
+                @php
+                    if ( is_array($listing->seo_keywords) ) {
+                        $seo_keywords = $listing->seo_keywords;
+                    } else {
+                        $seo_keywords = json_decode($listing->seo_keywords);
+                    }
+                @endphp
+                @endisset
+
+                @isset($seo_keywords)
+                    @foreach($seo_keywords as $value)
+                        <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                    @endforeach
+                @endisset
+                <input type="text" id="seo_keywords" onkeydown="SEOmultiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
+            </div>
+            <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
+        </div>
+
+        <div class="col-12 mb-2">
+            <label for="seo_description" class="form-label mt-2 mb-1">Description</label>
+            <textarea name="seo_description" type="text" class="form-control" id="seo_description">{{ old('seo_description', isset( $listing->seo_description ) ? $listing->seo_description : '') }}</textarea>
+        </div>
+      </div>
+
+      <div id="promotional_section" class='row'>
         <h4 class="mb-1 mt-3">Promotional Code</h4>
         <div class="col-12 mb-2">
             <label for="promotional_code" class="form-label mt-2 mb-1">Do you have a discount code? Type it here.</label>
             <input name="promotional_code" type="text" class="form-control" id="promotional_code" value="{{ old('promotional_code', isset( $listing->promotional_code ) ? $listing->promotional_code : '') }}">
         </div>
-        </div>
-    </div>
+      </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="video_section" class='row'>
+      <div id="video_section" class='row'>
         <h4 class="mb-1 mt-3">Video</h4>
         <div class="col-12 mb-2">
             <label for="video_url" class="form-label mt-2 mb-1">Video URL</label>
@@ -585,18 +571,16 @@
             <label for="video_desc" class="form-label mt-2 mb-1">Video description</label>
             <input name="video_desc" type="text" class="form-control" id="video_desc" value="{{ old('video_desc', isset( $listing->video_desc ) ? $listing->video_desc : '') }}">
         </div>
-        </div>
-    </div>
+      </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="attach_file_section" class='row'>
+      <div id="attach_file_section" class='row'>
         <h4 class="mb-1 mt-3">Attach Additional File</h4>
         <div class="col-12 mb-2">
-            @isset ( $listing->attach_file )
-                <div class="multi-search-item"><span>File attached: {{ $listing->attach_file }}</span>
-                <input name="attach_file_prev" type="hidden" value="{{ $listing->attach_file }}">
-                <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
-            @endisset
+          @isset ( $listing->attach_file )
+              <div class="multi-search-item"><span>File attached: {{ $listing->attach_file }}</span>
+              <input name="attach_file_prev" type="hidden" value="{{ $listing->attach_file }}">
+              <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+          @endisset
             <label for="attach_file" class="form-label mt-2 mb-1">Choose file</label>
             <input name="attach_file" type="file" class="form-control" id="attach_file" value="{{ old('attach_file', isset( $listing->attach_file ) ? $listing->attach_file : '') }}">
         </div>
@@ -604,11 +588,28 @@
             <label for="attach_desc" class="form-label mt-2 mb-1"></label>
             <input name="attach_desc" type="text" class="form-control" id="attach_desc" placeholder="This is how the link to download your file will be shown." value="{{ old('attach_desc', isset( $listing->attach_desc ) ? $listing->attach_desc : '') }}">
         </div>
-        </div>
-    </div>
+      </div>
 
-    <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="listing_badges_section" class='row listing_badges'>
+    <style>
+        .listing_badges {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 500px;
+        }
+        .panel-heading {
+            border: none;
+            border-bottom: 1px solid #e6e6e6;
+            font-size: 1.2em;
+            color: #8d8b87;
+            padding: .7em 1em .8em;
+        }
+        .panel-body {
+            text-align: center;
+            border: none;
+            padding: 1.8em 2.2em 1em 2.2em;
+        }
+    </style>
+      <div id="listing_badges_section" class='row listing_badges'>
         <div class="mb-1 mt-3 listing_badges__title panel-heading">Listing Badges
             <div class="pull-right"><small><a class="text-info" href="#" target="_blank">Want to change your badges? Click here.</a></small></div>
         </div>
@@ -623,123 +624,39 @@
                 </label>
             </div>
         </div>
-        </div>
-    </div>
+      </div>
 
-    <div class="mb-2 col-12">
-        <button type="submit" class="btn btn-sm btn-primary">{{ isset($listing) ?  'Update' : 'Create' }}</button>
-    </div>
-  </div>
+      <div class="mb-2 col-12">
+        <button type="submit" class="btn btn-primary">{{ isset($listing) ?  'Update' : 'Create' }}</button>
+      </div>
 
-  <div class="col-4">
+    </div>
+</div>
+
+    {{-- right content --}}
+    <div class="col-4">
       <div class="row">
         <div class="col-12">
-            <label for="image_logo" class="form-label mt-2 mb-1">Logo:</label>
-            <div>
-                <!-- <input type="file" accept=".jpg, .jpeg, .png" id="image_logo" name="image_logo" class="choose me-2 mb-2"><br> -->
-            </div>
-            <!--begin::Image input-->
-            <div class="image-input image-input-outline" data-kt-image-input="true" style="">
-                <!--begin::Image preview wrapper-->
-                <div class="image-input-wrapper w-125px h-125px" @isset ($listing->image_logo) style="background-image: url({{ asset('/storage/' . $listing->image_logo) }})" @endisset></div>
-                <!--end::Image preview wrapper-->
-
-                <!--begin::Edit button-->
-                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                data-kt-image-input-action="change"
-                data-bs-toggle="tooltip"
-                data-bs-dismiss="click"
-                title="Change cover">
-                    <i class="bi bi-pencil-fill fs-7"></i>
-
-                    <!--begin::Inputs-->
-                    <input type="file" name="image_logo" accept=".png, .jpg, .jpeg" />
-                    <input type="hidden" name="avatar_remove" />
-                    @isset ($listing->image_logo)
-                    <input name="image_logo_prev" id="image_logo_prev" type="hidden" value="{{ $listing->image_logo }}">
-                    @endisset
-                    <!--end::Inputs-->
-                </label>
-                <!--end::Edit button-->
-
-                <!--begin::Cancel button-->
-                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                data-kt-image-input-action="cancel"
-                data-bs-toggle="tooltip"
-                data-bs-dismiss="click"
-                title="Delete cover">
-                    <i class="bi bi-x fs-2"></i>
-                </span>
-                <!--end::Cancel button-->
-
-                <!--begin::Remove button-->
-                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                data-kt-image-input-action="remove"
-                data-bs-toggle="tooltip"
-                data-bs-dismiss="click"
-                title="Remove cover" id="removeLogo">
-                    <i class="bi bi-x fs-2"></i>
-                </span>
-                <!--end::Remove button-->
-            </div>
-            <!--end::Image input-->
+            Logo:<br>
+            <input type="file" name="image_logo">
+            @isset ($listing->image_logo)
+              <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $listing->image_logo) }}"></span>
+              <input name="image_logo_prev" type="hidden" value="{{ $listing->image_logo }}">
+              <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+            @endisset
         </div>
         <div class="col-12">
-            <label for="image_cover" class="form-label mt-2 mb-1">Cover:</label>
-            <div>
-                <!-- <input type="file" accept=".jpg, .jpeg, .png" id="image_cover" name="image_cover" class="choose me-2 mb-2"><br> -->
-            </div>
-            <!--begin::Image input-->
-            <div class="image-input image-input-outline" data-kt-image-input="true" style="">
-                <!--begin::Image preview wrapper-->
-                <div class="image-input-wrapper w-125px h-125px" @isset ($listing->image_cover) style="background-image: url({{ asset('/storage/' . $listing->image_cover) }})" @endisset></div>
-                <!--end::Image preview wrapper-->
-
-                <!--begin::Edit button-->
-                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                data-kt-image-input-action="change"
-                data-bs-toggle="tooltip"
-                data-bs-dismiss="click"
-                title="Change cover">
-                    <i class="bi bi-pencil-fill fs-7"></i>
-
-                    <!--begin::Inputs-->
-                    <input type="file" name="image_cover" accept=".png, .jpg, .jpeg" />
-                    <input type="hidden" name="avatar_remove" />
-                    @isset ($listing->image_cover)
-                    <input name="image_cover_prev" id="image_cover_prev" type="hidden" value="{{ $listing->image_cover }}">
-                    @endisset
-                    <!--end::Inputs-->
-                </label>
-                <!--end::Edit button-->
-
-                <!--begin::Cancel button-->
-                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                data-kt-image-input-action="cancel"
-                data-bs-toggle="tooltip"
-                data-bs-dismiss="click"
-                title="Delete cover">
-                    <i class="bi bi-x fs-2"></i>
-                </span>
-                <!--end::Cancel button-->
-
-                <!--begin::Remove button-->
-                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                data-kt-image-input-action="remove"
-                data-bs-toggle="tooltip"
-                data-bs-dismiss="click"
-                title="Remove cover" id="removeCover">
-                    <i class="bi bi-x fs-2"></i>
-                </span>
-                <!--end::Remove button-->
-            </div>
-            <!--end::Image input-->
+            Cover:<br>
+            <input type="file" name="image_cover">
+            @isset ($listing->image_cover)
+            <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $listing->image_cover) }}"></span>
+            <input name="image_cover_prev" type="hidden" value="{{ $listing->image_cover }}">
+            <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+            @endisset
         </div>
         <div class="col-12">
-            <label for="image_gallery[]" class="form-label mt-2 mb-1">Gallery (multiple images):</label>
-            <div>
-                <input type="file" accept=".jpg, .jpeg, .png" id="image_gallery[]" name="image_gallery[]" class="choose me-2 mb-2" multiple><br>
-            </div>
+            Gallery (multiple images):<br>
+            <input type="file" multiple name="image_gallery[]">
             @isset ($listing->image_gallery)
             @php
                 if ( is_array($listing->image_gallery) ) {
@@ -752,31 +669,15 @@
 
             @isset ($image_gallery)
                  @foreach ($image_gallery as $item)
-                    <!--begin::Alert-->
-                    <div class="w-250px alert alert-dismissible bg-light-primary border border-primary d-flex flex-column flex-sm-row mb-10">
-                        <!--begin::Wrapper-->
-                        <div class="d-flex flex-column">
-                            <!--begin::Content-->
-                            <input name="image_gallery_prev[]" type="hidden" value="{{ $item }}">
-                            <img width="205px" src="{{ asset('/storage/' . $item) }}">
-                            <!--end::Content-->
-                        </div>
-                        <!--end::Wrapper-->
-
-                        <!--begin::Close-->
-                        <button style="height: calc(-0.5em + (1.5rem + 2px));" type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
-                            <i class="bi bi-x fs-1 text-primary"></i>
-                        </button>
-                        <!--end::Close-->
-                    </div>
-                    <!--end::Alert-->
+                    <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $item) }}"></span>
+                    <input name="image_gallery_prev[]" type="hidden" value="{{ $item }}">
+                    <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
                  @endforeach
             @endisset
         </div>
       </div>
-  </div>
-</div>
-</form>
+    </div>
+  </form>
 
   @isset ($listing)
     <form class="col" method="POST" action="{{ route('listings.destroy', $listing) }}">
@@ -789,13 +690,6 @@
 
 <script>
     // change subs block to form
-    $('#removeCover').click(function(){
-        $('#image_cover_prev').val('');
-    })
-    $('#removeLogo').click(function(){
-        $('#image_logo_prev').val('');
-    })
-
     $('.selectPlanBtn').click(function()
     {
         event.preventDefault();
