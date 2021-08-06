@@ -232,7 +232,19 @@
             <label class="form-check-label" for="claim_disable">
                 Keywords for the search
             </label>
-
+            <style>
+                .multi-search-filter {
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+                .multi-search-item {
+                    margin-right: 15px;
+                }
+                .multi-search-item .btn.btn-icon {
+                    width: auto;
+                    padding-left: 15px;
+                }
+            </style>
             <div class="form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
                 @isset ($listing->basic_keywords)
                 @php
@@ -997,9 +1009,7 @@
         if (!$('#hours-block').length){
             return;
         }
-        $('.time-input').each(function(){
-            $(this).timepicker()
-        });
+        $('.time-input').timepicker();
 
         const $weekday = $('#weekday');
         const $startHour = $('#hours-start');
