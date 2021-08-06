@@ -325,7 +325,7 @@
     </div>
 
     <div class="card mb-5 mb-xl-8 p-5 py-1">
-        <div id="seo_information" class='row'>
+        <div id="social_networks" class='row'>
             <h4 class="mb-1 mt-3">Social networks</h4>
 
             <div class="col-6 mb-2">
@@ -555,10 +555,16 @@
 
                     @isset($seo_keywords)
                         @foreach($seo_keywords as $value)
-                            <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                            <div class="multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2">
+                                <span>{{ $value }}</span>
+                                <input name="seo_keywords[]" type="hidden" value="{{ $value }}">
+                                <button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                                    <i class="bi bi-x fs-1 text-primary"></i>
+                                </button>
+                            </div>
                         @endforeach
                     @endisset
-                    <input type="text" id="seo_keywords" onkeydown="SEOmultiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
+                    <input type="text" class="form-control" id="seo_keywords" onkeydown="SEOmultiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
                 </div>
                 <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
             </div>
@@ -883,9 +889,11 @@
     }
     function SEOcreateFilterItem(text) {
         const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item ");
+        item.setAttribute("class", "multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2");
         const span = `<span>${text}</span><input name="seo_keywords[]" type="hidden" value="${text}">`;
-        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
+        const close = `<button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="bi bi-x fs-1 text-primary"></i>
+                        </button>`;
         item.innerHTML = span+close;
         return item;
     }
