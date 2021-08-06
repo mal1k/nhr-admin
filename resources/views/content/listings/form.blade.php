@@ -14,11 +14,11 @@
     <div class="row mb-3 text-center">
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm border-primary">
-          <div class="card-header py-3 text-white bg-primary border-primary">
-            <h4 class="my-0 fw-normal">Bronze</h4>
-          </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+
+            <h1 class="card-title pricing-card-title">
+                <h1>Bronze</h1>
+                $0<small class="text-muted fw-light">/mo</small></h1>
                 {{-- <ul class="list-unstyled mt-3 mb-4">
                 <li>30 users included</li>
                 <li>15 GB of storage</li>
@@ -31,11 +31,10 @@
       </div>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">Silver</h4>
-          </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$119.95<small class="text-muted fw-light">/mo</small></h1>
+            <h1 class="card-title pricing-card-title">
+                <h1>Silver</h1>
+                $119.95<small class="text-muted fw-light">/mo</small></h1>
                 {{-- <ul class="list-unstyled mt-3 mb-4">
                 <li>10 users included</li>
                 <li>2 GB of storage</li>
@@ -48,11 +47,10 @@
       </div>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">Gold</h4>
-          </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$249.95<small class="text-muted fw-light">/mo</small></h1>
+            <h1 class="card-title pricing-card-title">
+                <h1>Gold</h1>
+                $249.95<small class="text-muted fw-light">/mo</small></h1>
                 {{-- <ul class="list-unstyled mt-3 mb-4">
                 <li>10 users included</li>
                 <li>2 GB of storage</li>
@@ -65,11 +63,10 @@
       </div>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">Platinum</h4>
-          </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$299.95<small class="text-muted fw-light">/mo</small></h1>
+            <h1 class="card-title pricing-card-title">
+                <h1>Platinum</h1>
+                $299.95<small class="text-muted fw-light">/mo</small></h1>
                 {{-- <ul class="list-unstyled mt-3 mb-4">
                 <li>10 users included</li>
                 <li>2 GB of storage</li>
