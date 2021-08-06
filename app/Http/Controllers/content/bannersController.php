@@ -75,7 +75,7 @@ class bannersController extends Controller
         {
             $banner->delete();
 
-            return redirect()->route('banners.index')->withDanger('Deleted banner "' . $banner->caption . '"');
+            return redirect()->route('banners.index')->withSuccess('Deleted banner "' . $banner->caption . '"');
 
         }
 }

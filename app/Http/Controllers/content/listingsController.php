@@ -144,7 +144,7 @@ class listingsController extends Controller
         {
             $listing->delete();
 
-            return redirect()->route('listings.index')->withDanger('Deleted listing "' . $listing->title . '"');
+            return redirect()->route('listings.index')->withSuccess('Deleted listing "' . $listing->title . '"');
 
         }
 }

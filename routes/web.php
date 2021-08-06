@@ -57,5 +57,5 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/manager', function () {
-    return view('dashboard');
+    return view('new-dashboard');
 })->name('dashboard');

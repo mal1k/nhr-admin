@@ -86,7 +86,7 @@ class blogCategoriesController extends Controller
             $category = blogCategories::where('id',  '=', $id)->first();
             $category->delete();
 
-            return redirect()->route('blog-categories.index')->withDanger('Deleted blog category "' . $category->title . '"');
+            return redirect()->route('blog-categories.index')->withSuccess('Deleted blog category "' . $category->title . '"');
 
         }
 }

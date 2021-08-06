@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.84.0">
+    <meta name="author" content="Alex-K">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ URL::asset('css/content_management/style.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/content/style.css') }}">
+    <link href="{{ URL::asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Bootstrap core CSS -->

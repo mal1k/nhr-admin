@@ -86,7 +86,7 @@ class eventsCategoriesController extends Controller
             $category = eventsCategories::where('id',  '=', $id)->first();
             $category->delete();
 
-            return redirect()->route('event-categories.index')->withDanger('Deleted event category "' . $category->title . '"');
+            return redirect()->route('event-categories.index')->withSuccess('Deleted event category "' . $category->title . '"');
 
         }
 }

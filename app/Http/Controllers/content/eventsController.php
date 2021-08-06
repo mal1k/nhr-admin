@@ -111,7 +111,7 @@ class eventsController extends Controller
         {
             $event->delete();
 
-            return redirect()->route('events.index')->withDanger('Deleted event "' . $event->title . '"');
+            return redirect()->route('events.index')->withSuccess('Deleted event "' . $event->title . '"');
 
         }
 }

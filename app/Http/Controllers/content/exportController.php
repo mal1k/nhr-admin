@@ -50,7 +50,7 @@ class exportController extends Controller
         {
             unlink(storage_path("app/exportContent/$filename"));
             exportContent::where('filename', $filename)->delete();
-            return redirect()->route('export.index')->withDanger('Deleted file "' . $filename . '"');
+            return redirect()->route('export.index')->withSuccess('Deleted file "' . $filename . '"');
         }
 
 }

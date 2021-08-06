@@ -13,4 +13,10 @@ class referedByController extends Controller
             $users = User::orderByDesc('id')->whereNotNull('refered_by')->paginate(15);
             return view('content.referedBy.dashboard', compact('users'));
         }
+
+    public function create()
+        {
+            $users = User::orderByDesc('id')->whereNotNull('refered_by')->paginate(15);
+            return dd('In developing');
+        }
 }

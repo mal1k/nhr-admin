@@ -59,7 +59,7 @@ class listingTypesController extends Controller
     public function destroy(listingTypes $listingType)
         {
             $listingType->delete();
-            return redirect()->route('listing-types.index')->withDanger('Deleted listing type "' . $listingType->title . '"');
+            return redirect()->route('listing-types.index')->withSuccess('Deleted listing type "' . $listingType->title . '"');
         }
 }
 

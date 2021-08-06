@@ -87,7 +87,7 @@ class listingsCategoriesController extends Controller
             $category = listingsCategories::where('id',  '=', $id)->first();
             $category->delete();
 
-            return redirect()->route('listing-categories.index')->withDanger('Deleted listing category "' . $category->title . '"');
+            return redirect()->route('listing-categories.index')->withSuccess('Deleted listing category "' . $category->title . '"');
 
         }
 }
