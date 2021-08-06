@@ -42,7 +42,7 @@
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="submit" value='silver' class="selectPlanBtn w-100 btn btn-lg btn-outline-primary">Select</button>
+            <button type="submit" value='silver' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="submit" value='gold' class="selectPlanBtn w-100 btn btn-lg btn-outline-primary">Select</button>
+            <button type="submit" value='gold' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="submit" value='platinum' class="selectPlanBtn w-100 btn btn-lg btn-outline-primary">Select</button>
+            <button type="submit" value='platinum' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
           </div>
         </div>
       </div>
@@ -227,6 +227,8 @@
         </div>
 
         <div class="mb-2 col-12">
+
+
             <label class="form-check-label" for="claim_disable">
                 Keywords for the search
             </label>
@@ -241,6 +243,7 @@
                     }
                 @endphp
                 @endisset
+
 
 
                 @isset($basic_keywords)
