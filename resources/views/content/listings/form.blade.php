@@ -245,10 +245,16 @@
 
                 @isset($basic_keywords)
                     @foreach($basic_keywords as $value)
-                        <div class="multi-search-item"><span>{{ $value }}</span><input name="basic_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                        <div class="multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2">
+                            <span>{{ $value }}</span>
+                            <input name="basic_keywords[]" type="hidden" value="{{ $value }}">
+                            <button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                                <i class="bi bi-x fs-1 text-primary"></i>
+                            </button>
+                        </div>
                     @endforeach
                 @endisset
-                <input type="text" id="keywords" onkeydown="multiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
+                <input type="text" id="keywords" class="form-control" onkeydown="multiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
             </div>
             <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
         </div>
@@ -852,9 +858,11 @@
     }
     function createFilterItem(text) {
         const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item");
+        item.setAttribute("class", "multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2");
         const span = `<span>${text}</span><input name="basic_keywords[]" type="hidden" value="${text}">`;
-        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
+        const close = `<button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="bi bi-x fs-1 text-primary"></i>
+                        </button>`;
         item.innerHTML = span+close;
         return item;
     }
@@ -875,7 +883,7 @@
     }
     function SEOcreateFilterItem(text) {
         const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item");
+        item.setAttribute("class", "multi-search-item ");
         const span = `<span>${text}</span><input name="seo_keywords[]" type="hidden" value="${text}">`;
         const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
         item.innerHTML = span+close;
