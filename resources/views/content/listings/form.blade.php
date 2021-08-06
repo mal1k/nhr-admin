@@ -806,7 +806,7 @@
     <form class="col" method="POST" action="{{ route('listings.destroy', $listing) }}">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger mb-3">Delete</button>
+        <button type="submit" class="btn btn-sm btn-danger mb-3">Delete</button>
     </form>
   @endisset
 </div>
