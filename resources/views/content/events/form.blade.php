@@ -1,4 +1,4 @@
-@extends ('layout')
+@extends ('new-layout')
 
 @section('title', isset($event) ?  'Update '.$event->title : 'Create event')
 
@@ -82,8 +82,8 @@
         @method('PUT')
     @endisset
 
+<div class="row">
     <div class="col-8">
-    <div class="row">
       <div class="mb-2 col">
         <label for="title" class="form-label mt-2 mb-1">Title</label>
         <input name="title" type="text" class="form-control" id="title" placeholder="Type your event title here." value="{{ old('title', isset( $event->title ) ? $event->title : '') }}">
@@ -208,10 +208,16 @@
 
             @isset($basic_keywords)
                 @foreach($basic_keywords as $value)
-                    <div class="multi-search-item"><span>{{ $value }}</span><input name="basic_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                <div class="multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2">
+                    <span>{{ $value }}</span>
+                    <input name="basic_keywords[]" type="hidden" value="{{ $value }}">
+                    <button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                        <i class="bi bi-x fs-1 text-primary"></i>
+                    </button>
+                </div>
                 @endforeach
             @endisset
-            <input type="text" id="keywords" onkeydown="multiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
+            <input type="text" id="keywords" class="form-control" onkeydown="multiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
         </div>
         <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
 
@@ -491,10 +497,16 @@
 
                 @isset($seo_keywords)
                     @foreach($seo_keywords as $value)
-                        <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                        <div class="multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2">
+                            <span>{{ $value }}</span>
+                            <input name="seo_keywords[]" type="hidden" value="{{ $value }}">
+                            <button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                                <i class="bi bi-x fs-1 text-primary"></i>
+                            </button>
+                        </div>
                     @endforeach
                 @endisset
-                <input type="text" id="seo_keywords" onkeydown="SEOmultiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
+                <input type="text" id="seo_keywords" class="form-control" onkeydown="SEOmultiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
             </div>
             <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
         </div>
@@ -514,19 +526,69 @@
       </div>
 
       <div class="mb-2 col-12">
-        <button type="submit" class="btn btn-primary">{{ isset($event) ?  'Update' : 'Create' }}</button>
+        <button type="submit" class="btn btn-sm btn-primary">{{ isset($event) ?  'Update' : 'Create' }}</button>
       </div>
 
     </div>
-</div>
 
-    {{-- right content --}}
     <div class="col-4">
       <div class="row">
         <div class="col-12">
-            Gallery (multiple images):<br>
-            <input type="file" multiple name="image_gallery[]">
+            <label for="image_cover" class="form-label mt-2 mb-1">Cover:</label>
+            <div>
+                <!-- <input type="file" accept=".jpg, .jpeg, .png" id="image_cover" name="image_cover" class="choose me-2 mb-2"><br> -->
+            </div>
+            <!--begin::Image input-->
+            <div class="image-input image-input-outline" data-kt-image-input="true" style="">
+                <!--begin::Image preview wrapper-->
+                <div class="image-input-wrapper w-125px h-125px" @isset ($event->image_cover) style="background-image: url({{ asset('/storage/' . $event->image_cover) }})" @endisset></div>
+                <!--end::Image preview wrapper-->
 
+                <!--begin::Edit button-->
+                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="change"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Change cover">
+                    <i class="bi bi-pencil-fill fs-7"></i>
+
+                    <!--begin::Inputs-->
+                    <input type="file" name="image_cover" accept=".png, .jpg, .jpeg" />
+                    <input type="hidden" name="avatar_remove" />
+                    @isset ($event->image_cover)
+                    <input name="image_cover_prev" id="image_cover_prev" type="hidden" value="{{ $event->image_cover }}">
+                    @endisset
+                    <!--end::Inputs-->
+                </label>
+                <!--end::Edit button-->
+
+                <!--begin::Cancel button-->
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="cancel"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Delete cover">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <!--end::Cancel button-->
+
+                <!--begin::Remove button-->
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="remove"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Remove cover" id="removeCover">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <!--end::Remove button-->
+            </div>
+            <!--end::Image input-->
+        </div>
+        <div class="col-12">
+            <label for="image_gallery[]" class="form-label mt-2 mb-1">Gallery (multiple images):</label>
+            <div>
+                <input type="file" accept=".jpg, .jpeg, .png" id="image_gallery[]" name="image_gallery[]" class="choose me-2 mb-2" multiple><br>
+            </div>
             @isset ($event->image_gallery)
             @php
                 if ( is_array($event->image_gallery) ) {
@@ -539,19 +601,25 @@
 
             @isset ($image_gallery)
                  @foreach ($image_gallery as $item)
-                    <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $item) }}"></span>
-                    <input name="image_gallery_prev[]" type="hidden" value="{{ $item }}">
-                    <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                    <!--begin::Alert-->
+                    <div class="w-250px alert alert-dismissible bg-light-primary border border-primary d-flex flex-column flex-sm-row mb-10">
+                        <!--begin::Wrapper-->
+                        <div class="d-flex flex-column">
+                            <!--begin::Content-->
+                            <input name="image_gallery_prev[]" type="hidden" value="{{ $item }}">
+                            <img width="205px" src="{{ asset('/storage/' . $item) }}">
+                            <!--end::Content-->
+                        </div>
+                        <!--end::Wrapper-->
+
+                        <!--begin::Close-->
+                        <button style="height: calc(-0.5em + (1.5rem + 2px));" type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="bi bi-x fs-1 text-primary"></i>
+                        </button>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Alert-->
                  @endforeach
-            @endisset
-        </div>
-        <div class="col-12">
-            Cover:<br>
-            <input type="file" name="image_cover">
-            @isset ($event->image_cover)
-            <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $event->image_cover) }}"></span>
-            <input name="image_cover_prev" type="hidden" value="{{ $event->image_cover }}">
-            <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
             @endisset
         </div>
         <div id="video_section" class='row'>
@@ -569,12 +637,16 @@
     <form class="col" method="POST" action="{{ route('events.destroy', $event) }}">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger mb-3">Delete</button>
+        <button type="submit" class="btn btn-sm btn-danger mb-3">Delete</button>
     </form>
   @endisset
 </div>
+</div>
 
 <script>
+    $('#removeCover').click(function(){
+        $('#image_cover_prev').val('');
+    })
     // change subs block to form
     $('.selectPlanBtn').click(function()
     {
@@ -632,9 +704,11 @@
     }
     function createFilterItem(text) {
         const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item");
+        item.setAttribute("class", "multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2");
         const span = `<span>${text}</span><input name="basic_keywords[]" type="hidden" value="${text}">`;
-        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
+        const close = `<button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="bi bi-x fs-1 text-primary"></i>
+                        </button>`;
         item.innerHTML = span+close;
         return item;
     }
@@ -655,9 +729,11 @@
     }
     function SEOcreateFilterItem(text) {
         const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item");
+        item.setAttribute("class", "multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2");
         const span = `<span>${text}</span><input name="seo_keywords[]" type="hidden" value="${text}">`;
-        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
+        const close = `<button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="bi bi-x fs-1 text-primary"></i>
+                        </button>`;
         item.innerHTML = span+close;
         return item;
     }
