@@ -26,6 +26,7 @@
 
     <div class="row">
     <div class="col-8">
+    <div class="card mb-5 mb-xl-8 p-5 py-1 mt-3">
       <div class="mb-2 col-12">
         <label for="caption" class="form-label mt-2 mb-1">Banner Type</label>
         <select name="banner_type" id="banner_type" class="form-select col">
@@ -57,7 +58,9 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="card mb-5 mb-xl-8 p-5 py-1">
       <div id="basic_information" class='row'>
         <h4 class="mb-1 mt-3">Basic information</h4>
 
@@ -92,6 +95,7 @@
                 @endif value="pending">Pending</option>
             </select>
         </div>
+    </div>
 
         <div class="mb-2 col">
             <label for="basic_renewal_date" class="form-label mt-2 mb-1">Renewal date</label>
@@ -99,7 +103,7 @@
         </div>
       </div>
 
-
+    <div class="card mb-5 mb-xl-8 p-5 py-1">
       <div id="basic_information" class='row'>
         <h4 class="mb-1 mt-3">Banner Details</h4>
           <label for="banner_section" class="form-label mt-2 mb-1">Section</label>
@@ -216,7 +220,9 @@
             </div>
         </div>
       </div>
+    </div>
 
+    <div class="card mb-5 mb-xl-8 p-5 py-1">
       <div id="promotional_section" class='row'>
         <h4 class="mb-1 mt-3">Promotional Code</h4>
         <div class="col-12 mb-2">
@@ -224,6 +230,7 @@
             <input name="promotional_code" type="text" class="form-control" id="promotional_code" value="{{ old('promotional_code', isset( $banner->promotional_code ) ? $banner->promotional_code : '') }}">
         </div>
       </div>
+    </div>
 
       <div class="mb-2 col-12">
         <button type="submit" class="btn btn-sm btn-primary">{{ isset($banner) ?  'Update' : 'Create' }}</button>
