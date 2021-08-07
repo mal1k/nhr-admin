@@ -1,4 +1,4 @@
-@extends ('layout')
+@extends ('new-layout')
 
 @section('title', isset($banner) ?  'Update '.$banner->title : 'Create banner')
 
@@ -107,11 +107,10 @@
             @php($months = array('General Pages', 'Listing', 'Deal', 'Event', 'Blog', 'Global Banner'))
               @foreach ($months as $num => $name)
               <span class="mr-3">
-                <input type="radio" name="banner_section" {{ old('banner_section', (isset( $banner->banner_section ) && ( $banner->banner_section == $num )) || (empty($banner) && 0 == $num )  ? 'checked' : '') }} value="{{ $num }}">{{ $name }}
+                <label for="banner_section_{{ $num }}"><input type="radio" id="banner_section_{{ $num }}" name="banner_section" {{ old('banner_section', (isset( $banner->banner_section ) && ( $banner->banner_section == $num )) || (empty($banner) && 0 == $num )  ? 'checked' : '') }} value="{{ $num }}">{{ $name }}</label>
               </span>
               @endforeach
           </div>
-
           <label class="form-label mt-2 mb-1">Category</label>
           <div class="form-label">
 
@@ -227,40 +226,82 @@
       </div>
 
       <div class="mb-2 col-12">
-        <button type="submit" class="btn btn-primary">{{ isset($banner) ?  'Update' : 'Create' }}</button>
+        <button type="submit" class="btn btn-sm btn-primary">{{ isset($banner) ?  'Update' : 'Create' }}</button>
       </div>
 
     </div>
 
     {{-- right content --}}
     <div class="col-4">
-      <div id="file_image">
-      <div class="row">
-        <div class="col-12">
-            File:<br>
-            <input type="file" name="file_image">
-            @isset ($banner->file_image)
-              <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $banner->file_image) }}"></span>
-              <input name="file_image_prev" type="hidden" value="{{ $banner->file_image }}">
-              <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
-            @endisset
+        <div class="col-12" id='file_image'>
+            <label for="image_logo" class="form-label mt-2 mb-1">Image:</label>
+            <div>
+                <!-- <input type="file" accept=".jpg, .jpeg, .png" id="image_logo" name="image_logo" class="choose me-2 mb-2"><br> -->
+            </div>
+            <!--begin::Image input-->
+            <div class="image-input image-input-outline" data-kt-image-input="true" style="">
+                <!--begin::Image preview wrapper-->
+                <div class="image-input-wrapper w-125px h-125px" @isset ($banner->file_image) style="background-image: url({{ asset('/storage/' . $banner->file_image) }})" @endisset></div>
+                <!--end::Image preview wrapper-->
+
+                <!--begin::Edit button-->
+                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="change"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Change cover">
+                    <i class="bi bi-pencil-fill fs-7"></i>
+
+                    <!--begin::Inputs-->
+                    <input type="file" name="file_image" accept=".png, .jpg, .jpeg, .swf, .gif" />
+                    <input type="hidden" name="avatar_remove" />
+                    @isset ($banner->file_image)
+                    <input name="file_image_prev" id="file_image_prev" type="hidden" value="{{ $banner->file_image }}">
+                    @endisset
+                    <!--end::Inputs-->
+                </label>
+                <!--end::Edit button-->
+
+                <!--begin::Cancel button-->
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="cancel"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Delete cover">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <!--end::Cancel button-->
+
+                <!--begin::Remove button-->
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="remove"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Remove cover" id="removeLogo">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <!--end::Remove button-->
+            </div>
+            <!--end::Image input-->
         </div>
-      </div>
-      </div>
     </div>
-  </div>
+
   </form>
 
   @isset ($banner)
     <form class="col" method="POST" action="{{ route('banners.destroy', $banner) }}">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger mb-3">Delete</button>
+        <button type="submit" class="btn btn-sm btn-danger mb-3">Delete</button>
     </form>
   @endisset
 </div>
+</div>
 
 <script>
+    $('#removeLogo').click(function(){
+        $('#file_image_prev').val('');
+    })
 
     categoryChanger($('input[name=banner_section]:checked').val())
     selectChanger();
