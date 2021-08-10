@@ -14,11 +14,9 @@
     <div class="row mb-3 text-center">
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm border-primary">
-          <div class="card-header py-3 text-white bg-primary border-primary">
-            <h4 class="my-0 fw-normal">Base event</h4>
-          </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+            <h1>Base event</h1>
+            <h4 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h4>
                 {{-- <ul class="list-unstyled mt-3 mb-4">
                 <li>30 users included</li>
                 <li>15 GB of storage</li>
@@ -31,35 +29,31 @@
       </div>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">Moderate Visibility</h4>
-          </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$2.00<small class="text-muted fw-light">/mo</small></h1>
+            <h1>Moderate Visibility</h1>
+            <h4 class="card-title pricing-card-title">$2.00<small class="text-muted fw-light">/mo</small></h4>
                 {{-- <ul class="list-unstyled mt-3 mb-4">
                 <li>10 users included</li>
                 <li>2 GB of storage</li>
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="submit" value='ModerateVisibility' class="selectPlanBtn w-100 btn btn-lg btn-outline-primary">Select</button>
+            <button type="submit" value='ModerateVisibility' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-header py-3">
-            <h4 class="my-0 fw-normal">High Visibility</h4>
-          </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$5.00<small class="text-muted fw-light">/mo</small></h1>
+            <h1>High Visibility</h1>
+            <h4 class="card-title pricing-card-title">$5.00<small class="text-muted fw-light">/mo</small></h4>
                 {{-- <ul class="list-unstyled mt-3 mb-4">
                 <li>10 users included</li>
                 <li>2 GB of storage</li>
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="submit" value='HighVisibility' class="selectPlanBtn w-100 btn btn-lg btn-outline-primary">Select</button>
+            <button type="submit" value='HighVisibility' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
           </div>
         </div>
       </div>
