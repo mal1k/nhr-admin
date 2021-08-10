@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\content;
 
 use App\Http\Controllers\Controller;
+use App\Models\listingsCategories;
 use App\Models\listingTypes;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,8 @@ class listingTypesController extends Controller
 
     public function create()
         {
-            return view('content.listingTypes.form');
+            $listingCategories = listingsCategories::orderByDesc('id')->paginate(0);
+            return view('content.listingTypes.form', compact('listingCategories'));
         }
 
     public function store(Request $request)
@@ -32,7 +34,8 @@ class listingTypesController extends Controller
 
     public function edit(listingTypes $listingType)
         {
-            return view('content.listingTypes.form', compact('listingType'));
+            $listingCategories = listingsCategories::orderByDesc('id')->paginate(0);
+            return view('content.listingTypes.form', compact('listingType', 'listingCategories'));
         }
 
     public function update(Request $request, listingTypes $listingType)
