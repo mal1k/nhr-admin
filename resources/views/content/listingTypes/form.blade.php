@@ -1,4 +1,4 @@
-@extends ('layout')
+@extends ('new-layout')
 
 @section('title', isset($listingType) ?  'Update '.$listingType->title : 'Create listing type')
 
@@ -35,7 +35,7 @@
       </div>
 
       <div class="mb-2 col-12">
-        <label for="categories" class="form-label mt-2 mb-1">Categories || <b>WAITING FOR RESPONSE</b></label>
+        <label for="categories" class="form-label mt-2 mb-1">Categories</label>
         <select name="categories[]" class="form-select select" multiple="multiple">
             @isset ($listingType->categories)
             @php
@@ -46,46 +46,17 @@
             }
             @endphp
             @endisset
-          <option @if ( isset( $categories ) )
-                @if ( in_array(1, $categories) )
-                  selected
+
+            @isset ( $listingCategories )
+            @foreach ( $listingCategories as $listingCategory )
+                <option
+                @if ( isset( $categories ) )
+                @if ( in_array($listingCategory->id, $categories) )
+                    selected
                 @endif
-              @endif value="1">One</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(2, $categories) )
-                  selected
-                @endif
-              @endif value="2">Two</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(3, $categories) )
-                  selected
-                @endif
-              @endif value="3">Three</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(4, $categories) )
-                  selected
-                @endif
-              @endif value="4">Four</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(5, $categories) )
-                  selected
-                @endif
-              @endif value="5">Five</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(6, $categories) )
-                  selected
-                @endif
-              @endif value="6">Six</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(7, $categories) )
-                  selected
-                @endif
-              @endif value="7">Seven</option>
-          <option @if ( isset( $categories ) )
-                @if ( in_array(8, $categories) )
-                  selected
-                @endif
-              @endif value="8">Eight</option>
+                @endif value="{{ $listingCategory->id }}">{{ $listingCategory->title }}</option>
+            @endforeach
+            @endisset
         </select>
       </div>
       <div class="mb-2 col-6">
@@ -160,7 +131,7 @@
             </div>
             <div class="col-3 mb-2">
                 <label for="extra_dropdown_fields_checkbox" class="form-label mt-2 mb-1">Required</label><br>
-                <input type="checkbox" name="extra_dropdown_fields_checkbox" id="extra_dropdown_fields_checkbox" {{ isset($listingType->extra_dropdown_fields_checkbox) ? 'checked' : '' }}>
+                <input type="checkbox" class="form-check-input" name="extra_dropdown_fields_checkbox" id="extra_dropdown_fields_checkbox" {{ isset($listingType->extra_dropdown_fields_checkbox) ? 'checked' : '' }}>
             </div>
       </div>
 
@@ -177,7 +148,7 @@
             </div>
             <div class="col-4 mb-2">
                 <label for="extra_text_fields_checkbox" class="form-label mt-2 mb-1">Required</label><br>
-                <input type="checkbox" name="extra_text_fields_checkbox" id="extra_text_fields_checkbox" {{ isset($listingType->extra_text_fields_checkbox) ? 'checked' : '' }}>
+                <input type="checkbox" class="form-check-input" name="extra_text_fields_checkbox" id="extra_text_fields_checkbox" {{ isset($listingType->extra_text_fields_checkbox) ? 'checked' : '' }}>
             </div>
       </div>
 
@@ -194,7 +165,7 @@
             </div>
             <div class="col-4 mb-2">
                 <label for="extra_short_description_fields_checkbox" class="form-label mt-2 mb-1">Required</label><br>
-                <input type="checkbox" name="extra_short_description_fields_checkbox" id="extra_short_description_fields_checkbox" {{ isset($listingType->extra_short_description_fields_checkbox) ? 'checked' : '' }}>
+                <input type="checkbox" class="form-check-input" name="extra_short_description_fields_checkbox" id="extra_short_description_fields_checkbox" {{ isset($listingType->extra_short_description_fields_checkbox) ? 'checked' : '' }}>
             </div>
       </div>
 
@@ -211,12 +182,12 @@
             </div>
             <div class="col-4 mb-2">
                 <label for="extra_long_description_fields_checkbox" class="form-label mt-2 mb-1">Required</label><br>
-                <input type="checkbox" name="extra_long_description_fields_checkbox" id="extra_long_description_fields_checkbox" {{ isset($listingType->extra_long_description_fields_checkbox) ? 'checked' : '' }}>
+                <input type="checkbox" class="form-check-input" name="extra_long_description_fields_checkbox" id="extra_long_description_fields_checkbox" {{ isset($listingType->extra_long_description_fields_checkbox) ? 'checked' : '' }}>
             </div>
       </div>
 
       <div class="mb-2 col-12">
-        <button type="submit" class="btn btn-primary">{{ isset($listingType) ?  'Update' : 'Create' }}</button>
+        <button type="submit" class="btn btn-sm btn-primary">{{ isset($listingType) ?  'Update' : 'Create' }}</button>
       </div>
 
     </div>
@@ -227,7 +198,7 @@
     <form class="col" method="POST" action="{{ route('listing-types.destroy', $listingType) }}">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger mb-3">Delete</button>
+        <button type="submit" class="btn btn-sm btn-danger mb-3">Delete</button>
     </form>
   @endisset
 </div>
