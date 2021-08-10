@@ -41,12 +41,12 @@
             <div class="alert alert-danger mb-0">{{ $message }}</div>
         @enderror
       </div>
-    <div class="col-12">
-      <label><input type="checkbox" name="front" id="front" {{ isset($faq->front) ? 'checked' : '' }}>Front</label>
-      <label><input type="checkbox" name="sponsors" id="sponsors" {{ isset($faq->sponsors) ? 'checked' : '' }}>Sponsors</label>
+    <div class="col-12 mb-2">
+      <label><input type="checkbox" class="form-check-input" name="front" id="front" {{ isset($faq->front) ? 'checked' : '' }}>Front</label>
+      <label><input type="checkbox" class="form-check-input" name="sponsors" id="sponsors" {{ isset($faq->sponsors) ? 'checked' : '' }}>Sponsors</label>
     </div>
       <div class="mb-2 col-12">
-        <button type="submit" class="btn btn-primary">{{ isset($faq) ?  'Update' : 'Create' }}</button>
+        <button type="submit" class="btn btn-sm btn-primary">{{ isset($faq) ?  'Update' : 'Create' }}</button>
       </div>
 
     </div>
@@ -57,7 +57,7 @@
     <form class="col" method="POST" action="{{ route('faq.destroy', $faq) }}">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger mb-3">Delete</button>
+        <button type="submit" class="btn btn-sm btn-danger mb-3">Delete</button>
     </form>
   @endisset
 </div>
