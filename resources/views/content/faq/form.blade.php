@@ -1,4 +1,4 @@
-@extends ('layout')
+@extends ('new-layout')
 
 @section('title', isset($faq) ?  'Update '.$faq->title : 'Create FAQ')
 
