@@ -1,4 +1,4 @@
-@extends ('layout')
+@extends ('new-layout')
 
 @section('title', isset($category) ?  'Update '.$category->title : 'Create category')
 
@@ -37,21 +37,27 @@
     <label for="categories" class="form-label mt-2 mb-1">Keywords for the search</label>
     <div class="col-12 form-control multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
         @isset ($category->categories)
-        @php
-            if ( is_array($category->categories) ) {
-                $basic_categories = $category->categories;
-            } else {
-                $basic_categories = json_decode($category->categories);
-            }
-        @endphp
+            @php
+                if ( is_array($category->categories) ) {
+                    $basic_categories = $category->categories;
+                } else {
+                    $basic_categories = json_decode($category->categories);
+                }
+            @endphp
         @endisset
 
-        @isset($basic_categories)
-            @foreach($basic_categories as $value)
-                <div class="multi-search-item"><span>{{ $value }}</span><input name="categories[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
-            @endforeach
-        @endisset
-        <input type="text" id="keywords" onkeydown="multiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
+            @isset($basic_categories)
+                @foreach($basic_categories as $value)
+                    <div class="multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2">
+                        <span>{{ $value }}</span>
+                        <input name="categories[]" type="hidden" value="{{ $value }}">
+                        <button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="bi bi-x fs-1 text-primary"></i>
+                        </button>
+                    </div>
+                @endforeach
+            @endisset
+        <input type="text" id="keywords" class="form-control" onkeydown="multiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
     </div>
 
     <label for="main_category" class="form-label mt-2 mb-1">Parent category</label>
@@ -121,14 +127,20 @@
                         $seo_keywords = json_decode($category->seo_keywords);
                     }
                 @endphp
-                @endisset
+            @endisset
 
                 @isset($seo_keywords)
                     @foreach($seo_keywords as $value)
-                        <div class="multi-search-item"><span>{{ $value }}</span><input name="seo_keywords[]" type="hidden" value="{{ $value }}"><div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
+                        <div class="multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2">
+                            <span>{{ $value }}</span>
+                            <input name="seo_keywords[]" type="hidden" value="{{ $value }}">
+                            <button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                                <i class="bi bi-x fs-1 text-primary"></i>
+                            </button>
+                        </div>
                     @endforeach
                 @endisset
-                <input type="text" id="seo_keywords" onkeydown="SEOmultiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
+            <input type="text" id="seo_keywords" class="form-control" onkeydown="SEOmultiSearchKeyup(this)" placeholder="Type your keyword. Press comma on your keyboard to confirm.">
             </div>
             <div class="text-right"><p class="help-block text-right">Maximum 10 keywords</p></div>
         </div>
@@ -142,27 +154,112 @@
     </div>
     <div class="col-4">
         <div class="col-12">
-            Logo:<br>
-            <input type="file" name="image_logo">
-            @isset ($category->image_logo)
-              <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $category->image_logo) }}"></span>
-              <input name="image_logo_prev" type="hidden" value="{{ $category->image_logo }}">
-              <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
-            @endisset
+            <label for="image_logo" class="form-label mt-2 mb-1">Logo:</label>
+            <div>
+                <!-- <input type="file" accept=".jpg, .jpeg, .png" id="image_logo" name="image_logo" class="choose me-2 mb-2"><br> -->
+            </div>
+            <!--begin::Image input-->
+            <div class="image-input image-input-outline" data-kt-image-input="true" style="">
+                <!--begin::Image preview wrapper-->
+                <div class="image-input-wrapper w-125px h-125px" @isset ($category->image_logo) style="background-image: url({{ asset('/storage/' . $category->image_logo) }})" @endisset></div>
+                <!--end::Image preview wrapper-->
+
+                <!--begin::Edit button-->
+                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="change"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Change cover">
+                    <i class="bi bi-pencil-fill fs-7"></i>
+
+                    <!--begin::Inputs-->
+                    <input type="file" name="image_logo" accept=".png, .jpg, .jpeg" />
+                    <input type="hidden" name="avatar_remove" />
+                    @isset ($category->image_logo)
+                    <input name="image_logo_prev" id="image_logo_prev" type="hidden" value="{{ $category->image_logo }}">
+                    @endisset
+                    <!--end::Inputs-->
+                </label>
+                <!--end::Edit button-->
+
+                <!--begin::Cancel button-->
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="cancel"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Delete cover">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <!--end::Cancel button-->
+
+                <!--begin::Remove button-->
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="remove"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Remove cover" id="removeLogo">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <!--end::Remove button-->
+            </div>
+            <!--end::Image input-->
         </div>
+
         <div class="col-12">
-            Icon:<br>
-            <input type="file" name="image_icon">
-            @isset ($category->image_icon)
-            <div class="multi-search-item"><span><img width="200px" src="{{ asset('/storage/' . $category->image_icon) }}"></span>
-            <input name="image_icon_prev" type="hidden" value="{{ $category->image_icon }}">
-            <div class="fa fa-close" onclick="this.parentNode.remove()"></div></div>
-            @endisset
+            <label for="image_icon" class="form-label mt-2 mb-1">Icon:</label>
+            <div>
+                <!-- <input type="file" accept=".jpg, .jpeg, .png" id="image_icon" name="image_icon" class="choose me-2 mb-2"><br> -->
+            </div>
+            <!--begin::Image input-->
+            <div class="image-input image-input-outline" data-kt-image-input="true" style="">
+                <!--begin::Image preview wrapper-->
+                <div class="image-input-wrapper w-125px h-125px" @isset ($category->image_icon) style="background-image: url({{ asset('/storage/' . $category->image_icon) }})" @endisset></div>
+                <!--end::Image preview wrapper-->
+
+                <!--begin::Edit button-->
+                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="change"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Change cover">
+                    <i class="bi bi-pencil-fill fs-7"></i>
+
+                    <!--begin::Inputs-->
+                    <input type="file" name="image_icon" accept=".png, .jpg, .jpeg" />
+                    <input type="hidden" name="avatar_remove" />
+                    @isset ($category->image_icon)
+                    <input name="image_icon_prev" id="image_icon_prev" type="hidden" value="{{ $category->image_icon }}">
+                    @endisset
+                    <!--end::Inputs-->
+                </label>
+                <!--end::Edit button-->
+
+                <!--begin::Cancel button-->
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="cancel"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Delete cover">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <!--end::Cancel button-->
+
+                <!--begin::Remove button-->
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                data-kt-image-input-action="remove"
+                data-bs-toggle="tooltip"
+                data-bs-dismiss="click"
+                title="Remove cover" id="removeIcon">
+                    <i class="bi bi-x fs-2"></i>
+                </span>
+                <!--end::Remove button-->
+            </div>
+            <!--end::Image input-->
         </div>
     </div>
 
     <div class="my-2 col-12">
-        <button type="submit" class="btn btn-primary">{{ isset($category) ?  'Update' : 'Create' }}</button>
+        <button type="submit" class="btn btn-sm btn-primary">{{ isset($category) ?  'Update' : 'Create' }}</button>
     </div>
 </form>
 
@@ -170,14 +267,22 @@
   <form class="col" method="POST" action="{{ route('blog-categories.destroy', $category) }}">
       @csrf
       @method('DELETE')
-      <button type="submit" class="btn btn-danger mb-3">Delete</button>
+      <button type="submit" class="btn btn-sm btn-danger mb-3">Delete</button>
   </form>
 @endisset
 
-  </div>
 </div>
 
 <script>
+
+    // change subs block to form
+    $('#removeLogo').click(function(){
+        $('#image_logo_prev').val('');
+    })
+    $('#removeIcon').click(function(){
+        $('#image_icon_prev').val('');
+    })
+
     function multiSearchKeyup(inputElement) {
         if(event.keyCode === 188) {
             if ( $('#keywords').val() !== '' ) {
@@ -191,9 +296,11 @@
     }
     function createFilterItem(text) {
         const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item");
+        item.setAttribute("class", "multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2");
         const span = `<span>${text}</span><input name="categories[]" type="hidden" value="${text}">`;
-        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
+        const close = `<button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="bi bi-x fs-1 text-primary"></i>
+                        </button>`;
         item.innerHTML = span+close;
         return item;
     }
@@ -214,9 +321,11 @@
     }
     function SEOcreateFilterItem(text) {
         const item = document.createElement("div");
-        item.setAttribute("class", "multi-search-item");
+        item.setAttribute("class", "multi-search-item multi-search-item alert alert-dismissible bg-light-primary p-2");
         const span = `<span>${text}</span><input name="seo_keywords[]" type="hidden" value="${text}">`;
-        const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
+        const close = `<button type="button" class="fa-close-icon position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto" data-bs-dismiss="alert">
+                            <i class="bi bi-x fs-1 text-primary"></i>
+                        </button>`;
         item.innerHTML = span+close;
         return item;
     }
