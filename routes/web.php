@@ -28,6 +28,23 @@ use App\Http\Controllers\content\referedByController;
 |
 */
 
+Route::get('/elastic', function () {
+
+
+
+    $ch = curl_init("https://test-5a6b7f.kb.us-west1.gcp.cloud.es.io:9243/idx");
+
+    curl_setopt($ch, CURLOPT_USERPWD, 'elastic' . ":" . 'kNi53S3dyAn7fn7gz1Kqqf0m');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json') );
+
+    curl_exec($ch);
+
+    curl_close($ch);
+
+
+
+});
+
 Route::redirect('/', 'manager', 301);
 Route::redirect('dashboard', '/manager', 301);
 
