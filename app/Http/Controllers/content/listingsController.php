@@ -181,7 +181,7 @@ class listingsController extends Controller
         {
             $client = ClientBuilder::create()
                 ->setHosts([
-                    "http://localhost:9200"
+                    "http://localhost:9200" 
                 ])
                 ->build();
 
