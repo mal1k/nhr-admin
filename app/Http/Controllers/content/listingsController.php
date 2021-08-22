@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Listings;
 use App\Models\listingsCategories;
+use Elasticsearch\ClientBuilder;
+use Exception;
 
 class listingsController extends Controller
 {
@@ -27,12 +29,29 @@ class listingsController extends Controller
 
     public function store(Request $request)
         {
+
+            $client = ClientBuilder::create()
+                ->setHosts([
+                    "http://localhost:9200"
+                ])
+                ->build();
+
             $validated = $request->validate([
                 'title' => 'required|max:255',
             ]);
 
 
             $listing = Listings::create($request->all()); // create listing
+            $params = [
+                'index' => 'listings',
+                'id'    => $listing->id,
+                'body'  => [
+                    'listing_title' => $request->title
+                ]
+            ];
+
+            // Document will be indexed to listings/_doc/id
+            $client->index($params);
 
             // upload gallery
             $images = [];
@@ -76,6 +95,24 @@ class listingsController extends Controller
     public function update(Request $request, Listings $listing)
         {
             $listing->update($request->all()); // update listing
+            $client = ClientBuilder::create()
+                ->setHosts([
+                    "http://localhost:9200"
+                ])
+                ->build();
+
+            $params = [
+                'index' => 'listings',
+                'id'    => $listing->id,
+                'body'  => [
+                    'doc' => [
+                        'listing_title' => $request->title
+                    ]
+                ]
+            ];
+
+            // Update doc at /my_index/_doc/my_id
+            $client->update($params);
 
             if ( isset($request->image_logo) ) { // update logo
                 $path = $request->file('image_logo')->store('uploads/logo', 'public'); // upload logo to server
@@ -142,7 +179,21 @@ class listingsController extends Controller
 
     public function destroy(Listings $listing)
         {
+            $client = ClientBuilder::create()
+                ->setHosts([
+                    "http://localhost:9200"
+                ])
+                ->build();
+
             $listing->delete();
+            $params = [
+                'index' => 'listings',
+                'id'    => $listing->id
+            ];
+
+            try {
+                $client->delete($params);
+            } catch (Exception $e) {}
 
             return redirect()->route('listings.index')->withSuccess('Deleted listing "' . $listing->title . '"');
 

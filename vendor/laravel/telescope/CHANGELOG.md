@@ -1,6 +1,37 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/telescope/compare/v4.5.1...4.x)
+## [Unreleased](https://github.com/laravel/telescope/compare/v4.6.2...4.x)
+
+
+## [v4.6.2 (2021-08-17)](https://github.com/laravel/telescope/compare/v4.6.1...v4.6.2)
+
+### Fixed
+- Rewind http client response after recording ([#1114](https://github.com/laravel/telescope/pull/1114))
+
+
+## [v4.6.1 (2021-08-03)](https://github.com/laravel/telescope/compare/v4.6.0...v4.6.1)
+
+### Changed
+- Record 'connection failed' http client event ([#1097](https://github.com/laravel/telescope/pull/1097))
+- Unified asset publishing ([#1105](https://github.com/laravel/telescope/pull/1105))
+
+### Fixes
+- Suppress filesize errors in client request watcher ([#1096](https://github.com/laravel/telescope/pull/1096))
+- Use `intdiv` where appropriate to prevent unexpected conversion to float ([#1100](https://github.com/laravel/telescope/pull/1100))
+- Fix publishing for disabled module ([#1104](https://github.com/laravel/telescope/pull/1104))
+
+
+## [v4.6.0 (2021-07-13)](https://github.com/laravel/telescope/compare/v4.5.1...v4.6.0)
+
+### Added
+- Add a new "Clear Entries" button ([#1091](https://github.com/laravel/telescope/pull/1091))
+
+### Changed
+- `Telescope:withoutRecording()` should be exception safe ([#1092](https://github.com/laravel/telescope/pull/1092))
+
+### Fixed
+- Fixed frontend request polling memory leaks ([#1086](https://github.com/laravel/telescope/pull/1086))
+- Fix for `JobWatchers` when the job payload is encrypted ([#1089](https://github.com/laravel/telescope/pull/1089))
 
 
 ## [v4.5.1 (2021-06-22)](https://github.com/laravel/telescope/compare/v4.5.0...v4.5.1)

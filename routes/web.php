@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\content\bannersController;
 use App\Http\Controllers\content\blogCategoriesController;
 use App\Http\Controllers\content\blogController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\content\importController;
 use App\Http\Controllers\content\listingsCategoriesController;
 use App\Http\Controllers\content\listingTypesController;
 use App\Http\Controllers\content\referedByController;
+use Elasticsearch\ClientBuilder;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,22 +28,35 @@ use App\Http\Controllers\content\referedByController;
 |
 */
 
-Route::get('/elastic', function () {
+Route::get('/elastic/listings', function () {
 
+    if ( !count($_GET) ) {
+        $params = [
+            'index' => 'listings'
+        ];
+    } else {
+        $params = [
+            'index' => 'listings',
+            'body'  => [
+                'query' => [
+                    'match' => $_GET
+                ]
+            ]
+        ];
+    }
 
+    $client = ClientBuilder::create()
+        ->setHosts([
+            "http://localhost:9200"
+        ])
+        ->build();
 
-    $ch = curl_init("https://test-5a6b7f.kb.us-west1.gcp.cloud.es.io:9243/idx");
-
-    curl_setopt($ch, CURLOPT_USERPWD, 'elastic' . ":" . 'kNi53S3dyAn7fn7gz1Kqqf0m');
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json') );
-
-    curl_exec($ch);
-
-    curl_close($ch);
-
-
+    $response = $client->search($params);
+    echo json_encode($response);
 
 });
+
+
 
 Route::redirect('/', 'manager', 301);
 Route::redirect('dashboard', '/manager', 301);
