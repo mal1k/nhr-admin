@@ -14,12 +14,15 @@ class listingsController extends Controller
 {
     public function index()
         {
-            if ( isset($_GET['s']) )
+            if ( isset($_GET['s']) ) {
                 $listings = Listings::where('title', 'LIKE', '%' . $_GET['s'] . '%')
                     ->orWhere('basic_status', 'LIKE', '%' . $_GET['s'] . '%')
                     ->orWhere('level', 'LIKE', '%' . $_GET['s'] . '%')
                     ->sortable(['id' => 'desc'])
                     ->paginate(15);
+                $search = $_GET['s'];
+                return view('content.listings.dashboard', compact('listings', 'search'));
+            }
             else
                 $listings = Listings::sortable(['id' => 'desc'])->paginate(15);
             return view('content.listings.dashboard', compact('listings'));
