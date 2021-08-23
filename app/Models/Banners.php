@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Banners extends Model
 {
     use HasFactory;
+    use Sortable;
     protected $table = 'banners';
     protected $fillable = [
         'banner_type',
@@ -32,5 +34,11 @@ class Banners extends Model
         'banner_display_url',
         'promotional_code',
         'file_image'
+    ];
+
+    public $sortable = [
+        'id',
+        'caption',
+        'banner_type'
     ];
 }
