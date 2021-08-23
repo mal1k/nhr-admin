@@ -38,6 +38,7 @@ class User extends Authenticatable
         'id',
         'name',
         'email',
+        'refered_by',
         'role',
         'business'
     ];
