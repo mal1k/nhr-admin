@@ -43,10 +43,10 @@
             <table class="table table-rounded table-striped border gy-7 gs-7">
                 <thead>
                     <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                        <th>File</th>
-                        <th>File size</th>
-                        <th>Rows</th>
-                        <th>Date of import</th>
+                        <th>@sortablelink('category', 'File')</th>
+                        <th>@sortablelink('filesize', 'File size')</th>
+                        <th>@sortablelink('rows', 'Rows')</th>
+                        <th>@sortablelink('updated_at', 'Date of import')</th>
                     </tr>
                 </thead>
                 <tbody>

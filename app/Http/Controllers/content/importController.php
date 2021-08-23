@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class importController extends Controller
 {
     public function index() {
-        $importList = importContent::orderByDesc('id')->paginate(15);
+        $importList = importContent::sortable(['id' => 'desc'])->paginate(15);
         return view('content.import.dashboard', compact('importList'));
     }
 
