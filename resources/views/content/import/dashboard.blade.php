@@ -46,7 +46,7 @@
                         <th>@sortablelink('category', 'File')</th>
                         <th>@sortablelink('filesize', 'File size')</th>
                         <th>@sortablelink('rows', 'Rows')</th>
-                        <th>@sortablelink('updated_at', 'Date of import')</th>
+                        <th>@sortablelink('created_at', 'Date of import')</th>
                     </tr>
                 </thead>
                 <tbody>

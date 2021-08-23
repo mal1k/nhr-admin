@@ -22,6 +22,6 @@ class importContent extends Model
         'category',
         'filesize',
         'rows',
-        'updated_at'
+        'created_at'
     ];
 }
