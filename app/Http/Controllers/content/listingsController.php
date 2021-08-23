@@ -14,7 +14,12 @@ class listingsController extends Controller
 {
     public function index()
         {
-            $listings = Listings::orderByDesc('id')->paginate(15);
+            if ( isset($_GET['s']) )
+                $listings = Listings::where('title', 'LIKE', '%'.$_GET['s'].'%')
+                    ->orderByDesc('id')
+                    ->paginate(15);
+            else
+                $listings = Listings::orderByDesc('id')->paginate(15);
             return view('content.listings.dashboard', compact('listings'));
         }
 
@@ -181,7 +186,7 @@ class listingsController extends Controller
         {
             $client = ClientBuilder::create()
                 ->setHosts([
-                    "http://localhost:9200" 
+                    "http://localhost:9200"
                 ])
                 ->build();
 

@@ -49,7 +49,15 @@
                         <th class="min-w-225px">Title</th>
                         <th class="min-w-225px">Level</th>
                         <th class="min-w-200px">Status</th>
-                        <th class="min-w-200px text-end rounded-end"></th>
+                        <th class="min-w-200px text-end rounded-end">
+                            <form action="">
+                                <div class="row">
+                                    <input type="text" class="col form-control" placeholder="Search" name="s">
+                                    <a href="{{ route('listings.index') }}" class="col-2 btn btn-icon btn-bg-light btn-active-color-primary"><i class="fas fa-sync-alt"></i></a>
+                                </div>
+
+                            </form>
+                        </th>
                     </tr>
                 </thead>
                 <!--end::Table head-->
