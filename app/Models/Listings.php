@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Listings extends Model
 {
     use HasFactory;
+    use Sortable;
     protected $table = 'listings';
+
     protected $fillable = [
         'title',
         'level',
@@ -59,6 +62,14 @@ class Listings extends Model
         'image_cover',
         'image_gallery',
     ];
+
+    public $sortable = [
+        'id',
+        'title',
+        'basic_status',
+        'level'
+    ];
+
     protected $casts = [
         'basic_categories' => 'array',
         'basic_keywords' => 'array',

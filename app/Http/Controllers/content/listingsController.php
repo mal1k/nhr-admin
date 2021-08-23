@@ -16,10 +16,10 @@ class listingsController extends Controller
         {
             if ( isset($_GET['s']) )
                 $listings = Listings::where('title', 'LIKE', '%'.$_GET['s'].'%')
-                    ->orderByDesc('id')
+                    ->sortable(['id' => 'desc'])
                     ->paginate(15);
             else
-                $listings = Listings::orderByDesc('id')->paginate(15);
+                $listings = Listings::sortable(['id' => 'desc'])->paginate(15);
             return view('content.listings.dashboard', compact('listings'));
         }
 

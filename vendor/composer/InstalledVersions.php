@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'f6b14b838f25c944fc9c9f05efb80438a4ebedd0',
+    'reference' => '13afc558d6ee4e2b9fc8016b5f4df14e46662a9b',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -525,6 +525,15 @@ private static $installed = array (
         0 => '*',
       ),
     ),
+    'kyslik/column-sortable' => 
+    array (
+      'pretty_version' => '6.4.1',
+      'version' => '6.4.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '44f9da98acd31b2e871d0074bd638998990888b1',
+    ),
     'laravel/fortify' => 
     array (
       'pretty_version' => 'v1.8.0',
@@ -559,7 +568,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'f6b14b838f25c944fc9c9f05efb80438a4ebedd0',
+      'reference' => '13afc558d6ee4e2b9fc8016b5f4df14e46662a9b',
     ),
     'laravel/sail' => 
     array (
@@ -736,12 +745,12 @@ private static $installed = array (
     ),
     'nesbot/carbon' => 
     array (
-      'pretty_version' => '2.51.1',
-      'version' => '2.51.1.0',
+      'pretty_version' => '2.52.0',
+      'version' => '2.52.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8619c299d1e0d4b344e1f98ca07a1ce2cfbf1922',
+      'reference' => '369c0e2737c56a0f39c946dd261855255a6fccbe',
     ),
     'nette/schema' => 
     array (
