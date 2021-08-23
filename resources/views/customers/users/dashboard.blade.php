@@ -37,7 +37,15 @@
                         <th class="min-w-225px">Name</th>
                         <th class="min-w-225px">Email</th>
                         <th class="min-w-225px">Role</th>
-                        <th class="min-w-200px text-end rounded-end"></th>
+                        <th class="min-w-200px text-end rounded-end">
+                            <form action="">
+                                <div class="row m-0">
+                                    <input type="text" class="col form-control" placeholder="Search" name="s" value="@isset($search) {{ $search }} @endisset">
+                                    <a href="{{ route('users.index') }}" class="col-2 btn btn-icon btn-bg-light btn-active-color-primary"><i class="fas fa-sync-alt"></i></a>
+                                </div>
+
+                            </form>
+                        </th>
                     </tr>
                 </thead>
                 <!--end::Table head-->
@@ -59,7 +67,19 @@
                             <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">{{ $user->email }}</a>
                         </td>
                         <td>
-                            <a href="#" class="badge badge-light-primary fs-7 fw-bold">{{ $user->role }}</a>
+                            <a href="#" class="badge
+                            @if ( $user->role == 'super-admin' )
+                                badge-light-danger
+                            @elseif ( $user->role == 'admin' )
+                                badge-light-success
+                            @elseif ( $user->role == 'moderator' )
+                                badge-light-warning
+                            @else
+                                badge-light-primary
+                            @endif
+                            {{ $user->role }}
+
+                             fs-7 fw-bold">{{ $user->role }}</a>
                         </td>
                         <td class="text-end">
                             <form id="delete_user_{{ $user->id }}" method="POST" action="{{ route('users.destroy', $user) }}">
