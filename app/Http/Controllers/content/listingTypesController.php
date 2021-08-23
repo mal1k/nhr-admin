@@ -11,7 +11,15 @@ class listingTypesController extends Controller
 {
     public function index()
         {
-            $listingTypes = listingTypes::orderByDesc('id')->paginate(15);
+            if ( isset($_GET['s']) ) {
+                $listingTypes = listingTypes::where('title', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->sortable(['id' => 'desc'])
+                    ->paginate(15);
+                $search = $_GET['s'];
+                return view('content.listingTypes.dashboard', compact('listingTypes', 'search'));
+            }
+            else
+                $listingTypes = listingTypes::sortable(['id' => 'desc'])->paginate(15);
             return view('content.listingTypes.dashboard', compact('listingTypes'));
         }
 

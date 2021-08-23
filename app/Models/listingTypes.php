@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class listingTypes extends Model
 {
     use HasFactory;
+    use Sortable;
     protected $table = 'listing_types';
     protected $fillable = [
     'title',
@@ -35,6 +37,12 @@ class listingTypes extends Model
     'extra_long_description_fields_tooltip',
     'extra_long_description_fields_checkbox'
     ];
+
+    public $sortable = [
+        'id',
+        'title',
+    ];
+
     protected $casts = [
         'categories' => 'array',
     ];
