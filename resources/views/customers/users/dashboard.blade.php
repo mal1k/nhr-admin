@@ -33,10 +33,10 @@
                 <!--begin::Table head-->
                 <thead>
                     <tr class="fw-bolder text-muted bg-light">
-                        <th class="ps-4 min-w-25px rounded-start">ID</th>
-                        <th class="min-w-225px">Name</th>
-                        <th class="min-w-225px">Email</th>
-                        <th class="min-w-225px">Role</th>
+                        <th class="ps-4 min-w-25px rounded-start">@sortablelink('id', 'ID')</th>
+                        <th class="min-w-225px">@sortablelink('name', 'Name')</th>
+                        <th class="min-w-225px">@sortablelink('email', 'Email')</th>
+                        <th class="min-w-225px">@sortablelink('role', 'Role')</th>
                         <th class="min-w-200px text-end rounded-end">
                             <form action="">
                                 <div class="row m-0">
