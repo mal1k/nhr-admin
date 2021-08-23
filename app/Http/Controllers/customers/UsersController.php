@@ -30,7 +30,10 @@ class UsersController extends Controller
         }
 
         else
-            $users = User::orderByDesc('id')->where('role', '!=', 'businessUser')->paginate(10);
+            $users = User::orderByDesc('id')
+                ->where('role', '!=', 'businessUser')
+                ->sortable(['id' => 'desc'])
+                ->paginate(10);
 
         return view('customers.users.dashboard', compact('users'));
     }
