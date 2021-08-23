@@ -30,8 +30,7 @@ class UsersController extends Controller
         }
 
         else
-            $users = User::orderByDesc('id')
-                ->where('role', '!=', 'businessUser')
+            $users = User::where('role', '!=', 'businessUser')
                 ->sortable(['id' => 'desc'])
                 ->paginate(10);
 
