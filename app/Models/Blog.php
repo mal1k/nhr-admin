@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Blog extends Model
 {
     use HasFactory;
+    use Sortable;
     protected $table = 'blog';
     protected $fillable = [
     'title',
@@ -22,6 +24,13 @@ class Blog extends Model
     'image_logo',
     'image_cover',
     ];
+
+    public $sortable = [
+        'id',
+        'title',
+        'status'
+    ];
+
     protected $casts = [
     'categories' => 'array',
     'keywords' => 'array',
