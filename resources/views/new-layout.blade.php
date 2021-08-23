@@ -198,7 +198,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link @if(app()->view->getSections()['title'] == 'Listing Types') active @endif" href="{{ route('listing-types.index') }}">
+                                <a class="menu-link @if(app()->view->getSections()['title'] == 'Listing types') active @endif" href="{{ route('listing-types.index') }}">
                                     <span class="menu-icon">
                                         <!--begin::Svg Icon | path: icons/duotone/Design/Difference.svg-->
                                         <span class="svg-icon svg-icon-2">
