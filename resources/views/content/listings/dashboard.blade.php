@@ -55,7 +55,6 @@
                                     <input type="text" class="col form-control" placeholder="Search" name="s" value="@isset($search) {{ $search }} @endisset">
                                     <a href="{{ route('listings.index') }}" class="col-2 btn btn-icon btn-bg-light btn-active-color-primary"><i class="fas fa-sync-alt"></i></a>
                                 </div>
-
                             </form>
                         </th>
                     </tr>
