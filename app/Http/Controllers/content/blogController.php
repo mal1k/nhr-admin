@@ -12,7 +12,16 @@ class blogController extends Controller
 {
     public function index()
         {
-            $blog = Blog::orderByDesc('id')->paginate(15);
+            if ( isset($_GET['s']) ) {
+                $blog = Blog::where('title', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('status', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->sortable(['id' => 'desc'])
+                    ->paginate(15);
+                $search = $_GET['s'];
+                return view('content.blog.dashboard', compact('blog', 'search'));
+            }
+            else
+                $blog = Blog::sortable(['id' => 'desc'])->paginate(15);
             return view('content.blog.dashboard', compact('blog'));
         }
 
