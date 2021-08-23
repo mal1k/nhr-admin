@@ -74,9 +74,9 @@
                 <!--begin::Table head-->
                 <thead>
                     <tr class="fw-bolder text-muted bg-light">
-                        <th class="ps-4 min-w-25px rounded-start">Filename</th>
-                        <th class="min-w-225px">File Size</th>
-                        <th class="min-w-225px">Date Created</th>
+                        <th class="ps-4 min-w-25px rounded-start">@sortablelink('filename', 'Filename')</th>
+                        <th class="min-w-225px">@sortablelink('filesize', 'File Size')</th>
+                        <th class="min-w-225px">@sortablelink('created_at', 'Date Created')</th>
                         <th class="min-w-200px text-end rounded-end"></th>
                     </tr>
                 </thead>

@@ -11,7 +11,17 @@ use Maatwebsite\Excel\Facades\Excel;
 class exportController extends Controller
 {
     public function index() {
-        $exportList = exportContent::orderByDesc('id')->paginate(15);
+        if ( isset($_GET['s']) ) {
+            $exportList = exportContent::where('title', 'LIKE', '%' . $_GET['s'] . '%')
+                ->orWhere('basic_status', 'LIKE', '%' . $_GET['s'] . '%')
+                ->orWhere('level', 'LIKE', '%' . $_GET['s'] . '%')
+                ->sortable(['id' => 'desc'])
+                ->paginate(15);
+            $search = $_GET['s'];
+            return view('content.export.dashboard', compact('exportList', 'search'));
+        }
+        else
+            $exportList = exportContent::sortable(['id' => 'desc'])->paginate(15);
         return view('content.export.dashboard', compact('exportList'));
     }
 
