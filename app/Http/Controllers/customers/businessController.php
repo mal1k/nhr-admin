@@ -16,9 +16,24 @@ class businessController extends Controller
      */
     public function index()
     {
-        $users_query = User::orderByDesc('id');
-        $users_query->where('role', '=', 'businessUser');
-        $users = $users_query->paginate(10);
+        if ( isset($_GET['s']) ) {
+            $users = User::where('role', '=', 'businessUser')
+                ->where(function ($query) {
+                    $query->where('name', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('email', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('role', 'LIKE', '%' . $_GET['s'] . '%');
+                })
+                ->sortable(['id' => 'desc'])
+                ->paginate(10);
+            $search = $_GET['s'];
+            return view('customers.business.dashboard', compact('users', 'search'));
+        }
+
+        else
+            $users = User::where('role', '=', 'businessUser')
+                ->sortable(['id' => 'desc'])
+                ->paginate(10);
+
         return view('customers.business.dashboard', compact('users'));
     }
 
