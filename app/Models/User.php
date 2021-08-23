@@ -38,7 +38,8 @@ class User extends Authenticatable
         'id',
         'name',
         'email',
-        'role'
+        'role',
+        'business'
     ];
 
     /**
