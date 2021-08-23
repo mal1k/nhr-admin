@@ -34,6 +34,13 @@ class User extends Authenticatable
         'refered_by'
     ];
 
+    public $sortable = [
+        'id',
+        'name',
+        'email',
+        'role'
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -44,13 +51,6 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
-    ];
-
-    public $sortable = [
-        'id',
-        'name',
-        'email',
-        'role'
     ];
 
     /**
