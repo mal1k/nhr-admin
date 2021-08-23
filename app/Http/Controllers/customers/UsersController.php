@@ -16,11 +16,21 @@ class UsersController extends Controller
      */
     public function index()
     {
-        // $users = User::paginate(10);
+        if ( isset($_GET['s']) ) {
+            $users = User::where('role', '!=', 'businessUser')
+                ->where(function ($query) {
+                    $query->where('name', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('email', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('role', 'LIKE', '%' . $_GET['s'] . '%');
+                })
+                ->sortable(['id' => 'desc'])
+                ->paginate(10);
+            $search = $_GET['s'];
+            return view('customers.users.dashboard', compact('users', 'search'));
+        }
 
-        $users_query = User::orderByDesc('id');
-        $users_query->where('role', '!=', 'businessUser');
-        $users = $users_query->paginate(10);
+        else
+            $users = User::orderByDesc('id')->where('role', '!=', 'businessUser')->paginate(10);
 
         return view('customers.users.dashboard', compact('users'));
     }
