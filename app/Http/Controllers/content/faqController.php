@@ -11,7 +11,16 @@ class faqController extends Controller
 {
     public function index()
         {
-            $faq = Faq::orderByDesc('id')->paginate(15);
+            if ( isset($_GET['s']) ) {
+                $faq = Faq::where('question', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('answer', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->sortable(['id' => 'desc'])
+                    ->paginate(15);
+                $search = $_GET['s'];
+                return view('content.faq.dashboard', compact('faq', 'search'));
+            }
+            else
+                $faq = Faq::sortable(['id' => 'desc'])->paginate(15);
             return view('content.faq.dashboard', compact('faq'));
         }
 
