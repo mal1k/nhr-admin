@@ -33,10 +33,17 @@
                 <!--begin::Table head-->
                 <thead>
                     <tr class="fw-bolder text-muted bg-light">
-                        <th class="ps-4 min-w-25px rounded-start">ID</th>
-                        <th class="min-w-225px">Referring User</th>
-                        <th class="min-w-225px">Referred User</th>
-                        <!-- <th class="min-w-200px text-end rounded-end"></th> -->
+                        <th class="ps-4 min-w-25px rounded-start">@sortablelink('id', 'ID')</th>
+                        <th class="min-w-225px">@sortablelink('email', 'Referring User')</th>
+                        <th class="min-w-225px">@sortablelink('refered_by', 'Referred User')</th>
+                        <th class="min-w-150px text-end rounded-end">
+                            <form action="">
+                                <div class="row m-0">
+                                    <input type="text" class="col form-control" placeholder="Search" name="s" value="@isset($search) {{ $search }} @endisset">
+                                    <a href="{{ route('refered_by.index') }}" class="col-2 btn btn-icon btn-bg-light btn-active-color-primary"><i class="fas fa-sync-alt"></i></a>
+                                </div>
+                            </form>
+                        </th>
                     </tr>
                 </thead>
                 <!--end::Table head-->
@@ -56,6 +63,8 @@
                         </td>
                         <td>
                             <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">{{ $info->refered_by }}</a>
+                        </td>
+                        <td>
                         </td>
                     </tr>
                     @endforeach
