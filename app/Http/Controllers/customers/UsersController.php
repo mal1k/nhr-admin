@@ -58,6 +58,10 @@ class UsersController extends Controller
         $password = Hash::make('password', ['rounds' => 12]);
         $user = new User;
             $user->name = $request->name;
+            if ( $request->verified == 'on' )
+                $user->verified = 1;
+            else
+                $user->verified = 0;
             $user->email = $request->email;
             $user->password = $password;
             $user->role = $request->role;
@@ -103,6 +107,10 @@ class UsersController extends Controller
     {
         if ( $user->role == 'businessUser' ) {
             $user->name = $request->name;
+            if ( $request->verified == 'on' )
+                $user->verified = 1;
+            else
+                $user->verified = 0;
             $user->email = $request->email;
             $user->business = $request->business;
             $user->role = 'businessUser';

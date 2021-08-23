@@ -61,6 +61,10 @@ class businessController extends Controller
         $password = Hash::make('password', ['rounds' => 12]);
         $user = new User;
             $user->name = $request->name;
+            if ( $request->verified == 'on' )
+                $user->verified = 1;
+            else
+                $user->verified = 0;
             $user->email = $request->email;
             $user->password = $password;
             $user->business = $request->business;

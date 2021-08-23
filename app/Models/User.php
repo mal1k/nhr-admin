@@ -29,6 +29,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'verified',
         'email',
         'password',
         'refered_by'
@@ -37,6 +38,7 @@ class User extends Authenticatable
     public $sortable = [
         'id',
         'name',
+        'verified',
         'email',
         'refered_by',
         'role',

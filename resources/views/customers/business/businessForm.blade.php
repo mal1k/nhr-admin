@@ -1,6 +1,6 @@
 @extends ('new-layout')
 
-@section('title', 'Users')
+@section('title', 'User form')
 
 @section('content')
 
@@ -45,6 +45,14 @@
             <div class="alert alert-danger mb-0">{{ $message }}</div>
         @enderror
     </div>
+    <div class="mb-2 mt-3 col-12">
+        <div class="form-check">
+        <input name="verified" class="form-check-input" type="checkbox" id="verified" @if ( isset( $user ) && $user->role == 'super-admin' ) disabled @endif {{ isset( $user->verified ) && $user->verified == 1 ? 'checked' : '' }}>
+        <label class="form-check-label" for="verified">
+            Verified user
+        </label>
+        </div>
+      </div>
 
     <div class="card-toolbar pt-3">
         <button type="submit" class="btn btn-sm btn-light-primary">
