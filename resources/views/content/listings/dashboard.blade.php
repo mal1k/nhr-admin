@@ -45,13 +45,13 @@
                 <!--begin::Table head-->
                 <thead>
                     <tr class="fw-bolder text-muted bg-light">
-                        <th class="ps-4 min-w-25px rounded-start">ID</th>
-                        <th class="min-w-225px">Title</th>
-                        <th class="min-w-225px">Level</th>
-                        <th class="min-w-200px">Status</th>
+                        <th class="ps-4 min-w-60px rounded-start">@sortablelink('id', 'ID')</th>
+                        <th class="min-w-225px">@sortablelink('title', 'Title')</th>
+                        <th class="min-w-225px">@sortablelink('level', 'Level')</th>
+                        <th class="min-w-200px">@sortablelink('basic_status', 'Status')</th>
                         <th class="min-w-200px text-end rounded-end">
                             <form action="">
-                                <div class="row">
+                                <div class="row m-0">
                                     <input type="text" class="col form-control" placeholder="Search" name="s">
                                     <a href="{{ route('listings.index') }}" class="col-2 btn btn-icon btn-bg-light btn-active-color-primary"><i class="fas fa-sync-alt"></i></a>
                                 </div>
@@ -79,7 +79,15 @@
                             <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">{{ $listing->level }}</a>
                         </td>
                         <td>
-                            <span class="badge badge-light-primary fs-7 fw-bold">{{ $listing->basic_status }}</span>
+                            <span class="badge
+                            @if ( $listing->basic_status == 'active' )
+                                badge-light-success
+                            @elseif ( $listing->basic_status == 'pending' )
+                                badge-light-primary
+                            @else
+                                badge-light-danger
+                            @endif
+                             fs-7 fw-bold">{{ $listing->basic_status }}</span>
                         </td>
                         <td class="text-end">
                             <form id="delete_listing_{{ $listing->id }}" method="POST" action="{{ route('listings.destroy', $listing) }}">
