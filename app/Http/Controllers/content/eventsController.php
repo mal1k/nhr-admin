@@ -10,10 +10,19 @@ use Illuminate\Http\Request;
 
 class eventsController extends Controller
 {
-    //
     public function index()
         {
-            $events = Events::orderByDesc('id')->paginate(15);
+            if ( isset($_GET['s']) ) {
+                $events = Events::where('title', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('basic_status', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('level', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->sortable(['id' => 'desc'])
+                    ->paginate(15);
+                $search = $_GET['s'];
+                return view('content.events.dashboard', compact('events', 'search'));
+            }
+            else
+                $events = Events::sortable(['id' => 'desc'])->paginate(15);
             return view('content.events.dashboard', compact('events'));
         }
 

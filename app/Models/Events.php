@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Events extends Model
 {
     use HasFactory;
+    use Sortable;
     protected $table = 'events';
     protected $fillable = [
         'title',
@@ -54,6 +56,14 @@ class Events extends Model
 
         'promotional_code',
     ];
+
+    public $sortable = [
+        'id',
+        'title',
+        'level',
+        'basic_status'
+    ];
+
     protected $casts = [
         'basic_categories' => 'array',
         'basic_keywords' => 'array',
