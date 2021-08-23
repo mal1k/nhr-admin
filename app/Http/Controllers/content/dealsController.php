@@ -12,9 +12,19 @@ class dealsController extends Controller
 {
     public function index()
         {
-            $deals = Deals::orderByDesc('id')->paginate(15);
             $listings = Listings::query()->paginate(0);
-            return view('content.deals.dashboard', compact('deals', 'listings'));
+            if ( isset($_GET['s']) ) {
+                $deals = Deals::where('title', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('basic_account', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->orWhere('title', 'LIKE', '%' . $_GET['s'] . '%')
+                    ->sortable(['id' => 'desc'])
+                    ->paginate(15);
+                $search = $_GET['s'];
+                return view('content.deals.dashboard', compact('deals', 'listings', 'search'));
+            }
+            else
+                $deals = Deals::sortable(['id' => 'desc'])->paginate(15);
+                return view('content.deals.dashboard', compact('deals', 'listings'));
         }
 
     public function create()
