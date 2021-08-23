@@ -33,11 +33,18 @@
                 <!--begin::Table head-->
                 <thead>
                     <tr class="fw-bolder text-muted bg-light">
-                        <th class="ps-4 min-w-25px rounded-start">ID</th>
-                        <th class="min-w-225px">Title</th>
-                        <th class="min-w-225px">Owner</th>
-                        <th class="min-w-200px">Associate</th>
-                        <th class="min-w-200px text-end rounded-end"></th>
+                        <th class="ps-4 min-w-25px rounded-start">@sortablelink('id', 'ID')</th>
+                        <th class="min-w-225px">@sortablelink('title', 'Title')</th>
+                        <th class="min-w-225px">@sortablelink('basic_account', 'Owner')</th>
+                        <th class="min-w-200px">@sortablelink('basic_listing', 'Associate')</th>
+                        <th class="min-w-200px text-end rounded-end">
+                            <form action="">
+                                <div class="row m-0">
+                                    <input type="text" class="col form-control" placeholder="Search" name="s" value="@isset($search) {{ $search }} @endisset">
+                                    <a href="{{ route('deals.index') }}" class="col-2 btn btn-icon btn-bg-light btn-active-color-primary"><i class="fas fa-sync-alt"></i></a>
+                                </div>
+                            </form>
+                        </th>
                     </tr>
                 </thead>
                 <!--end::Table head-->
