@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '13afc558d6ee4e2b9fc8016b5f4df14e46662a9b',
+    'reference' => 'f12ba5e53d27b1210c5d82736d74e09b4c2fc578',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -282,6 +282,24 @@ private static $installed = array (
       array (
       ),
       'reference' => '8c3d0a3f6af734494ad8f6fbbee0ba92422859f3',
+    ),
+    'hansschouten/laravel-pagebuilder' => 
+    array (
+      'pretty_version' => 'v0.20.0',
+      'version' => '0.20.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '530beed4e99faeb6719962b08b71a07a32f4c0b6',
+    ),
+    'hansschouten/phpagebuilder' => 
+    array (
+      'pretty_version' => 'v0.20.0',
+      'version' => '0.20.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '18da0481540752fffc3256806a74c9dd6a7b3de2',
     ),
     'illuminate/auth' => 
     array (
@@ -568,7 +586,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '13afc558d6ee4e2b9fc8016b5f4df14e46662a9b',
+      'reference' => 'f12ba5e53d27b1210c5d82736d74e09b4c2fc578',
     ),
     'laravel/sail' => 
     array (

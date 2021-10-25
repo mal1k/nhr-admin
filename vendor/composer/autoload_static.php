@@ -96,6 +96,7 @@ class ComposerStaticInit9e455a2c3674bab5bad5235dcea57233
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        'a0dfc604d59f03ee36c4883906a6ff25' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Core/helpers.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
         '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
@@ -176,6 +177,7 @@ class ComposerStaticInit9e455a2c3674bab5bad5235dcea57233
             'PhpOption\\' => 10,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'ParagonIE\\ConstantTime\\' => 23,
+            'PHPageBuilder\\' => 14,
         ),
         'O' => 
         array (
@@ -220,6 +222,10 @@ class ComposerStaticInit9e455a2c3674bab5bad5235dcea57233
         array (
             'Illuminate\\Support\\' => 19,
             'Illuminate\\' => 11,
+        ),
+        'H' => 
+        array (
+            'HansSchouten\\LaravelPageBuilder\\' => 32,
         ),
         'G' => 
         array (
@@ -482,6 +488,10 @@ class ComposerStaticInit9e455a2c3674bab5bad5235dcea57233
         array (
             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
         ),
+        'PHPageBuilder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src',
+        ),
         'Opis\\Closure\\' => 
         array (
             0 => __DIR__ . '/..' . '/opis/closure/src',
@@ -574,6 +584,10 @@ class ComposerStaticInit9e455a2c3674bab5bad5235dcea57233
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
+        ),
+        'HansSchouten\\LaravelPageBuilder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hansschouten/laravel-pagebuilder/src',
         ),
         'GuzzleHttp\\Stream\\' => 
         array (
@@ -2666,6 +2680,12 @@ class ComposerStaticInit9e455a2c3674bab5bad5235dcea57233
         'Hamcrest\\Type\\IsString' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
+        'HansSchouten\\LaravelPageBuilder\\Commands\\CreateTheme' => __DIR__ . '/..' . '/hansschouten/laravel-pagebuilder/src/Commands/CreateTheme.php',
+        'HansSchouten\\LaravelPageBuilder\\Commands\\PublishDemo' => __DIR__ . '/..' . '/hansschouten/laravel-pagebuilder/src/Commands/PublishDemo.php',
+        'HansSchouten\\LaravelPageBuilder\\Commands\\PublishTheme' => __DIR__ . '/..' . '/hansschouten/laravel-pagebuilder/src/Commands/PublishTheme.php',
+        'HansSchouten\\LaravelPageBuilder\\Facade' => __DIR__ . '/..' . '/hansschouten/laravel-pagebuilder/src/Facade.php',
+        'HansSchouten\\LaravelPageBuilder\\LaravelPageBuilder' => __DIR__ . '/..' . '/hansschouten/laravel-pagebuilder/src/LaravelPageBuilder.php',
+        'HansSchouten\\LaravelPageBuilder\\ServiceProvider' => __DIR__ . '/..' . '/hansschouten/laravel-pagebuilder/src/ServiceProvider.php',
         'Illuminate\\Auth\\Access\\AuthorizationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/AuthorizationException.php',
         'Illuminate\\Auth\\Access\\Events\\GateEvaluated' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/Events/GateEvaluated.php',
         'Illuminate\\Auth\\Access\\Gate' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/Gate.php',
@@ -5179,6 +5199,46 @@ class ComposerStaticInit9e455a2c3674bab5bad5235dcea57233
         'PHPUnit\\Util\\Xml\\SuccessfulSchemaDetectionResult' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Xml/SuccessfulSchemaDetectionResult.php',
         'PHPUnit\\Util\\Xml\\ValidationResult' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Xml/ValidationResult.php',
         'PHPUnit\\Util\\Xml\\Validator' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Xml/Validator.php',
+        'PHPageBuilder\\Cache' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Cache.php',
+        'PHPageBuilder\\Contracts\\AuthContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/AuthContract.php',
+        'PHPageBuilder\\Contracts\\CacheContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/CacheContract.php',
+        'PHPageBuilder\\Contracts\\PageBuilderContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/PageBuilderContract.php',
+        'PHPageBuilder\\Contracts\\PageContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/PageContract.php',
+        'PHPageBuilder\\Contracts\\PageRepositoryContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/PageRepositoryContract.php',
+        'PHPageBuilder\\Contracts\\PageTranslationContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/PageTranslationContract.php',
+        'PHPageBuilder\\Contracts\\PageTranslationRepositoryContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/PageTranslationRepositoryContract.php',
+        'PHPageBuilder\\Contracts\\RouterContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/RouterContract.php',
+        'PHPageBuilder\\Contracts\\SettingContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/SettingContract.php',
+        'PHPageBuilder\\Contracts\\SettingRepositoryContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/SettingRepositoryContract.php',
+        'PHPageBuilder\\Contracts\\ThemeContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/ThemeContract.php',
+        'PHPageBuilder\\Contracts\\WebsiteManagerContract' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Contracts/WebsiteManagerContract.php',
+        'PHPageBuilder\\Core\\DB' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Core/DB.php',
+        'PHPageBuilder\\Modules\\Auth\\Auth' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/Auth/Auth.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\Block\\BaseController' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/Block/BaseController.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\Block\\BaseModel' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/Block/BaseModel.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\Block\\BlockAdapter' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/Block/BlockAdapter.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\Block\\BlockRenderer' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/Block/BlockRenderer.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\PageBuilder' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/PageBuilder.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\PageRenderer' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/PageRenderer.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\ShortcodeParser' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/ShortcodeParser.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\Thumb\\ThumbGenerator' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/Thumb/ThumbGenerator.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\Upload\\ResizeImage' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/Upload/ResizeImage.php',
+        'PHPageBuilder\\Modules\\GrapesJS\\Upload\\Uploader' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/GrapesJS/Upload/Uploader.php',
+        'PHPageBuilder\\Modules\\Router\\DatabasePageRouter' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/Router/DatabasePageRouter.php',
+        'PHPageBuilder\\Modules\\WebsiteManager\\WebsiteManager' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Modules/WebsiteManager/WebsiteManager.php',
+        'PHPageBuilder\\PHPageBuilder' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/PHPageBuilder.php',
+        'PHPageBuilder\\Page' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Page.php',
+        'PHPageBuilder\\PageTranslation' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/PageTranslation.php',
+        'PHPageBuilder\\Repositories\\BaseRepository' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Repositories/BaseRepository.php',
+        'PHPageBuilder\\Repositories\\PageRepository' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Repositories/PageRepository.php',
+        'PHPageBuilder\\Repositories\\PageTranslationRepository' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Repositories/PageTranslationRepository.php',
+        'PHPageBuilder\\Repositories\\SettingRepository' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Repositories/SettingRepository.php',
+        'PHPageBuilder\\Repositories\\UploadRepository' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Repositories/UploadRepository.php',
+        'PHPageBuilder\\Setting' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Setting.php',
+        'PHPageBuilder\\Theme' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/Theme.php',
+        'PHPageBuilder\\ThemeBlock' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/ThemeBlock.php',
+        'PHPageBuilder\\ThemeLayout' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/ThemeLayout.php',
+        'PHPageBuilder\\UploadedFile' => __DIR__ . '/..' . '/hansschouten/phpagebuilder/src/UploadedFile.php',
         'ParagonIE\\ConstantTime\\Base32' => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src/Base32.php',
         'ParagonIE\\ConstantTime\\Base32Hex' => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src/Base32Hex.php',
         'ParagonIE\\ConstantTime\\Base64' => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src/Base64.php',

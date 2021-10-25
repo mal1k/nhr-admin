@@ -110,3 +110,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/manager', function () {
     return view('new-dashboard');
 })->name('dashboard');
 
+Route::any('/{uri}', [
+    'uses' => 'App\Http\Controllers\PageBuilderController@uri',
+    'as' => 'page',
+])->where('uri', '.*');
