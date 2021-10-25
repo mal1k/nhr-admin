@@ -1,38 +1,14 @@
 @extends ('new-layout')
 
-@section('title', 'Listings')
+@section('title', 'Elastic search')
 
 @section('content')
-
 <div class="card mb-5 mb-xl-8">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-3 mb-1">Listings</span>
+            <span class="card-label fw-bolder fs-3 mb-1">Elastic</span>
         </h3>
-        <div class="card-toolbar">
-            <a href="{{ route('listing-categories.index') }}" class="btn btn-sm btn-light-warning mr-1">
-            <!--begin::Svg Icon | path: icons/duotone/Communication/Add-user.svg-->
-            <span class="svg-icon svg-icon-2">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"></rect>
-                        <rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5"></rect>
-                        <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" fill="#000000" opacity="0.3"></path>
-                    </g>
-                </svg>
-            </span>
-            <!--end::Svg Icon-->Listing categories</a>
-            <a href="{{ route('listings.create') }}" class="btn btn-sm btn-light-primary">
-                <!--begin::Svg Icon | path: icons/duotone/Communication/Add-user.svg-->
-                <span class="svg-icon svg-icon-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <path d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                        <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
-                    </svg>
-                </span>
-                <!--end::Svg Icon-->Create listing</a>
-        </div>
 
     </div>
     <!--end::Header-->
@@ -41,6 +17,38 @@
         <!--begin::Table container-->
         <div class="table-responsive">
             <!--begin::Table-->
+
+            <script type="text/javascript">
+                $(document).ready(async () => {
+
+                    const getAndRenderResults = async (text_to_search) => {
+                        const search_results = await fetch(`/elastic/listings?text=${text_to_search}`);
+                        const json_resp = await search_results.json();
+                        console.log(json_resp);
+                        return json_resp;
+                    };
+
+                    function debounce(f, ms) {
+                        let isCooldown = false;
+                        return function() {
+                            if (isCooldown) return;
+                            f.apply(this, arguments);
+                            isCooldown = true;
+                            setTimeout(() => isCooldown = false, ms);
+                        };
+                    };
+
+                    const debounce_overloaded = debounce(getAndRenderResults, 350);
+                    const input_selector = $("#input_id_example");
+
+                    input_selector.on("input", async () => {
+                        const input_value = input_selector.val();
+                        await debounce_overloaded(input_value);
+                    });
+
+                });
+            </script>
+
             <table class="table align-middle gs-0 gy-4">
                 <!--begin::Table head-->
                 <thead>
@@ -52,8 +60,8 @@
                         <th class="min-w-200px text-end rounded-end">
                             <form action="">
                                 <div class="row m-0">
-                                    <input type="text" class="col form-control" placeholder="Search" name="s" value="@isset($search) {{ $search }} @endisset">
-                                    <a href="{{ route('listings.index') }}" class="col-2 btn btn-icon btn-bg-light btn-active-color-primary"><i class="fas fa-sync-alt"></i></a>
+                                    <input id="input_id_example" type="text" class="col form-control" placeholder="Search" name="s" value="">
+                                    <a href="#" class="col-2 btn btn-icon btn-bg-light btn-active-color-primary"><i class="fas fa-sync-alt"></i></a>
                                 </div>
                             </form>
                         </th>
@@ -62,35 +70,27 @@
                 <!--end::Table head-->
                 <!--begin::Table body-->
                 <tbody>
-                  @foreach ($listings as $listing)
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
                                 <div class="d-flex justify-content-start flex-column">
-                                    <a href="#" class="text-dark fw-bolder mb-1 fs-6">{{ $listing->id }}</a>
+                                    <a href="#" class="text-dark fw-bolder mb-1 fs-6">ID</a>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">{{ $listing->title }}</a>
+                            <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">Title</a>
                         </td>
                         <td>
-                            <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">{{ $listing->level }}</a>
+                            <a href="#" class="text-dark fw-bolder d-block mb-1 fs-6">Level</a>
                         </td>
                         <td>
-                            <span class="badge
-                            @if ( $listing->basic_status == 'active' )
-                                badge-light-success
-                            @elseif ( $listing->basic_status == 'pending' )
-                                badge-light-primary
-                            @else
-                                badge-light-danger
-                            @endif
-                             fs-7 fw-bold">{{ $listing->basic_status }}</span>
+                            <span class="badge badge-light-primary
+                             fs-7 fw-bold">Status</span>
                         </td>
                         <td class="text-end">
-                            <form id="delete_listing_{{ $listing->id }}" method="POST" action="{{ route('listings.destroy', $listing) }}">
-                                <a href="{{ route('listings.edit', $listing) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                            <form id="delete_listing_ELEMENT_ID" method="POST" action="">
+                                <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                     <!--begin::Svg Icon | path: icons/duotone/Communication/Write.svg-->
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -117,8 +117,7 @@
                                 </button>
                             </form>
                         </td>
-                    </tr>
-                  @endforeach
+                        </tr>
                 </tbody>
                 <!--end::Table body-->
             </table>
@@ -128,6 +127,4 @@
     </div>
     <!--begin::Body-->
 </div>
-
-    {{ $listings->links() }}
 @endsection

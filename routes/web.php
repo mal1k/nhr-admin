@@ -28,22 +28,36 @@ use Elasticsearch\ClientBuilder;
 |
 */
 
+Route::view('elastic', 'elastic');
 Route::get('/elastic/listings', function () {
 
-    if ( !count($_GET) ) {
-        $params = [
-            'index' => 'listings'
-        ];
-    } else {
-        $params = [
-            'index' => 'listings',
-            'body'  => [
-                'query' => [
-                    'match' => $_GET
+    if ( !isset($_GET['text']) ) {
+        echo json_encode(["error" => "Search text was not set"]);
+        die();
+    }
+
+
+    $params = [
+        'index' => 'listings',
+        'body'  => [
+            'query' => [
+                'function_score' => [
+                    'query' => [
+                        'multi_match' => [
+                            'query' => $_GET['text'],
+                            'type' => 'best_fields',
+                            'fields' => [
+                                'listing_title',
+                                'listing_description'
+                            ],
+                            'fuzziness' => 5,
+                            'prefix_length' => 2
+                        ]
+                    ]
                 ]
             ]
-        ];
-    }
+        ]
+    ];
 
     $client = ClientBuilder::create()
         ->setHosts([
@@ -51,8 +65,14 @@ Route::get('/elastic/listings', function () {
         ])
         ->build();
 
+    $temporary_array = array();
     $response = $client->search($params);
-    echo json_encode($response);
+
+    foreach ($response['hits']['hits'] as &$value) {
+        $temporary_array[] = $value['_source'];
+    }
+
+    echo json_encode($temporary_array);
 
 });
 
