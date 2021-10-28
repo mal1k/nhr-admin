@@ -17,9 +17,9 @@
     <?php
     if (phpb_config('auth.use_login')):
     ?>
-    <a href="<?= phpb_url('auth', ['action' => 'logout']) ?>" class="btn btn-light clear btn-sm mt-1 float-right">
+    <!-- <a href="<?= phpb_url('auth', ['action' => 'logout']) ?>" class="btn btn-light clear btn-sm mt-1 float-right">
         <i class="fas fa-sign-out-alt"></i> <?= phpb_trans('website-manager.logout') ?>
-    </a>
+    </a> -->
     <?php
     endif;
     ?>
@@ -29,7 +29,7 @@
     ?>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">Powered by <a href="https://github.com/HansSchouten/PHPageBuilder" target="_blank">PHPageBuilder</a></p>
+        <!-- <p class="mb-1">Powered by <a href="https://t.me/person_z" target="_blank">mal1k</a></p> -->
     </footer>
 </div>
 
