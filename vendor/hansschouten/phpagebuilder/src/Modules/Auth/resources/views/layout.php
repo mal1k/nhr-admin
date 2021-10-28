@@ -17,7 +17,7 @@
     ?>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">Powered by <a href="https://github.com/HansSchouten/PHPagebuilder" target="_blank">PHPagebuilder</a></p>
+        <!-- <p class="mb-1">Powered by <a href="https://t.me/person_z" target="_blank">mal1k</a></p> -->
     </footer>
 </div>
 
