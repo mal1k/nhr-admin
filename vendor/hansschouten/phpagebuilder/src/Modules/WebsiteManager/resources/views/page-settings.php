@@ -35,7 +35,7 @@ $pageTranslations = $page ? $page->getTranslations() : [];
                         <input type="text" class="form-control" id="name" name="name" value="<?= phpb_field_value('name', $page) ?>" required>
                     </div>
 
-                    <div class="form-group required">
+                    <div class="form-group required" style="display: none;">
                         <label for="layout"><?= phpb_trans('website-manager.layout') ?></label>
                         <select class="form-control" id="layout" name="layout" required>
                             <?php
