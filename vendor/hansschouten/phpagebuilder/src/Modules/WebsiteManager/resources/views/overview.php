@@ -9,7 +9,7 @@ $settingsTabActive = isset($_GET['tab']) && $_GET['tab'] === 'settings' ? 'activ
 
 <div class="row">
     <div class="col-12">
-        <ul class="nav nav-tabs">
+        <!-- <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link <?= phpb_e($pagesTabActive) ?>" data-toggle="tab" href="#pages"><?= phpb_trans('website-manager.pages') ?></a>
             </li>
@@ -19,9 +19,13 @@ $settingsTabActive = isset($_GET['tab']) && $_GET['tab'] === 'settings' ? 'activ
             <li class="nav-item">
                 <a class="nav-link <?= phpb_e($settingsTabActive) ?>" data-toggle="tab" href="#settings"><?= phpb_trans('website-manager.settings') ?></a>
             </li>
-        </ul>
+        </ul> -->
 
-        <div class="tab-content">
+        <a href="/manager">
+            <button type="submit" class="btn btn-sm btn-primary mb-3">Go home</button>
+        </a>
+
+        <div class="tab-content" style="border-top: 1px solid #dee2e6">
             <div id="pages" class="tab-pane <?= phpb_e($pagesTabActive) ?>">
 
                 <h4><?= phpb_trans('website-manager.pages') ?></h4>
