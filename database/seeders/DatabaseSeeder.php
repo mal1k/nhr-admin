@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Listings::factory(10)->create();
+        // \App\Models\Listings::factory(10)->create();
+        $this->call(PlanTableSeeder::class);
     }
 }
