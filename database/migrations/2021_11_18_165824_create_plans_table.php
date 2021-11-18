@@ -20,7 +20,7 @@ class CreatePlansTable extends Migration
             $table->string('stripe_name');
             $table->string('stripe_id');
             $table->decimal('price');
-            $table->string('abbrevation');
+            $table->string('abbreviation');
             $table->timestamps();
         });
     }
