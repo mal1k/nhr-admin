@@ -70,6 +70,7 @@ class businessController extends Controller
             $user->business = $request->business;
             $user->role = 'businessUser';
         $user->save();
+        $user->createAsStripeCustomer();
         $user->assignRole('businessUser');
 
         return redirect()->route('business.index')->withSuccess('Created business user ' . $user->name);

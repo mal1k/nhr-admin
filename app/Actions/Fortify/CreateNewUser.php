@@ -35,12 +35,16 @@ class CreateNewUser implements CreatesNewUsers
 
         Validator::make($input, $rules, $customMessages)->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
             'refered_by' => $input['refered_by']
         ]);
+
+        $user->createAsStripeCustomer();
+
+        return $user;
     }
 
 }
