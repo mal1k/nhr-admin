@@ -15,7 +15,12 @@ use App\Http\Controllers\content\importController;
 use App\Http\Controllers\content\listingsCategoriesController;
 use App\Http\Controllers\content\listingTypesController;
 use App\Http\Controllers\content\referedByController;
+use App\Http\Controllers\Stripe\PaymentController;
+use App\Models\listingsCategories;
+use App\Models\Plan;
+use App\Models\User;
 use Elasticsearch\ClientBuilder;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +82,52 @@ Route::get('/elastic/listings', function () {
 });
 
 
+
+
+
+Route::get('/stripe/checkout', function () {
+    return view('stripe.checkout');
+});
+
+Route::post('stripe/create-checkout-session/{plan}', function (Request $request, $plan) {
+    $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET') );
+    $YOUR_DOMAIN = env('APP_URL');
+
+    try {
+        $checkout_session = $stripe->checkout->sessions->create([
+            'success_url' => $YOUR_DOMAIN . '/payment/success/' . $plan, // TODO: finalize
+            'cancel_url' => $YOUR_DOMAIN . '/payment/cancel',
+            'line_items' => [
+            [
+                'price' => $request->stripe_id,
+                'quantity' => 1,
+            ],
+            ],
+            'mode' => 'subscription',
+        ]);
+        return redirect( $checkout_session->url );
+    } catch (Error $e) {
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+    }
+})->name('checkout-session');
+
+
+
+
+Route::get('/payment/success/{plan}', function($plan) {
+    $plans = Plan::all();
+    $users_query = User::query();
+    $users_query->whereNotNull('business');
+    $users = $users_query->paginate(0);
+    $listingCategories = listingsCategories::orderByDesc('id')->paginate(0);
+    $choosed_plan = $plan;
+    return view('content.listings.form', compact('plans', 'users', 'listingCategories', 'choosed_plan')); // TODO: redirect on listing page
+});
+
+Route::get('/payment', [PaymentController::class, 'index'])->name('payments');
+Route::post('/payment', [PaymentController::class, 'store'])->name('payments.store');
+Route::post('/checkout', [PaymentController::class, 'store'])->name('checkout.store');
 
 Route::redirect('/', 'manager', 301);
 Route::redirect('dashboard', '/manager', 301);
