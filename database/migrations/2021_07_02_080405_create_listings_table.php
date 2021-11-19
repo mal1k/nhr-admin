@@ -18,6 +18,8 @@ class CreateListingsTable extends Migration
             $table->string('title');
             $table->string('level');
 
+            $table->string('sub_id');
+
             $table->json('basic_categories')->nullable();
             $table->string('basic_account')->nullable();
             $table->string('basic_status')->nullable();
