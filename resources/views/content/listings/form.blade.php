@@ -12,6 +12,8 @@
 
 <div id="selectPlan">
     <div class="row mb-3 text-center">
+
+      {{-- Free plan --}}
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm border-primary">
           <div class="card-body">
@@ -29,7 +31,28 @@
           </div>
         </div>
       </div>
+
+      @foreach ( $plans as $plan )
+
       <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">
+                <h1>{{ $plan->name }}</h1>
+                ${{ $plan->price }}<small class="text-muted fw-light">/{{ $plan->abbreviation }}</small></h1>
+            {{--  <button type="submit" value='silver' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>  --}}
+            <form action="{{ route('checkout-session', ['plan' => $plan->stripe_name]) }}" method="POST">
+                @csrf
+                <input type="hidden" name="stripe_id" value="{{ $plan->stripe_id }}">
+                <button id="checkout-and-portal-button" class="w-100 btn btn-lg btn-light-primary" type="submit">Select</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      @endforeach
+
+{{--  <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-body">
             <h1 class="card-title pricing-card-title">
@@ -41,48 +64,21 @@
                 <li>Email support</li>
                 <li>Help center access</li>
                 </ul> --}}
-            <button type="submit" value='silver' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
+            {{--  <button type="submit" value='silver' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
           </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">
-                <h1>Gold</h1>
-                $249.95<small class="text-muted fw-light">/mo</small></h1>
-                {{-- <ul class="list-unstyled mt-3 mb-4">
-                <li>10 users included</li>
-                <li>2 GB of storage</li>
-                <li>Email support</li>
-                <li>Help center access</li>
-                </ul> --}}
-            <button type="submit" value='gold' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-body">
-            <h1 class="card-title pricing-card-title">
-                <h1>Platinum</h1>
-                $299.95<small class="text-muted fw-light">/mo</small></h1>
-                {{-- <ul class="list-unstyled mt-3 mb-4">
-                <li>10 users included</li>
-                <li>2 GB of storage</li>
-                <li>Email support</li>
-                <li>Help center access</li>
-                </ul> --}}
-            <button type="submit" value='platinum' class="selectPlanBtn w-100 btn btn-lg btn-light-primary">Select</button>
-          </div>
-        </div>
-      </div>
+      </div>  --}}
     </div>
   {{-- </form> --}}
 </div>
 
 
 <div id="mainForm" class="hidden">
+
+<?php
+if ( empty($prod_id) )
+    $prod_id = null
+?>
 
   <form method="POST" enctype="multipart/form-data"
     @if ( isset($listing) )
@@ -103,35 +99,66 @@
         <div class="mb-2 col">
             <label for="title" class="form-label mt-2 mb-1">Title</label>
             <input name="title" type="text" class="form-control" id="title" placeholder="Type your listing title here." value="{{ old('title', isset( $listing->title ) ? $listing->title : '') }}">
+
+            <input name="sub_id" type="hidden" id="title" placeholder="Type your listing title here." value="{{ old('title', isset( $subscription ) ? $subscription : '') }}">
             @error('title')
                 <div class="alert alert-danger mb-0">{{ $message }}</div>
             @enderror
         </div>
         <div class="mb-2 col-4">
+            <?php
+            if ( !empty( $prod_id ) ) {
+                if ( $prod_id == 'prod_KcSdggn3Wxpt3J' )
+                    $level = 'silver';
+                elseif ( $prod_id == 'prod_KcSdDinrJMIsDT' )
+                    $level = 'gold';
+                elseif ( $prod_id == 'prod_KcSdKZrxX0o0wz' )
+                    $level = 'platinum';
+            }
+            else
+                $level = 'bronze';
+            ?>
+            <input name="level" value="{{ $level }}" type="hidden">
             <label for="level" class="form-label mt-2 mb-1">Listing level</label>
-            <select name="level" id="level" class="form-select">
-            <option selected disabled>Choose...</option>
+            <select disabled name="level" id="level" class="form-select">
+            <option disabled>Choose...</option>
             <option @if ( isset( $listing ) )
                     @if ($listing->level === 'bronze' )
                     selected
                     @endif
                 @endif value="bronze">Bronze</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->level === 'silver' )
-                    selected
+            <option
+                    @if ( isset( $listing ) )
+                        @if ($listing->level === 'silver' )
+                            selected
+                        @endif
                     @endif
-                @endif value="silver">Silver</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->level === 'gold' )
-                    selected
+                    @if ( $prod_id == 'prod_KcSdggn3Wxpt3J' )
+                        selected
                     @endif
-                @endif value="gold">Gold</option>
-            <option @if ( isset( $listing ) )
-                    @if ($listing->level === 'platinum' )
-                    selected
+                value="silver">Silver</option>
+            <option
+                    @if ( isset( $listing ) )
+                        @if ($listing->level === 'gold' )
+                            selected
+                        @endif
                     @endif
-                @endif value="platinum">Platinum</option>
+                    @if ( $prod_id == 'prod_KcSdDinrJMIsDT' )
+                        selected
+                    @endif
+                value="gold">Gold</option>
+            <option
+                    @if ( isset( $listing ) )
+                        @if ($listing->level === 'platinum' )
+                            selected
+                        @endif
+                    @endif
+                    @if ( $prod_id == 'prod_KcSdKZrxX0o0wz' )
+                        selected
+                    @endif
+                value="platinum">Platinum</option>
             </select>
+
         </div>
         </div>
     </div>
@@ -797,6 +824,17 @@
     </form>
   @endisset
 </div></div>
+
+<?php
+if (isset( $prod_id )) :
+?>
+<script>
+    $('#selectPlan').hide();
+    $('#mainForm').fadeIn();
+</script>
+<?php
+endif;
+?>
 
 <script>
     // change subs block to form
