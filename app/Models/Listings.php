@@ -25,6 +25,8 @@ class Listings extends Model
         'basic_description',
         'basic_keywords',
 
+        'sub_id',
+
         'contact_email',
         'contact_url',
         'contact_phone',
