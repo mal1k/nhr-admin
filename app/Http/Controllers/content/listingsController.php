@@ -42,11 +42,11 @@ class listingsController extends Controller
     public function store(Request $request)
         {
 
-            $client = ClientBuilder::create()
-                ->setHosts([
-                    "http://localhost:9200"
-                ])
-                ->build();
+            // $client = ClientBuilder::create()
+            //     ->setHosts([
+            //         "http://localhost:9200"
+            //     ])
+            //     ->build();
 
             $validated = $request->validate([
                 'title' => 'required|max:255',
@@ -63,7 +63,7 @@ class listingsController extends Controller
             ];
 
             // Document will be indexed to listings/_doc/id
-            $client->index($params);
+            // $client->index($params);
 
             // upload gallery
             $images = [];
@@ -96,22 +96,23 @@ class listingsController extends Controller
 
     public function edit(Listings $listing)
         {
+            $plans = Plan::all();
             $users_query = User::query();
             $users_query->whereNotNull('business');
             $users = $users_query->paginate(0);
             $listingCategories = listingsCategories::orderByDesc('id')->paginate(0);
 
-            return view('content.listings.form', compact('listing', 'users', 'listingCategories'));
+            return view('content.listings.form', compact('plans', 'listing', 'users', 'listingCategories'));
         }
 
     public function update(Request $request, Listings $listing)
         {
             $listing->update($request->all()); // update listing
-            $client = ClientBuilder::create()
-                ->setHosts([
-                    "http://localhost:9200"
-                ])
-                ->build();
+            // $client = ClientBuilder::create()
+            //     ->setHosts([
+            //         "http://localhost:9200"
+            //     ])
+            //     ->build();
 
             $params = [
                 'index' => 'listings',
@@ -124,7 +125,7 @@ class listingsController extends Controller
             ];
 
             // Update doc at /my_index/_doc/my_id
-            $client->update($params);
+            // $client->update($params);
 
             if ( isset($request->image_logo) ) { // update logo
                 $path = $request->file('image_logo')->store('uploads/logo', 'public'); // upload logo to server
@@ -191,11 +192,11 @@ class listingsController extends Controller
 
     public function destroy(Listings $listing)
         {
-            $client = ClientBuilder::create()
-                ->setHosts([
-                    "http://localhost:9200"
-                ])
-                ->build();
+            // $client = ClientBuilder::create()
+            //     ->setHosts([
+            //         "http://localhost:9200"
+            //     ])
+            //     ->build();
 
             $listing->delete();
             $params = [
