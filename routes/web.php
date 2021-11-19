@@ -81,21 +81,13 @@ Route::get('/elastic/listings', function () {
 
 });
 
-
-
-
-
-Route::get('/stripe/checkout', function () {
-    return view('stripe.checkout');
-});
-
 Route::post('stripe/create-checkout-session/{plan}', function (Request $request, $plan) {
     $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET') );
     $YOUR_DOMAIN = env('APP_URL');
 
     try {
         $checkout_session = $stripe->checkout->sessions->create([
-            'success_url' => $YOUR_DOMAIN . '/payment/success/' . $plan, // TODO: finalize
+            'success_url' => $YOUR_DOMAIN . '/payment/success/{CHECKOUT_SESSION_ID}',
             'cancel_url' => $YOUR_DOMAIN . '/payment/cancel',
             'line_items' => [
             [
@@ -112,22 +104,29 @@ Route::post('stripe/create-checkout-session/{plan}', function (Request $request,
     }
 })->name('checkout-session');
 
-
-
-
 Route::get('/payment/success/{plan}', function($plan) {
-    $plans = Plan::all();
-    $users_query = User::query();
-    $users_query->whereNotNull('business');
-    $users = $users_query->paginate(0);
-    $listingCategories = listingsCategories::orderByDesc('id')->paginate(0);
-    $choosed_plan = $plan;
-    return view('content.listings.form', compact('plans', 'users', 'listingCategories', 'choosed_plan')); // TODO: redirect on listing page
-});
+    $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET') );
+    \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-Route::get('/payment', [PaymentController::class, 'index'])->name('payments');
-Route::post('/payment', [PaymentController::class, 'store'])->name('payments.store');
-Route::post('/checkout', [PaymentController::class, 'store'])->name('checkout.store');
+    $session = \Stripe\Checkout\Session::retrieve($plan);
+    $customer = \Stripe\Customer::retrieve($session->customer);
+    $prod_id = $stripe->subscriptions->retrieve(
+        $session->subscription,
+        []
+    )->items['data'][0]->plan['product'];
+
+    if ( $session->payment_status == 'paid' ) {
+        $plans = Plan::all();
+        $users_query = User::query();
+        $users_query->whereNotNull('business');
+        $users = $users_query->paginate(0);
+        $listingCategories = listingsCategories::orderByDesc('id')->paginate(0);
+        $subscription = $session->subscription;
+        return view('content.listings.form', compact('plans', 'users', 'listingCategories', 'subscription', 'prod_id'));
+    } else {
+        return dd('Incorrect payment');
+    }
+});
 
 Route::redirect('/', 'manager', 301);
 Route::redirect('dashboard', '/manager', 301);
